@@ -21,13 +21,9 @@ API_BASE = f"{WP_SITE}/wp-json/wp/v2"
 DAYS_BACK = int(os.environ.get("DAYS_BACK", "5"))
 WATERMARK_PATH = os.environ.get("WATERMARK_PATH", "watermark.png")
 
-# Watermark size as percentage of the shorter side of the image
 WATERMARK_SCALE = float(os.environ.get("WATERMARK_SCALE", "0.20"))
-# Opacity: 0.0 = invisible, 1.0 = fully opaque
 WATERMARK_OPACITY = float(os.environ.get("WATERMARK_OPACITY", "0.5"))
-# Position: bottom-right, bottom-left, top-right, top-left, center
 WATERMARK_POSITION = os.environ.get("WATERMARK_POSITION", "bottom-right")
-# Padding from edge in pixels
 WATERMARK_PADDING = int(os.environ.get("WATERMARK_PADDING", "20"))
 
 
@@ -65,7 +61,12 @@ def apply_watermark(image_bytes, watermark_img, mime_type):
     pos = positions.get(WATERMARK_POSITION, positions["bottom-right"])
 
     layer = Image.new("RGBA", base.size, (0, 0, 0, 0))
-    layer.paste(wm_resized, pos)
+    bg_pad = 10
+    bg_rect = Image.new("RGBA",
+        (wm_rw + bg_pad * 2, wm_rh + bg_pad * 2),
+        (0, 0, 0, 140))
+    layer.paste(bg_rect, (pos[0] - bg_pad, pos[1] - bg_pad))
+    layer.paste(wm_resized, pos, wm_resized)
     composite = Image.alpha_composite(base, layer)
 
     fmt_map = {
