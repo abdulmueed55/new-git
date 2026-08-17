@@ -61,11 +61,6 @@ def apply_watermark(image_bytes, watermark_img, mime_type):
     pos = positions.get(WATERMARK_POSITION, positions["bottom-right"])
 
     layer = Image.new("RGBA", base.size, (0, 0, 0, 0))
-    bg_pad = 10
-    bg_rect = Image.new("RGBA",
-        (wm_rw + bg_pad * 2, wm_rh + bg_pad * 2),
-        (0, 0, 0, 140))
-    layer.paste(bg_rect, (pos[0] - bg_pad, pos[1] - bg_pad))
     layer.paste(wm_resized, pos, wm_resized)
     composite = Image.alpha_composite(base, layer)
 
