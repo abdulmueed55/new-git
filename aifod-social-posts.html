@@ -1,0 +1,715 @@
+<title>AIFOD Geneva Posts</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap');
+
+  :root {
+    --bg: #f6f5f0;
+    --surface: #ffffff;
+    --surface-alt: #edece6;
+    --text: #1a1917;
+    --text-secondary: #5c5a52;
+    --accent: #1b6b4a;
+    --accent-light: #e8f3ed;
+    --accent-hover: #145236;
+    --border: #d8d6ce;
+    --border-light: #e8e6de;
+    --linkedin: #0a66c2;
+    --linkedin-light: #e8f1fa;
+    --x-dark: #14171a;
+    --x-light: #f0f0f0;
+    --copy-success: #1b6b4a;
+    --shadow: 0 1px 3px rgba(26,25,23,0.06);
+    --shadow-hover: 0 4px 12px rgba(26,25,23,0.1);
+    --font-display: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+    --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #181816;
+      --surface: #242220;
+      --surface-alt: #2e2c28;
+      --text: #e8e6de;
+      --text-secondary: #a09d94;
+      --accent: #3da87a;
+      --accent-light: #1e2e26;
+      --accent-hover: #4fc08e;
+      --border: #3a3832;
+      --border-light: #302e28;
+      --linkedin: #4d9de0;
+      --linkedin-light: #1a2a3a;
+      --x-dark: #e0ddd6;
+      --x-light: #2a2826;
+      --copy-success: #3da87a;
+      --shadow: 0 1px 3px rgba(0,0,0,0.2);
+      --shadow-hover: 0 4px 12px rgba(0,0,0,0.3);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #181816;
+    --surface: #242220;
+    --surface-alt: #2e2c28;
+    --text: #e8e6de;
+    --text-secondary: #a09d94;
+    --accent: #3da87a;
+    --accent-light: #1e2e26;
+    --accent-hover: #4fc08e;
+    --border: #3a3832;
+    --border-light: #302e28;
+    --linkedin: #4d9de0;
+    --linkedin-light: #1a2a3a;
+    --x-dark: #e0ddd6;
+    --x-light: #2a2826;
+    --copy-success: #3da87a;
+    --shadow: 0 1px 3px rgba(0,0,0,0.2);
+    --shadow-hover: 0 4px 12px rgba(0,0,0,0.3);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  header h1 {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-bottom: 8px;
+    text-wrap: balance;
+  }
+
+  header p {
+    color: var(--text-secondary);
+    font-size: 14px;
+  }
+
+  .section-label {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 20px;
+    padding: 6px 12px;
+    background: var(--accent-light);
+    display: inline-block;
+    border-radius: 4px;
+  }
+
+  .section {
+    margin-bottom: 48px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+  }
+  .card:hover { box-shadow: var(--shadow-hover); }
+
+  .card-header {
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .card-number {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+  }
+
+  .card-title {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1.35;
+    text-wrap: balance;
+  }
+
+  .card-link {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--accent);
+    text-decoration: none;
+    word-break: break-all;
+  }
+  .card-link:hover { text-decoration: underline; }
+
+  .post-block {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border-light);
+  }
+  .post-block:last-child { border-bottom: none; }
+
+  .platform-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+  .platform-badge.linkedin {
+    background: var(--linkedin-light);
+    color: var(--linkedin);
+  }
+  .platform-badge.x {
+    background: var(--x-light);
+    color: var(--x-dark);
+  }
+
+  .platform-badge svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+
+  .post-text {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    background: var(--surface-alt);
+    padding: 16px;
+    border-radius: 6px;
+    border: 1px solid var(--border-light);
+    position: relative;
+    cursor: text;
+    user-select: all;
+  }
+
+  .copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    user-select: none;
+  }
+  .copy-btn:hover {
+    background: var(--accent-light);
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .copy-btn.copied {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  @media (max-width: 600px) {
+    .page { padding: 32px 16px 60px; }
+    header h1 { font-size: 1.8rem; }
+    .card-header { padding: 16px 18px 14px; }
+    .post-block { padding: 16px 18px; }
+    .post-text { padding: 14px; font-size: 13px; }
+    .card-title { font-size: 1.15rem; }
+  }
+</style>
+
+<div class="page">
+  <header>
+    <h1>AIFOD Geneva Summit 2026</h1>
+    <p>Social media posts for LinkedIn &amp; X &mdash; ready to copy &amp; paste</p>
+  </header>
+
+  <!-- SECTION: KEYNOTES -->
+  <div class="section">
+    <div class="section-label">Keynote Speakers</div>
+
+    <!-- 1. Tianze Zhang -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-number">Card 1</div>
+        <div class="card-title">Tianze Zhang Opens AIFOD Geneva Summit with a Call for an AI Future Beyond Monopoly</div>
+        <a class="card-link" href="https://af.net/news/tianze-zhang-opens-aifod-geneva-summit-with-a-call-for-an-ai-future-beyond-monopoly/" target="_blank">af.net/news/tianze-zhang-opens-aifod-geneva-summit...</a>
+      </div>
+
+      <div class="post-block">
+        <div class="platform-badge linkedin">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </div>
+        <div class="post-text">"The future belongs to the small."
+
+Tianze Zhang, Co-Founder of AIFOD, opened the Geneva Summit 2026 with a powerful message: the next era of AI must be defined by participation, competition and opportunity — not monopoly.
+
+He called on governments, businesses and innovators to ensure that artificial intelligence becomes a tool for inclusion, not consolidation.
+
+Read the full keynote coverage:
+https://af.net/news/tianze-zhang-opens-aifod-geneva-summit-with-a-call-for-an-ai-future-beyond-monopoly/
+
+#AIFOD #AIFODGeneva #ArtificialIntelligence #AIforDevelopment #GenevaSummit #AIMonopoly #SmallTakesTheLead #TianzeZhang #TechForGood #GlobalSouth #AIGovernance #DigitalInclusion
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+      </div>
+
+      <div class="post-block">
+        <div class="platform-badge x">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          X / Twitter
+        </div>
+        <div class="post-text">"The future belongs to the small."
+
+Tianze Zhang opened the @AIFOD Geneva Summit 2026 with a call for an AI future built on participation, not monopoly.
+
+Full coverage: https://af.net/news/tianze-zhang-opens-aifod-geneva-summit-with-a-call-for-an-ai-future-beyond-monopoly/
+
+#AIFOD #AIFODGeneva #ArtificialIntelligence #SmallTakesTheLead #AIGovernance
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+      </div>
+    </div>
+
+    <!-- 2. Chet Greene -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-number">Card 2</div>
+        <div class="card-title">Chet Greene Calls for Collective AI Sovereignty as Small Nations Take the Lead</div>
+        <a class="card-link" href="https://af.net/news/chet-greene-calls-for-collective-ai-sovereignty-as-small-nations-take-the-lead-in-geneva/" target="_blank">af.net/news/chet-greene-calls-for-collective-ai-sovereignty...</a>
+      </div>
+
+      <div class="post-block">
+        <div class="platform-badge linkedin">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </div>
+        <div class="post-text">"AI sovereignty is not a luxury — it is a necessity."
+
+H.E. E. P. Chet Greene, Minister of Foreign Affairs of Antigua and Barbuda, addressed delegates at the AIFOD Geneva Summit 2026, calling on nations across the Global South to take an active role in shaping the ownership, governance and development of AI.
+
+His message was clear: small nations must not wait for an invitation to the table — they must build the table themselves.
+
+Read the full keynote coverage:
+https://af.net/news/chet-greene-calls-for-collective-ai-sovereignty-as-small-nations-take-the-lead-in-geneva/
+
+#AIFOD #AIFODGeneva #AISovereignty #ArtificialIntelligence #GlobalSouth #SmallTakesTheLead #ChetGreene #AntiguaAndBarbuda #AIGovernance #DigitalSovereignty #TechPolicy #AIforDevelopment
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+      </div>
+
+      <div class="post-block">
+        <div class="platform-badge x">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          X / Twitter
+        </div>
+        <div class="post-text">H.E. Chet Greene at the @AIFOD Geneva Summit: small nations must not wait for an invitation — they must build the table themselves.
+
+A powerful call for collective AI sovereignty from Antigua and Barbuda.
+
+Full coverage: https://af.net/news/chet-greene-calls-for-collective-ai-sovereignty-as-small-nations-take-the-lead-in-geneva/
+
+#AIFOD #AIFODGeneva #AISovereignty #SmallTakesTheLead #GlobalSouth
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+      </div>
+    </div>
+
+    <!-- 3. Tsiu Khathibe -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-number">Card 3</div>
+        <div class="card-title">Lesotho Makes the Case for Practical AI Sovereignty at AIFOD Geneva Summit</div>
+        <a class="card-link" href="https://af.net/news/lesotho-makes-the-case-for-practical-ai-sovereignty-at-aifod-geneva-summit/" target="_blank">af.net/news/lesotho-makes-the-case-for-practical-ai-sovereignty...</a>
+      </div>
+
+      <div class="post-block">
+        <div class="platform-badge linkedin">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </div>
+        <div class="post-text">Sovereignty doesn't mean building everything — it means having meaningful agency over what matters most.
+
+H.E. Mr. Tšiu Khathibe, Permanent Representative of the Kingdom of Lesotho to the United Nations, brought a compelling practical perspective to the AIFOD Geneva Summit 2026.
+
+His argument: small states do not need to control every layer of AI to exercise real sovereignty. What they need is strategic clarity on where to lead, where to partner and where to adapt.
+
+Read the full coverage:
+https://af.net/news/lesotho-makes-the-case-for-practical-ai-sovereignty-at-aifod-geneva-summit/
+
+#AIFOD #AIFODGeneva #AISovereignty #Lesotho #ArtificialIntelligence #GlobalSouth #SmallTakesTheLead #AIGovernance #UnitedNations #DigitalDevelopment #AfricaAI #TechPolicy
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+      </div>
+
+      <div class="post-block">
+        <div class="platform-badge x">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          X / Twitter
+        </div>
+        <div class="post-text">AI sovereignty isn't about building everything — it's about meaningful agency over what matters most.
+
+H.E. Tšiu Khathibe of Lesotho on practical sovereignty for small states at the @AIFOD Geneva Summit.
+
+Full coverage: https://af.net/news/lesotho-makes-the-case-for-practical-ai-sovereignty-at-aifod-geneva-summit/
+
+#AIFOD #AIFODGeneva #AISovereignty #Lesotho #SmallTakesTheLead
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+      </div>
+    </div>
+
+    <!-- 4. Prof Kah -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-number">Card 4</div>
+        <div class="card-title">Prof. Muhammadou M.O. Kah: Smallness Can Be a Strategy for AI Leadership</div>
+        <a class="card-link" href="https://af.net/news/prof-muhammadou-m-o-kah-smallness-can-be-a-strategy-for-ai-leadership/" target="_blank">af.net/news/prof-muhammadou-m-o-kah-smallness-can-be-a-strategy...</a>
+      </div>
+
+      <div class="post-block">
+        <div class="platform-badge linkedin">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </div>
+        <div class="post-text">"Smallness can be a strategy — not a limitation."
+
+Prof. Muhammadou M.O. Kah, Ambassador and Permanent Representative of The Gambia to the United Nations in Geneva, called on small and developing nations to approach AI with confidence — not from a position of limitation, but with the ambition to build, create and lead.
+
+His message at the AIFOD Geneva Summit 2026: the nations often told they are too small to matter may be exactly the right size to move fast, innovate boldly and shape the future of AI.
+
+Read the full coverage:
+https://af.net/news/prof-muhammadou-m-o-kah-smallness-can-be-a-strategy-for-ai-leadership/
+
+#AIFOD #AIFODGeneva #ArtificialIntelligence #TheGambia #SmallTakesTheLead #AILeadership #GlobalSouth #AIGovernance #AfricaAI #DigitalDevelopment #Innovation #TechForGood
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+      </div>
+
+      <div class="post-block">
+        <div class="platform-badge x">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          X / Twitter
+        </div>
+        <div class="post-text">"Smallness can be a strategy — not a limitation."
+
+Prof. Muhammadou M.O. Kah of The Gambia at the @AIFOD Geneva Summit: small nations have the agility to lead in AI, not just follow.
+
+Full coverage: https://af.net/news/prof-muhammadou-m-o-kah-smallness-can-be-a-strategy-for-ai-leadership/
+
+#AIFOD #AIFODGeneva #SmallTakesTheLead #TheGambia #AILeadership
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+      </div>
+    </div>
+
+    <!-- 5. Labeeqah Schuurman -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-number">Card 5</div>
+        <div class="card-title">Labeeqah Schuurman: AI and Infrastructure Must Remain in Service of People</div>
+        <a class="card-link" href="https://af.net/news/labeeqah-schuurman-ai-and-infrastructure-must-remain-in-service-of-people/" target="_blank">af.net/news/labeeqah-schuurman-ai-and-infrastructure-must-remain...</a>
+      </div>
+
+      <div class="post-block">
+        <div class="platform-badge linkedin">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </div>
+        <div class="post-text">AI is only as useful as the infrastructure it serves — and that infrastructure must serve people.
+
+Labeeqah Schuurman, Deputy Director-General for Strategy and Policy at the Western Cape Government, South Africa, brought a grounded public-sector perspective to the AIFOD Geneva Summit 2026.
+
+She outlined how governments across the Global South can combine infrastructure, data and AI to strengthen institutions, unlock investment and improve lives — drawing on work already underway in South Africa.
+
+Read the full coverage:
+https://af.net/news/labeeqah-schuurman-ai-and-infrastructure-must-remain-in-service-of-people/
+
+#AIFOD #AIFODGeneva #ArtificialIntelligence #SouthAfrica #WesternCape #SmallTakesTheLead #PublicSector #Infrastructure #AIforDevelopment #GlobalSouth #GovTech #DigitalTransformation
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+      </div>
+
+      <div class="post-block">
+        <div class="platform-badge x">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          X / Twitter
+        </div>
+        <div class="post-text">AI must serve people, not the other way around.
+
+Labeeqah Schuurman of South Africa's Western Cape Government on combining infrastructure and AI for real public impact at the @AIFOD Geneva Summit.
+
+Full coverage: https://af.net/news/labeeqah-schuurman-ai-and-infrastructure-must-remain-in-service-of-people/
+
+#AIFOD #AIFODGeneva #SouthAfrica #AIforDevelopment #SmallTakesTheLead
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION: DIALOGUES & INDUSTRY REVIEW BOARDS -->
+  <div class="section">
+    <div class="section-label">Dialogues &amp; Industry Review Boards</div>
+
+    <!-- 6. Dialogue I -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-number">Card 6</div>
+        <div class="card-title">Dialogue I — Is AI Becoming a Monopoly?</div>
+        <a class="card-link" href="https://af.net/news/is-ai-becoming-a-monopoly-aifod-opens-geneva-dialogue-on-who-controls-the-ai-economy/" target="_blank">af.net/news/is-ai-becoming-a-monopoly-aifod-opens-geneva-dialogue...</a>
+      </div>
+
+      <div class="post-block">
+        <div class="platform-badge linkedin">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </div>
+        <div class="post-text">Who will control the infrastructure, models, data and systems on which the AI economy depends?
+
+That question opened Dialogue I at the AIFOD Geneva Summit 2026: "Is AI Becoming a Monopoly?"
+
+Leaders from technology, enterprise and policy examined whether artificial intelligence is concentrating power in fewer hands — and what it means for competition, innovation and the Global South.
+
+The conversation is just beginning.
+
+Read the full dialogue coverage:
+https://af.net/news/is-ai-becoming-a-monopoly-aifod-opens-geneva-dialogue-on-who-controls-the-ai-economy/
+
+#AIFOD #AIFODGeneva #AIMonopoly #ArtificialIntelligence #TechPolicy #Competition #AIGovernance #SmallTakesTheLead #Innovation #DigitalEconomy #GlobalSouth #AntiMonopoly
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+      </div>
+
+      <div class="post-block">
+        <div class="platform-badge x">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          X / Twitter
+        </div>
+        <div class="post-text">Is AI becoming a monopoly?
+
+Dialogue I at the @AIFOD Geneva Summit examined who controls the infrastructure, models and data behind the AI economy — and what that means for everyone else.
+
+Full coverage: https://af.net/news/is-ai-becoming-a-monopoly-aifod-opens-geneva-dialogue-on-who-controls-the-ai-economy/
+
+#AIFOD #AIFODGeneva #AIMonopoly #Competition #SmallTakesTheLead
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+      </div>
+    </div>
+
+    <!-- 7. Dialogue II -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-number">Card 7</div>
+        <div class="card-title">Can Small Companies Still Build AI?</div>
+        <a class="card-link" href="https://af.net/news/can-small-companies-still-build-ai-aifod-dialogue-examines-who-gets-to-innovate/" target="_blank">af.net/news/can-small-companies-still-build-ai-aifod-dialogue...</a>
+      </div>
+
+      <div class="post-block">
+        <div class="platform-badge linkedin">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </div>
+        <div class="post-text">Can the next AI breakthrough still come from a small company?
+
+Or are compute, data, talent, visibility and investment increasingly favouring only the world's largest technology players?
+
+Dialogue II at the AIFOD Geneva Summit 2026 — "Can Small Companies Still Build AI?" — brought together entrepreneurs and technology leaders to examine who still gets to innovate in an AI landscape that grows more resource-intensive by the day.
+
+Read the full dialogue coverage:
+https://af.net/news/can-small-companies-still-build-ai-aifod-dialogue-examines-who-gets-to-innovate/
+
+#AIFOD #AIFODGeneva #ArtificialIntelligence #Startups #Innovation #AIStartups #SmallTakesTheLead #Entrepreneurship #TechPolicy #DigitalEconomy #GlobalSouth #SmallBusiness
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+      </div>
+
+      <div class="post-block">
+        <div class="platform-badge x">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          X / Twitter
+        </div>
+        <div class="post-text">Can small companies still build AI — or is the game already over?
+
+Dialogue II at the @AIFOD Geneva Summit asked who still gets to innovate when compute, data and talent are consolidating fast.
+
+Full coverage: https://af.net/news/can-small-companies-still-build-ai-aifod-dialogue-examines-who-gets-to-innovate/
+
+#AIFOD #AIFODGeneva #AIStartups #Innovation #SmallTakesTheLead
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+      </div>
+    </div>
+
+    <!-- 8. IRB Media -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-number">Card 8</div>
+        <div class="card-title">Is AI Killing the Open Internet? — AIFOD Media Board</div>
+        <a class="card-link" href="https://af.net/news/is-ai-killing-the-open-internet-aifod-media-board-examines-attribution-referral-traffic-and-who-still-gets-paid-for-content/" target="_blank">af.net/news/is-ai-killing-the-open-internet-aifod-media-board...</a>
+      </div>
+
+      <div class="post-block">
+        <div class="platform-badge linkedin">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </div>
+        <div class="post-text">For decades, the open internet ran on an implicit exchange: creators published, search engines drove discovery, and traffic, revenue and recognition flowed back.
+
+AI is beginning to break that exchange.
+
+The AIFOD Industry Review Board on Media — "Is AI Killing the Open Internet?" — examined what happens when AI systems absorb content, answer queries directly and bypass the publishers who created it.
+
+Attribution, referral traffic, revenue — who still gets paid for content in the age of AI?
+
+Read the full IRB coverage:
+https://af.net/news/is-ai-killing-the-open-internet-aifod-media-board-examines-attribution-referral-traffic-and-who-still-gets-paid-for-content/
+
+#AIFOD #AIFODGeneva #OpenInternet #AIandMedia #ContentCreators #DigitalMedia #Attribution #ArtificialIntelligence #MediaIndustry #SmallTakesTheLead #Journalism #TechPolicy
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+      </div>
+
+      <div class="post-block">
+        <div class="platform-badge x">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          X / Twitter
+        </div>
+        <div class="post-text">Is AI killing the open internet?
+
+The @AIFOD Media Board examined what happens when AI absorbs content and bypasses the publishers who created it. Attribution, traffic, revenue — who still gets paid?
+
+Full coverage: https://af.net/news/is-ai-killing-the-open-internet-aifod-media-board-examines-attribution-referral-traffic-and-who-still-gets-paid-for-content/
+
+#AIFOD #AIFODGeneva #OpenInternet #AIandMedia #SmallTakesTheLead
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+      </div>
+    </div>
+
+    <!-- 9. IRB Energy -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-number">Card 9</div>
+        <div class="card-title">AI and Climate Change — AIFOD Energy Board</div>
+        <a class="card-link" href="https://af.net/news/ai-and-climate-change-aifod-energy-board-examines-the-ai-that-adds-load-and-the-ai-that-removes-it/" target="_blank">af.net/news/ai-and-climate-change-aifod-energy-board...</a>
+      </div>
+
+      <div class="post-block">
+        <div class="platform-badge linkedin">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </div>
+        <div class="post-text">The same technology driving new electricity demand could also help the world use energy far more efficiently.
+
+That tension shaped the AIFOD Industry Review Board on Energy — "AI and Climate Change: The Kind of AI that Adds Load — and the Kind that Removes It."
+
+As AI infrastructure expands, so does its energy footprint. But AI can also optimise buildings, industries and power systems to cut consumption. The question is: which side of the ledger wins?
+
+Read the full IRB coverage:
+https://af.net/news/ai-and-climate-change-aifod-energy-board-examines-the-ai-that-adds-load-and-the-ai-that-removes-it/
+
+#AIFOD #AIFODGeneva #AIandEnergy #ClimateChange #EnergyTransition #ArtificialIntelligence #Sustainability #CleanEnergy #SmallTakesTheLead #GreenAI #TechForGood #DataCenters
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+      </div>
+
+      <div class="post-block">
+        <div class="platform-badge x">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          X / Twitter
+        </div>
+        <div class="post-text">AI adds energy load — but it can also remove it. Which side of the ledger wins?
+
+The @AIFOD Energy Board examined the tension between AI's growing power demand and its potential to drive efficiency.
+
+Full coverage: https://af.net/news/ai-and-climate-change-aifod-energy-board-examines-the-ai-that-adds-load-and-the-ai-that-removes-it/
+
+#AIFOD #AIFODGeneva #AIandEnergy #ClimateChange #SmallTakesTheLead
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+      </div>
+    </div>
+
+    <!-- 10. IRB Trade & E-Commerce -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-number">Card 10</div>
+        <div class="card-title">Found or Forgotten — AIFOD Trade &amp; E-Commerce Board</div>
+        <a class="card-link" href="https://af.net/news/found-or-forgotten-aifod-trade-e-commerce-board-examines-who-controls-sme-visibility-online/" target="_blank">af.net/news/found-or-forgotten-aifod-trade-e-commerce-board...</a>
+      </div>
+
+      <div class="post-block">
+        <div class="platform-badge linkedin">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </div>
+        <div class="post-text">Found — or forgotten?
+
+For a regional business operating online, access to customers increasingly depends on something it neither owns nor fully controls: the platform deciding who gets seen.
+
+The AIFOD Industry Review Board on Trade & E-Commerce — "Found or Forgotten: What Happens to a Regional Business When the Platform Stops Sending Customers" — examined who controls SME visibility online and what that means for businesses across the Global South.
+
+When algorithms decide discovery, small businesses need more than a good product. They need to be found.
+
+Read the full IRB coverage:
+https://af.net/news/found-or-forgotten-aifod-trade-e-commerce-board-examines-who-controls-sme-visibility-online/
+
+#AIFOD #AIFODGeneva #ECommerce #SMEs #DigitalTrade #ArtificialIntelligence #SmallBusiness #SmallTakesTheLead #OnlineVisibility #GlobalSouth #PlatformEconomy #DigitalEconomy
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+      </div>
+
+      <div class="post-block">
+        <div class="platform-badge x">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          X / Twitter
+        </div>
+        <div class="post-text">Found — or forgotten? When the platform decides who gets seen, what happens to regional businesses?
+
+The @AIFOD Trade & E-Commerce Board examined SME visibility in an AI-driven digital economy.
+
+Full coverage: https://af.net/news/found-or-forgotten-aifod-trade-e-commerce-board-examines-who-controls-sme-visibility-online/
+
+#AIFOD #AIFODGeneva #ECommerce #SMEs #SmallTakesTheLead
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function copyText(btn) {
+  const block = btn.parentElement;
+  const text = block.textContent.replace('Copy', '').replace('Copied!', '').trim();
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 1500);
+  }).catch(() => {
+    const range = document.createRange();
+    range.selectNodeContents(block);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  });
+}
+</script>
