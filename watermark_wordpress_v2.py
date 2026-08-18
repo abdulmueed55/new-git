@@ -82,16 +82,35 @@ def apply_watermark(image_bytes, watermark_img, mime_type):
     return buf.getvalue()
 
 
+def api_get(url, params=None, timeout=120, retries=4):
+    for attempt in range(retries):
+        try:
+            resp = requests.get(url, auth=AUTH, params=params, timeout=timeout)
+            if resp.status_code == 500 and attempt < retries - 1:
+                wait = 2 ** (attempt + 1)
+                print(f"  Server error, retrying in {wait}s...")
+                time.sleep(wait)
+                continue
+            return resp
+        except requests.exceptions.RequestException as e:
+            if attempt < retries - 1:
+                wait = 2 ** (attempt + 1)
+                print(f"  Request failed, retrying in {wait}s...")
+                time.sleep(wait)
+            else:
+                raise
+    return resp
+
+
 def fetch_recent_media(days):
     after = (datetime.utcnow() - timedelta(days=days)).strftime("%Y-%m-%dT%H:%M:%S")
     all_media = []
     page = 1
     while True:
         print(f"  Fetching page {page}...")
-        resp = requests.get(
-            f"{API_BASE}/media", auth=AUTH,
+        resp = api_get(
+            f"{API_BASE}/media",
             params={"after": after, "per_page": 50, "page": page, "media_type": "image"},
-            timeout=60,
         )
         if resp.status_code == 400:
             break
@@ -111,10 +130,9 @@ def fetch_all_posts():
     all_posts = []
     page = 1
     while True:
-        resp = requests.get(
-            f"{API_BASE}/posts", auth=AUTH,
+        resp = api_get(
+            f"{API_BASE}/posts",
             params={"per_page": 100, "page": page, "status": "publish,draft,pending,private"},
-            timeout=60,
         )
         if resp.status_code == 400:
             break
