@@ -220,6 +220,11 @@ def main():
         ext = ext_map.get(mime, ".jpg")
         filename = f"{slug}-wm{ext}"
 
+        if slug.endswith("-wm") or "-wm." in old_url:
+            print(f"\n[{i}/{len(media_items)}] ID={old_id} | {title}")
+            print(f"  Skipping (already watermarked)")
+            continue
+
         print(f"\n[{i}/{len(media_items)}] ID={old_id} | {title}")
         print(f"  Old URL: {old_url}")
 
