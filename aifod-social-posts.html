@@ -147,6 +147,11 @@
     margin-bottom: 4px;
   }
 
+  .schedule-time {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
   .card-title {
     font-family: var(--font-display);
     font-size: 1.3rem;
@@ -240,6 +245,51 @@
     border-color: var(--accent);
   }
 
+  .schedule {
+    margin-bottom: 48px;
+  }
+
+  .schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+    font-size: 14px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .schedule-table th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    padding: 8px 12px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .schedule-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text);
+  }
+
+  .schedule-table td:first-child {
+    font-weight: 600;
+    color: var(--accent);
+    width: 32px;
+  }
+
+  .schedule-table td:nth-child(2) {
+    font-weight: 600;
+    white-space: nowrap;
+    width: 90px;
+  }
+
+  .schedule-table tr:hover td {
+    background: var(--surface-alt);
+  }
+
   @media (max-width: 600px) {
     .page { padding: 32px 16px 60px; }
     header h1 { font-size: 1.8rem; }
@@ -256,6 +306,32 @@
     <p>Social media posts for LinkedIn &amp; X &mdash; ready to copy &amp; paste</p>
   </header>
 
+  <!-- SCHEDULE TABLE -->
+  <div class="schedule">
+    <div class="section-label">Schedule &mdash; Tuesday, August 19</div>
+    <table class="schedule-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Time</th>
+          <th>Post</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>8:17 AM</td><td>Tianze Zhang &mdash; Opening Keynote</td></tr>
+        <tr><td>2</td><td>8:53 AM</td><td>H.E. Chet Greene &mdash; AI Sovereignty</td></tr>
+        <tr><td>3</td><td>9:24 AM</td><td>H.E. Tšiu Khathibe &mdash; Practical AI Sovereignty</td></tr>
+        <tr><td>4</td><td>10:02 AM</td><td>Prof. Muhammadou M.O. Kah &mdash; Smallness as Strategy</td></tr>
+        <tr><td>5</td><td>10:41 AM</td><td>Labeeqah Schuurman &mdash; AI &amp; Infrastructure</td></tr>
+        <tr><td>6</td><td>11:17 AM</td><td>Dialogue I &mdash; Is AI Becoming a Monopoly?</td></tr>
+        <tr><td>7</td><td>12:08 PM</td><td>Dialogue II &mdash; Can Small Companies Still Build AI?</td></tr>
+        <tr><td>8</td><td>1:33 PM</td><td>IRB Media &mdash; Is AI Killing the Open Internet?</td></tr>
+        <tr><td>9</td><td>2:14 PM</td><td>IRB Energy &mdash; AI and Climate Change</td></tr>
+        <tr><td>10</td><td>3:07 PM</td><td>IRB Trade &amp; E-Commerce &mdash; Found or Forgotten</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <!-- SECTION: KEYNOTES -->
   <div class="section">
     <div class="section-label">Keynote Speakers</div>
@@ -263,7 +339,7 @@
     <!-- 1. Tianze Zhang -->
     <div class="card">
       <div class="card-header">
-        <div class="card-number">Card 1</div>
+        <div class="card-number">Card 1 &bull; <span class="schedule-time">8:17 AM</span></div>
         <div class="card-title">Tianze Zhang Opens AIFOD Geneva Summit with a Call for an AI Future Beyond Monopoly</div>
         <a class="card-link" href="https://af.net/news/tianze-zhang-opens-aifod-geneva-summit-with-a-call-for-an-ai-future-beyond-monopoly/" target="_blank">af.net/news/tianze-zhang-opens-aifod-geneva-summit...</a>
       </div>
@@ -305,7 +381,7 @@ Full coverage: https://af.net/news/tianze-zhang-opens-aifod-geneva-summit-with-a
     <!-- 2. Chet Greene -->
     <div class="card">
       <div class="card-header">
-        <div class="card-number">Card 2</div>
+        <div class="card-number">Card 2 &bull; <span class="schedule-time">8:53 AM</span></div>
         <div class="card-title">Chet Greene Calls for Collective AI Sovereignty as Small Nations Take the Lead</div>
         <a class="card-link" href="https://af.net/news/chet-greene-calls-for-collective-ai-sovereignty-as-small-nations-take-the-lead-in-geneva/" target="_blank">af.net/news/chet-greene-calls-for-collective-ai-sovereignty...</a>
       </div>
@@ -347,7 +423,7 @@ Full coverage: https://af.net/news/chet-greene-calls-for-collective-ai-sovereign
     <!-- 3. Tsiu Khathibe -->
     <div class="card">
       <div class="card-header">
-        <div class="card-number">Card 3</div>
+        <div class="card-number">Card 3 &bull; <span class="schedule-time">9:24 AM</span></div>
         <div class="card-title">Lesotho Makes the Case for Practical AI Sovereignty at AIFOD Geneva Summit</div>
         <a class="card-link" href="https://af.net/news/lesotho-makes-the-case-for-practical-ai-sovereignty-at-aifod-geneva-summit/" target="_blank">af.net/news/lesotho-makes-the-case-for-practical-ai-sovereignty...</a>
       </div>
@@ -389,7 +465,7 @@ Full coverage: https://af.net/news/lesotho-makes-the-case-for-practical-ai-sover
     <!-- 4. Prof Kah -->
     <div class="card">
       <div class="card-header">
-        <div class="card-number">Card 4</div>
+        <div class="card-number">Card 4 &bull; <span class="schedule-time">10:02 AM</span></div>
         <div class="card-title">Prof. Muhammadou M.O. Kah: Smallness Can Be a Strategy for AI Leadership</div>
         <a class="card-link" href="https://af.net/news/prof-muhammadou-m-o-kah-smallness-can-be-a-strategy-for-ai-leadership/" target="_blank">af.net/news/prof-muhammadou-m-o-kah-smallness-can-be-a-strategy...</a>
       </div>
@@ -431,7 +507,7 @@ Full coverage: https://af.net/news/prof-muhammadou-m-o-kah-smallness-can-be-a-st
     <!-- 5. Labeeqah Schuurman -->
     <div class="card">
       <div class="card-header">
-        <div class="card-number">Card 5</div>
+        <div class="card-number">Card 5 &bull; <span class="schedule-time">10:41 AM</span></div>
         <div class="card-title">Labeeqah Schuurman: AI and Infrastructure Must Remain in Service of People</div>
         <a class="card-link" href="https://af.net/news/labeeqah-schuurman-ai-and-infrastructure-must-remain-in-service-of-people/" target="_blank">af.net/news/labeeqah-schuurman-ai-and-infrastructure-must-remain...</a>
       </div>
@@ -478,7 +554,7 @@ Full coverage: https://af.net/news/labeeqah-schuurman-ai-and-infrastructure-must
     <!-- 6. Dialogue I -->
     <div class="card">
       <div class="card-header">
-        <div class="card-number">Card 6</div>
+        <div class="card-number">Card 6 &bull; <span class="schedule-time">11:17 AM</span></div>
         <div class="card-title">Dialogue I — Is AI Becoming a Monopoly?</div>
         <a class="card-link" href="https://af.net/news/is-ai-becoming-a-monopoly-aifod-opens-geneva-dialogue-on-who-controls-the-ai-economy/" target="_blank">af.net/news/is-ai-becoming-a-monopoly-aifod-opens-geneva-dialogue...</a>
       </div>
@@ -522,7 +598,7 @@ Full coverage: https://af.net/news/is-ai-becoming-a-monopoly-aifod-opens-geneva-
     <!-- 7. Dialogue II -->
     <div class="card">
       <div class="card-header">
-        <div class="card-number">Card 7</div>
+        <div class="card-number">Card 7 &bull; <span class="schedule-time">12:08 PM</span></div>
         <div class="card-title">Can Small Companies Still Build AI?</div>
         <a class="card-link" href="https://af.net/news/can-small-companies-still-build-ai-aifod-dialogue-examines-who-gets-to-innovate/" target="_blank">af.net/news/can-small-companies-still-build-ai-aifod-dialogue...</a>
       </div>
@@ -564,7 +640,7 @@ Full coverage: https://af.net/news/can-small-companies-still-build-ai-aifod-dial
     <!-- 8. IRB Media -->
     <div class="card">
       <div class="card-header">
-        <div class="card-number">Card 8</div>
+        <div class="card-number">Card 8 &bull; <span class="schedule-time">1:33 PM</span></div>
         <div class="card-title">Is AI Killing the Open Internet? — AIFOD Media Board</div>
         <a class="card-link" href="https://af.net/news/is-ai-killing-the-open-internet-aifod-media-board-examines-attribution-referral-traffic-and-who-still-gets-paid-for-content/" target="_blank">af.net/news/is-ai-killing-the-open-internet-aifod-media-board...</a>
       </div>
@@ -608,7 +684,7 @@ Full coverage: https://af.net/news/is-ai-killing-the-open-internet-aifod-media-b
     <!-- 9. IRB Energy -->
     <div class="card">
       <div class="card-header">
-        <div class="card-number">Card 9</div>
+        <div class="card-number">Card 9 &bull; <span class="schedule-time">2:14 PM</span></div>
         <div class="card-title">AI and Climate Change — AIFOD Energy Board</div>
         <a class="card-link" href="https://af.net/news/ai-and-climate-change-aifod-energy-board-examines-the-ai-that-adds-load-and-the-ai-that-removes-it/" target="_blank">af.net/news/ai-and-climate-change-aifod-energy-board...</a>
       </div>
@@ -650,7 +726,7 @@ Full coverage: https://af.net/news/ai-and-climate-change-aifod-energy-board-exam
     <!-- 10. IRB Trade & E-Commerce -->
     <div class="card">
       <div class="card-header">
-        <div class="card-number">Card 10</div>
+        <div class="card-number">Card 10 &bull; <span class="schedule-time">3:07 PM</span></div>
         <div class="card-title">Found or Forgotten — AIFOD Trade &amp; E-Commerce Board</div>
         <a class="card-link" href="https://af.net/news/found-or-forgotten-aifod-trade-e-commerce-board-examines-who-controls-sme-visibility-online/" target="_blank">af.net/news/found-or-forgotten-aifod-trade-e-commerce-board...</a>
       </div>
