@@ -1,138 +1,165 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AI Chief of Staff</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NEXA — AI Chief of Staff</title>
 <style>
-:root{--bg:#f5f7fb;--card:#fff;--ink:#171a22;--muted:#6d7483;--line:#e7eaf0;--brand:#5b5bd6;--brand2:#7c3aed;--danger:#d92d20;--warn:#b54708;--ok:#027a48;--shadow:0 10px 30px rgba(20,25,45,.06)}
-*{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)}
-button,input{font:inherit}.app{display:grid;grid-template-columns:240px 1fr;min-height:100vh}.side{background:#11131a;color:#fff;padding:24px 18px;position:sticky;top:0;height:100vh}
-.logo{display:flex;gap:12px;align-items:center;font-weight:800;font-size:18px;margin-bottom:28px}.logo-badge{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#7c3aed,#4f46e5);display:grid;place-items:center}
-.nav{display:grid;gap:7px}.nav button{all:unset;cursor:pointer;padding:12px 14px;border-radius:12px;color:#b9becb;display:flex;align-items:center;gap:11px}.nav button.active,.nav button:hover{background:#232634;color:#fff}
-.side-foot{position:absolute;left:18px;right:18px;bottom:22px;background:#1b1e29;padding:13px;border-radius:14px}.side-foot b{display:block;font-size:13px}.side-foot span{font-size:12px;color:#9ca3af}
-.main{padding:28px 32px}.top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px}.eyebrow{font-size:12px;font-weight:800;letter-spacing:.12em;color:var(--brand);margin:0 0 7px}.top h1{margin:0;font-size:30px}.top p{margin:6px 0;color:var(--muted)}.date{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 14px;color:#4b5563;font-size:13px}
-.hero{background:linear-gradient(135deg,#22243a,#4f46e5);color:#fff;border-radius:22px;padding:24px 26px;display:flex;gap:16px;box-shadow:var(--shadow)}.spark{width:44px;height:44px;border-radius:14px;background:#ffffff1f;display:grid;place-items:center;font-size:22px}.hero small{font-weight:800;letter-spacing:.1em;color:#d9dcff}.hero h2{font-size:20px;line-height:1.45;margin:8px 0}.hero p{margin:0;color:#d7d9ea;font-size:13px}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0}.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--shadow)}.stat span{font-size:12px;color:var(--muted)}.stat strong{display:block;font-size:27px;margin-top:7px}.dot{float:right;width:8px;height:8px;border-radius:50%;margin-top:-32px}.red{background:#ef4444}.amber{background:#f59e0b}.blue{background:#3b82f6}.purple{background:#8b5cf6}
-.grid2{display:grid;grid-template-columns:1.2fr 1fr;gap:16px}.panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow);margin-bottom:16px}.panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.panel-head h3{margin:2px 0 0;font-size:18px}.panel-head small{font-size:11px;color:var(--brand);font-weight:800;letter-spacing:.09em}.link{border:0;background:none;color:var(--brand);cursor:pointer;font-weight:700}
-.row{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--line)}.row:first-child{border-top:0}.rank{width:30px;height:30px;border-radius:9px;background:#f1f2f7;display:grid;place-items:center;font-weight:800}.grow{flex:1}.grow b{display:block;font-size:14px}.grow span{font-size:12px;color:var(--muted)}.badge{font-size:11px;font-weight:800;padding:6px 9px;border-radius:999px;background:#f2f4f7}.badge.high{background:#fee4e2;color:#b42318}.badge.medium{background:#fef0c7;color:#b54708}.badge.low{background:#dcfae6;color:#027a48}.email-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.email{border:1px solid var(--line);border-radius:15px;padding:14px}.sender{display:flex;gap:10px;align-items:center}.avatar{width:34px;height:34px;border-radius:50%;background:#eef2ff;color:#4f46e5;display:grid;place-items:center;font-weight:800}.email h4{margin:12px 0 7px;font-size:14px}.email p{margin:0;color:var(--muted);font-size:12px;line-height:1.5}
-.page{display:none}.page.active{display:block}.page-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.page-title h2{margin:0;font-size:26px}.toolbar{display:flex;gap:10px}.search{background:#fff;border:1px solid var(--line);border-radius:11px;padding:10px 12px;min-width:260px}.btn{border:0;border-radius:11px;padding:10px 14px;font-weight:800;cursor:pointer}.btn.primary{background:#4f46e5;color:#fff}.btn.soft{background:#eef2ff;color:#4338ca}
-.table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}.table th,.table td{text-align:left;padding:13px 14px;border-bottom:1px solid var(--line);font-size:13px}.table th{color:var(--muted);font-size:11px;letter-spacing:.05em}.table tr:last-child td{border-bottom:0}.table tr:hover td{background:#fafbff}
-.calendar{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.event{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--shadow)}.event .time{font-size:12px;color:var(--brand);font-weight:800}.event h4{margin:8px 0}.event p{font-size:12px;color:var(--muted);margin:0}
-.task-list{display:grid;gap:10px}.task{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;gap:12px;align-items:center}.check{width:20px;height:20px}.task.done b{text-decoration:line-through;color:#9ca3af}
-.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.setting-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px}.setting-card h3{margin-top:0}.switch{float:right}
-.modal{position:fixed;inset:0;background:#0008;display:none;place-items:center;padding:20px}.modal.show{display:grid}.modal-card{width:min(620px,100%);background:#fff;border-radius:18px;padding:22px}.modal-card h3{margin-top:0}.modal-card textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:12px;padding:12px}.analysis{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:12px;display:none}.analysis.show{display:block}
-.notice{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:12px;padding:10px 12px;font-size:12px;margin-top:14px}
-@media(max-width:900px){.app{grid-template-columns:76px 1fr}.side{padding:18px 10px}.logo span,.nav button span,.side-foot{display:none}.nav button{justify-content:center}.main{padding:20px}.stats{grid-template-columns:1fr 1fr}.grid2,.settings-grid{grid-template-columns:1fr}.email-grid,.calendar{grid-template-columns:1fr}.date{display:none}}
-</style>
-</head>
+:root{--bg:#f6f7fb;--card:#fff;--ink:#151723;--muted:#6f7687;--line:#e7e9f0;--p:#5b5cf0;--p2:#8b5cf6;--cyan:#06b6d4;--red:#ef4444;--amber:#f59e0b;--green:#10b981;--shadow:0 18px 50px rgba(22,28,45,.07)}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:radial-gradient(circle at 100% 0,#ebe9ff 0,transparent 24%),var(--bg);color:var(--ink)}
+button,input,textarea{font:inherit}.app{display:grid;grid-template-columns:248px 1fr;min-height:100vh}.side{background:linear-gradient(180deg,#10121b,#171927);color:#fff;padding:24px 17px;position:sticky;top:0;height:100vh;border-right:1px solid #292c3d}
+.logo{display:flex;gap:12px;align-items:center;font-weight:900;font-size:18px}.mark{width:40px;height:40px;border-radius:14px;background:linear-gradient(135deg,#8b5cf6,#4f46e5 58%,#06b6d4);display:grid;place-items:center;box-shadow:0 8px 22px #4f46e555}.logo small{display:block;color:#8f96a8;font-size:10px;letter-spacing:.18em;margin-top:2px}
+.nav{display:grid;gap:7px;margin-top:30px}.nav button{all:unset;cursor:pointer;padding:12px 14px;border-radius:12px;color:#aeb4c5;display:flex;gap:11px;align-items:center}.nav button:hover,.nav button.active{background:#25283a;color:#fff}
+.side-card{position:absolute;bottom:20px;left:17px;right:17px;border:1px solid #303449;background:#1c1f2e;border-radius:15px;padding:13px}.side-card b{font-size:12px;display:block}.side-card span{font-size:11px;color:#9da4b7}
+.main{padding:27px 31px;max-width:1500px;width:100%}.top{display:flex;justify-content:space-between;gap:20px;align-items:flex-start}.eyebrow{font-size:11px;font-weight:900;letter-spacing:.13em;color:var(--p);margin:0 0 8px}.top h1{font-size:31px;margin:0}.top p{color:var(--muted);margin:6px 0}.date{background:#fff;border:1px solid var(--line);border-radius:13px;padding:10px 13px;font-size:12px;color:#555d70}
+.command{margin:22px 0 16px;background:#161827;color:white;border-radius:18px;padding:12px;display:flex;align-items:center;gap:10px;box-shadow:0 15px 36px #17182718}.command .ai{width:35px;height:35px;border-radius:11px;background:linear-gradient(135deg,var(--p2),var(--cyan));display:grid;place-items:center}.command input{flex:1;background:transparent;border:0;outline:0;color:white;padding:8px}.command input::placeholder{color:#858ca0}.btn{border:0;border-radius:11px;padding:10px 13px;cursor:pointer;font-weight:800}.primary{background:linear-gradient(135deg,#695cf5,#4f46e5);color:#fff}.soft{background:#eef0ff;color:#4f46e5}.ghost{background:#f6f7fb;color:#4d5568}.tiny{font-size:11px;padding:7px 9px}
+.hero{display:grid;grid-template-columns:1.6fr .8fr;gap:15px}.brief{background:linear-gradient(135deg,#24253c,#4f46e5 70%,#5d5fe8);color:#fff;border-radius:22px;padding:23px 24px;position:relative;overflow:hidden;box-shadow:var(--shadow)}.brief:after{content:"";position:absolute;width:190px;height:190px;border-radius:50%;background:#ffffff0d;right:-40px;top:-70px}.brief h2{font-size:20px;line-height:1.45;margin:8px 0}.brief p{font-size:12px;color:#d7d9ee}.brief-actions{display:flex;gap:8px;margin-top:15px}.brief-actions button{background:#ffffff17;color:#fff;border:1px solid #ffffff1c}
+.focus{background:#fff;border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:var(--shadow);display:flex;gap:18px;align-items:center}.ring{width:112px;height:112px;border-radius:50%;background:conic-gradient(var(--p) 0 72%,#eceef7 72%);position:relative;display:grid;place-items:center}.ring:after{content:"";position:absolute;inset:13px;background:#fff;border-radius:50%}.ring div{z-index:2;text-align:center}.ring strong{font-size:25px;display:block}.ring span{font-size:10px;color:var(--muted)}.focus h3{margin:0 0 6px;font-size:17px}.focus p{font-size:12px;color:var(--muted);margin:0;line-height:1.5}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin:15px 0}.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:15px;box-shadow:var(--shadow)}.stat span{font-size:11px;color:var(--muted)}.stat strong{font-size:25px;display:block;margin-top:7px}.stat em{font-style:normal;float:right;margin-top:-30px;font-size:10px;padding:5px 7px;border-radius:999px;background:#f3f4f8;color:#666d80}
+.grid2{display:grid;grid-template-columns:1.15fr .85fr;gap:15px}.panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:17px;box-shadow:var(--shadow);margin-bottom:15px}.ph{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.ph h3{margin:2px 0 0;font-size:17px}.ph small{font-size:10px;letter-spacing:.1em;color:var(--p);font-weight:900}.link{border:0;background:none;color:var(--p);font-weight:800;cursor:pointer}
+.row{display:flex;gap:11px;align-items:center;padding:11px 0;border-top:1px solid var(--line)}.row:first-child{border-top:0}.rank{width:30px;height:30px;border-radius:9px;background:#f1f2f7;display:grid;place-items:center;font-weight:900}.grow{flex:1}.grow b{display:block;font-size:13px}.grow span{font-size:11px;color:var(--muted)}.badge{font-size:10px;font-weight:900;padding:5px 8px;border-radius:999px;background:#f2f4f7}.high{background:#fee4e2;color:#b42318}.med{background:#fef0c7;color:#a15c00}.low{background:#dcfae6;color:#047857}.info{background:#e8f2ff;color:#2563eb}
+.signal{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}.sig{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fbfbfe}.sig b{font-size:12px}.sig p{font-size:11px;color:var(--muted);line-height:1.45;margin:6px 0 0}.sig .num{font-size:20px;font-weight:900;color:var(--p)}
+.memory{display:flex;gap:8px;flex-wrap:wrap;padding-top:4px}.chip{border:1px solid #e4e5f5;background:#f7f7ff;padding:8px 10px;border-radius:999px;font-size:11px;font-weight:700;color:#5257a8}.chip.hot{background:#fff0f0;color:#b42318;border-color:#ffd6d6}
+.page{display:none}.page.active{display:block}.page-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}.page-title h2{margin:0;font-size:25px}.tools{display:flex;gap:8px}.search{border:1px solid var(--line);background:#fff;border-radius:11px;padding:10px 12px;min-width:250px}
+.table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}.table th,.table td{text-align:left;padding:12px 13px;border-bottom:1px solid var(--line);font-size:12px}.table th{font-size:10px;color:var(--muted);letter-spacing:.06em}.table tr:last-child td{border-bottom:0}.actionbar{display:flex;gap:6px}.calendar{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.event{background:#fff;border:1px solid var(--line);border-radius:16px;padding:15px;box-shadow:var(--shadow)}.event .time{font-size:10px;color:var(--p);font-weight:900}.event h4{margin:8px 0}.event p{font-size:11px;color:var(--muted);line-height:1.45}.task{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px;display:flex;align-items:center;gap:11px;margin-bottom:9px}.check{width:18px;height:18px}.task.done b{text-decoration:line-through;color:#9da3b3}
+.explain{padding:8px 10px;border-radius:10px;border:1px solid #e7e8fb;background:#f8f8ff;font-size:10px;color:#5257a8;cursor:pointer}.settings{display:grid;grid-template-columns:1fr 1fr;gap:14px}.set{background:#fff;border:1px solid var(--line);border-radius:16px;padding:17px}.set h3{margin:0 0 7px}.set p{font-size:12px;color:var(--muted);line-height:1.5}
+.modal{position:fixed;inset:0;background:#0e1020b8;display:none;place-items:center;padding:20px;z-index:50}.modal.show{display:grid}.modal-card{width:min(670px,100%);background:#fff;border-radius:19px;padding:20px;box-shadow:0 40px 100px #0005}.modal-card textarea{width:100%;min-height:145px;border:1px solid var(--line);border-radius:12px;padding:12px;resize:vertical}.result{margin-top:12px;background:#f8f9fd;border:1px solid var(--line);border-radius:13px;padding:13px;display:none}.result.show{display:block}.kv{display:grid;grid-template-columns:135px 1fr;gap:8px;font-size:12px;padding:5px 0}.kv span:first-child{color:var(--muted)}
+.toast{position:fixed;right:22px;bottom:22px;background:#171927;color:white;border-radius:13px;padding:12px 15px;display:none;box-shadow:0 20px 50px #0003;font-size:12px}.toast.show{display:block}
+@media(max-width:950px){.app{grid-template-columns:78px 1fr}.side{padding:18px 10px}.logo div+div,.nav span,.side-card{display:none}.nav button{justify-content:center}.main{padding:20px}.hero,.grid2,.settings{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.calendar{grid-template-columns:1fr}.date{display:none}}
+</style></head>
 <body>
 <div class="app">
 <aside class="side">
-  <div class="logo"><div class="logo-badge">✦</div><span>Chief of Staff</span></div>
-  <nav class="nav">
-    <button class="active" data-page="dashboard">▦ <span>Dashboard</span></button>
-    <button data-page="emails">✉ <span>Emails</span></button>
-    <button data-page="calendar">◫ <span>Calendar</span></button>
-    <button data-page="tasks">✓ <span>Tasks</span></button>
-    <button data-page="settings">⚙ <span>Settings</span></button>
-  </nav>
-  <div class="side-foot"><b>FYP Demo</b><span>AI productivity assistant</span></div>
+<div class="logo"><div class="mark">✦</div><div>NEXA<small>AI CHIEF OF STAFF</small></div></div>
+<nav class="nav">
+<button class="active" data-page="dashboard">▦ <span>Command Center</span></button>
+<button data-page="emails">✉ <span>Decision Inbox</span></button>
+<button data-page="calendar">◫ <span>Smart Calendar</span></button>
+<button data-page="tasks">✓ <span>Priority Engine</span></button>
+<button data-page="memory">◉ <span>Context Memory</span></button>
+<button data-page="settings">⚙ <span>Integrations</span></button>
+</nav>
+<div class="side-card"><b>FYP Research Prototype</b><span>Explainable AI + productivity intelligence</span></div>
 </aside>
 <main class="main">
-<section id="dashboard" class="page active">
-  <div class="top"><div><p class="eyebrow">AI CHIEF OF STAFF</p><h1>Good afternoon 👋</h1><p>Here’s what needs your attention today.</p></div><div class="date" id="today"></div></div>
-  <div class="hero"><div class="spark">✦</div><div><small>DAILY AI BRIEF</small><h2>You have 2 important meetings today. Your FYP proposal is the highest priority, and one supervisor email needs a reply before the deadline.</h2><p>Generated from current email, task and calendar data.</p></div></div>
-  <div class="stats">
-    <div class="stat"><span>Important emails</span><strong>3</strong><i class="dot red"></i></div>
-    <div class="stat"><span>Needs reply</span><strong>2</strong><i class="dot amber"></i></div>
-    <div class="stat"><span>Upcoming meetings</span><strong>4</strong><i class="dot blue"></i></div>
-    <div class="stat"><span>Pending tasks</span><strong id="pendingCount">6</strong><i class="dot purple"></i></div>
-  </div>
-  <div class="grid2">
-    <div class="panel"><div class="panel-head"><div><small>PRIORITIES</small><h3>Top tasks</h3></div><button class="link go" data-go="tasks">View all</button></div>
-      <div class="row"><div class="rank">1</div><div class="grow"><b>Complete FYP proposal</b><span>Due tomorrow, 11:59 PM</span></div><span class="badge high">Critical · 92</span></div>
-      <div class="row"><div class="rank">2</div><div class="grow"><b>Reply to supervisor</b><span>Due today, 5:00 PM</span></div><span class="badge high">High · 78</span></div>
-      <div class="row"><div class="rank">3</div><div class="grow"><b>Prepare architecture diagram</b><span>Due in 2 days</span></div><span class="badge medium">Medium · 58</span></div>
-    </div>
-    <div class="panel"><div class="panel-head"><div><small>SCHEDULE</small><h3>Upcoming meetings</h3></div><button class="link go" data-go="calendar">Calendar</button></div>
-      <div class="row"><div class="rank">10</div><div class="grow"><b>FYP Supervisor Meeting</b><span>10:00 AM · Online</span></div><span class="badge high">High</span></div>
-      <div class="row"><div class="rank">2</div><div class="grow"><b>Project Team Sync</b><span>2:00 PM · Lab 3</span></div><span class="badge medium">Normal</span></div>
-      <div class="row"><div class="rank">4</div><div class="grow"><b>Presentation Practice</b><span>Tomorrow · 4:00 PM</span></div><span class="badge low">Prep</span></div>
-    </div>
-  </div>
-  <div class="panel"><div class="panel-head"><div><small>INBOX INTELLIGENCE</small><h3>Important emails</h3></div><button class="link go" data-go="emails">Open inbox</button></div>
-    <div class="email-grid">
-      <div class="email"><div class="sender"><div class="avatar">S</div><div class="grow"><b>Supervisor</b><span>10:34 AM</span></div><span class="badge high">High</span></div><h4>Updated FYP Proposal Required</h4><p>Please send the revised proposal before Friday. AI detected a deadline and reply requirement.</p></div>
-      <div class="email"><div class="sender"><div class="avatar">C</div><div class="grow"><b>Career Office</b><span>9:12 AM</span></div><span class="badge medium">Medium</span></div><h4>Internship Documents</h4><p>Your application requires two remaining documents before the review can continue.</p></div>
-      <div class="email"><div class="sender"><div class="avatar">T</div><div class="grow"><b>Team</b><span>Yesterday</span></div><span class="badge high">High</span></div><h4>Presentation Slides Review</h4><p>Please review the final slides and send comments before tomorrow afternoon.</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="emails" class="page">
-  <div class="page-title"><div><p class="eyebrow">INBOX INTELLIGENCE</p><h2>Email Analyzer</h2></div><div class="toolbar"><input class="search" id="emailSearch" placeholder="Search emails..."><button class="btn primary" id="analyzeBtn">Analyze Email</button></div></div>
-  <table class="table" id="emailTable"><thead><tr><th>SENDER</th><th>SUBJECT</th><th>CATEGORY</th><th>IMPORTANCE</th><th>NEEDS REPLY</th></tr></thead><tbody>
-    <tr><td>Supervisor</td><td>Updated FYP Proposal Required</td><td>Academic</td><td><span class="badge high">High</span></td><td>Yes</td></tr>
-    <tr><td>Career Office</td><td>Internship Documents</td><td>Work</td><td><span class="badge medium">Medium</span></td><td>Yes</td></tr>
-    <tr><td>Project Team</td><td>Presentation Slides Review</td><td>Academic</td><td><span class="badge high">High</span></td><td>No</td></tr>
-    <tr><td>University</td><td>Semester Fee Reminder</td><td>Academic</td><td><span class="badge medium">Medium</span></td><td>No</td></tr>
-    <tr><td>Store</td><td>Weekend Special Discount</td><td>Promotional</td><td><span class="badge low">Low</span></td><td>No</td></tr>
-  </tbody></table>
-  <div class="notice">Demo mode: current data is sample FYP data. Real Gmail integration can be connected after Google OAuth credentials are added.</div>
-</section>
-
-<section id="calendar" class="page">
-  <div class="page-title"><div><p class="eyebrow">SMART SCHEDULE</p><h2>Calendar</h2></div><button class="btn primary">+ Add Event</button></div>
-  <div class="calendar">
-    <div class="event"><div class="time">TODAY · 10:00 AM</div><h4>FYP Supervisor Meeting</h4><p>Online · High importance<br><br><b>AI prep:</b> Review proposal, architecture and AI pipeline.</p></div>
-    <div class="event"><div class="time">TODAY · 2:00 PM</div><h4>Project Team Sync</h4><p>Lab 3 · Normal importance<br><br><b>AI prep:</b> Check pending tasks and demo progress.</p></div>
-    <div class="event"><div class="time">TOMORROW · 4:00 PM</div><h4>Presentation Practice</h4><p>Seminar Room<br><br><b>AI prep:</b> Practice problem statement and system flow.</p></div>
-    <div class="event"><div class="time">MONDAY · 11:30 AM</div><h4>Department Review</h4><p>CS Department<br><br><b>AI prep:</b> Prepare milestone status and limitations.</p></div>
-  </div>
-</section>
-
-<section id="tasks" class="page">
-  <div class="page-title"><div><p class="eyebrow">PRIORITY ENGINE</p><h2>Tasks</h2></div><button class="btn primary" id="addTask">+ New Task</button></div>
-  <div class="task-list" id="taskList">
-    <label class="task"><input class="check" type="checkbox"><div class="grow"><b>Complete FYP proposal</b><span>Deadline urgency + importance + source = 92</span></div><span class="badge high">Critical · 92</span></label>
-    <label class="task"><input class="check" type="checkbox"><div class="grow"><b>Reply to supervisor</b><span>Email needs reply · due today</span></div><span class="badge high">High · 78</span></label>
-    <label class="task"><input class="check" type="checkbox"><div class="grow"><b>Prepare architecture diagram</b><span>Due in 2 days</span></div><span class="badge medium">Medium · 58</span></label>
-    <label class="task"><input class="check" type="checkbox"><div class="grow"><b>Review presentation slides</b><span>Due tomorrow</span></div><span class="badge medium">Medium · 52</span></label>
-    <label class="task"><input class="check" type="checkbox"><div class="grow"><b>Research evaluation metrics</b><span>Due this week</span></div><span class="badge low">Low · 34</span></label>
-    <label class="task"><input class="check" type="checkbox"><div class="grow"><b>Update README documentation</b><span>No urgent deadline</span></div><span class="badge low">Low · 22</span></label>
-  </div>
-</section>
-
-<section id="settings" class="page">
-  <div class="page-title"><div><p class="eyebrow">CONFIGURATION</p><h2>Settings</h2></div></div>
-  <div class="settings-grid">
-    <div class="setting-card"><h3>AI Engine <span class="badge low switch">Ready</span></h3><p>Structured email analysis, task extraction, deadline detection and daily brief generation.</p><button class="btn soft">Gemini API Setup</button></div>
-    <div class="setting-card"><h3>Gmail <span class="badge medium switch">Demo</span></h3><p>Connect Google OAuth to read live inbox data using read-only permissions.</p><button class="btn soft">Connect Gmail</button></div>
-    <div class="setting-card"><h3>Google Calendar <span class="badge medium switch">Demo</span></h3><p>Connect upcoming events and use AI to prepare meeting notes.</p><button class="btn soft">Connect Calendar</button></div>
-    <div class="setting-card"><h3>Priority Engine <span class="badge low switch">Active</span></h3><p>Transparent score combines deadline urgency, importance, source and reply requirement.</p></div>
-  </div>
-</section>
-</main>
+<section class="page active" id="dashboard">
+<div class="top"><div><p class="eyebrow">PERSONAL INTELLIGENCE LAYER</p><h1>Good evening, Abdul 👋</h1><p>NEXA turns inbox, calendar and tasks into one explainable action plan.</p></div><div class="date" id="today"></div></div>
+<div class="command"><div class="ai">✦</div><input id="askInput" placeholder="Ask: What should I focus on today? / Which email needs my reply?"><button class="btn primary" id="askBtn">Ask NEXA</button></div>
+<div class="hero">
+<div class="brief"><small class="eyebrow" style="color:#cfd2ff">AI DAILY BRIEF</small><h2>Your FYP proposal is the most time-sensitive item. Reply to your supervisor before 5 PM, then prepare the architecture diagram for tomorrow’s review.</h2><p>Reasoning combines deadlines, sender importance, reply requirement, meeting proximity and task status.</p><div class="brief-actions"><button class="btn tiny" id="whyBtn">Why this plan?</button><button class="btn tiny" id="changesBtn">What changed?</button></div></div>
+<div class="focus"><div class="ring"><div><strong>72</strong><span>FOCUS SCORE</span></div></div><div><p class="eyebrow">FOCUS RADAR</p><h3>Moderately loaded</h3><p>2 urgent items, 4 pending tasks and 2 meetings. Best deep-work window: 3:00–4:30 PM.</p></div></div>
 </div>
+<div class="stats">
+<div class="stat"><span>Decision-required emails</span><strong>3</strong><em>+1 today</em></div>
+<div class="stat"><span>Extracted action items</span><strong>6</strong><em>2 urgent</em></div>
+<div class="stat"><span>Meeting prep cards</span><strong>4</strong><em>AI ready</em></div>
+<div class="stat"><span>Context links</span><strong>12</strong><em>across sources</em></div>
+</div>
+<div class="grid2">
+<div>
+<div class="panel"><div class="ph"><div><small>EXPLAINABLE PRIORITY ENGINE</small><h3>Top actions</h3></div><button class="link go" data-go="tasks">Open engine</button></div>
+<div class="row"><div class="rank">1</div><div class="grow"><b>Complete FYP proposal</b><span>Due tomorrow · supervisor-related · meeting-linked</span></div><button class="explain" data-explain="92|Deadline +40, Importance +30, Supervisor source +12, Meeting link +10">Why 92?</button></div>
+<div class="row"><div class="rank">2</div><div class="grow"><b>Reply to supervisor</b><span>Due today · explicit reply requested</span></div><button class="explain" data-explain="78|Deadline +40, Importance +20, Needs reply +10, Academic source +8">Why 78?</button></div>
+<div class="row"><div class="rank">3</div><div class="grow"><b>Prepare architecture diagram</b><span>Due in 2 days · linked to FYP review</span></div><button class="explain" data-explain="58|Deadline +20, Importance +20, Meeting proximity +10, Project context +8">Why 58?</button></div>
+</div>
+<div class="panel"><div class="ph"><div><small>CONTEXT FUSION</small><h3>What NEXA connected</h3></div><button class="link go" data-go="memory">View memory</button></div>
+<div class="signal">
+<div class="sig"><div class="num">3</div><b>Source types</b><p>Email, calendar and manual tasks combined.</p></div>
+<div class="sig"><div class="num">5</div><b>Linked items</b><p>FYP context grouped into one working thread.</p></div>
+<div class="sig"><div class="num">2</div><b>Conflicts found</b><p>Deadlines overlap with scheduled meetings.</p></div>
+</div>
+</div>
+</div>
+<div>
+<div class="panel"><div class="ph"><div><small>DECISION INBOX</small><h3>Needs your judgment</h3></div><button class="link go" data-go="emails">Open inbox</button></div>
+<div class="row"><div class="grow"><b>Supervisor · Proposal update</b><span>Reply + task + deadline detected</span></div><span class="badge high">Act now</span></div>
+<div class="row"><div class="grow"><b>Career Office · Documents</b><span>2 missing files detected</span></div><span class="badge med">Review</span></div>
+<div class="row"><div class="grow"><b>Team · Slide feedback</b><span>Comment requested tomorrow</span></div><span class="badge info">Plan</span></div>
+</div>
+<div class="panel"><div class="ph"><div><small>MEETING INTELLIGENCE</small><h3>Next meeting prep</h3></div><button class="link go" data-go="calendar">Calendar</button></div>
+<div class="row"><div class="rank">10</div><div class="grow"><b>FYP Supervisor Meeting</b><span>10:00 AM · tomorrow</span></div></div>
+<div class="memory"><span class="chip">Proposal v2</span><span class="chip">Architecture</span><span class="chip hot">Deadline risk</span><span class="chip">AI pipeline</span></div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="page" id="emails">
+<div class="page-title"><div><p class="eyebrow">DECISION INBOX</p><h2>Emails converted into decisions</h2></div><div class="tools"><input class="search" id="emailSearch" placeholder="Search inbox..."><button class="btn primary" id="analyzeBtn">Analyze New Email</button></div></div>
+<table class="table" id="emailTable"><thead><tr><th>SENDER</th><th>SUBJECT</th><th>AI INTERPRETATION</th><th>PRIORITY</th><th>ACTION</th></tr></thead><tbody>
+<tr><td>Supervisor</td><td>Updated FYP Proposal Required</td><td>Reply + task + Friday deadline</td><td><span class="badge high">High</span></td><td><div class="actionbar"><button class="btn tiny soft act">Draft Reply</button><button class="btn tiny ghost act">Create Task</button></div></td></tr>
+<tr><td>Career Office</td><td>Internship Documents</td><td>2 documents required</td><td><span class="badge med">Medium</span></td><td><button class="btn tiny ghost act">Checklist</button></td></tr>
+<tr><td>Project Team</td><td>Presentation Slides Review</td><td>Feedback requested by tomorrow</td><td><span class="badge high">High</span></td><td><button class="btn tiny ghost act">Schedule Focus</button></td></tr>
+<tr><td>Store</td><td>Weekend Special Discount</td><td>No action required</td><td><span class="badge low">Low</span></td><td><button class="btn tiny ghost act">Archive</button></td></tr>
+</tbody></table>
+</section>
+
+<section class="page" id="calendar">
+<div class="page-title"><div><p class="eyebrow">SMART CALENDAR</p><h2>Meetings with context, not just time</h2></div><button class="btn primary act">+ Add Event</button></div>
+<div class="calendar">
+<div class="event"><div class="time">TOMORROW · 10:00 AM</div><h4>FYP Supervisor Meeting</h4><p><b>AI prep card:</b><br>• Open revised proposal<br>• Explain priority algorithm<br>• Show architecture diagram<br>• Ask approval for Gmail integration</p><button class="btn tiny soft act">Open Prep Card</button></div>
+<div class="event"><div class="time">TODAY · 2:00 PM</div><h4>Project Team Sync</h4><p><b>Context:</b><br>3 unfinished tasks are linked to this meeting. Slide review is the only high-risk item.</p><button class="btn tiny soft act">View Linked Tasks</button></div>
+<div class="event"><div class="time">TOMORROW · 4:00 PM</div><h4>Presentation Practice</h4><p><b>AI suggestion:</b><br>Practice the 90-second problem statement and explain why deterministic priority scoring improves trust.</p><button class="btn tiny soft act">Generate Agenda</button></div>
+</div>
+</section>
+
+<section class="page" id="tasks">
+<div class="page-title"><div><p class="eyebrow">PRIORITY ENGINE</p><h2>Transparent task scoring</h2></div><button class="btn primary" id="addTask">+ Add Task</button></div>
+<div id="taskList">
+<label class="task"><input class="check" type="checkbox"><div class="grow"><b>Complete FYP proposal</b><span>Deadline +40 · Importance +30 · Source +12 · Context +10</span></div><span class="badge high">92 Critical</span><button class="explain" data-explain="92|Due tomorrow (+40), high academic importance (+30), supervisor source (+12), linked meeting (+10)">Explain</button></label>
+<label class="task"><input class="check" type="checkbox"><div class="grow"><b>Reply to supervisor</b><span>Deadline +40 · Importance +20 · Reply +10 · Source +8</span></div><span class="badge high">78 High</span><button class="explain" data-explain="78|Due today (+40), high importance (+20), reply required (+10), academic source (+8)">Explain</button></label>
+<label class="task"><input class="check" type="checkbox"><div class="grow"><b>Prepare architecture diagram</b><span>Deadline +20 · Importance +20 · Meeting +10 · Context +8</span></div><span class="badge med">58 Medium</span><button class="explain" data-explain="58|Due in 2 days (+20), important (+20), upcoming review (+10), project context (+8)">Explain</button></label>
+<label class="task"><input class="check" type="checkbox"><div class="grow"><b>Research evaluation metrics</b><span>Deadline +10 · Importance +15 · Context +9</span></div><span class="badge low">34 Low</span><button class="explain" data-explain="34|Due this week (+10), medium importance (+15), research context (+9)">Explain</button></label>
+</div>
+</section>
+
+<section class="page" id="memory">
+<div class="page-title"><div><p class="eyebrow">CONTEXT MEMORY</p><h2>AI remembers relationships across your work</h2></div><button class="btn soft act">Refresh Memory</button></div>
+<div class="grid2">
+<div class="panel"><div class="ph"><div><small>ACTIVE CONTEXT CLUSTER</small><h3>FYP Project</h3></div><span class="badge info">5 linked items</span></div>
+<div class="memory"><span class="chip hot">Supervisor email</span><span class="chip">Proposal deadline</span><span class="chip">Architecture task</span><span class="chip">Tomorrow 10 AM meeting</span><span class="chip">Presentation prep</span></div>
+<p style="font-size:12px;color:var(--muted);line-height:1.6">NEXA treats these as one context thread. A new supervisor email can automatically update the related task priority and meeting prep.</p></div>
+<div class="panel"><div class="ph"><div><small>MEMORY SUMMARY</small><h3>What the assistant knows</h3></div></div>
+<div class="row"><div class="grow"><b>Main goal</b><span>Prepare and defend FYP proposal</span></div></div>
+<div class="row"><div class="grow"><b>Current risk</b><span>Proposal deadline overlaps with meeting preparation</span></div></div>
+<div class="row"><div class="grow"><b>Preferred next action</b><span>Finish proposal before architecture polish</span></div></div>
+</div></div>
+</section>
+
+<section class="page" id="settings">
+<div class="page-title"><div><p class="eyebrow">INTEGRATIONS</p><h2>Connect the real data sources</h2></div></div>
+<div class="settings">
+<div class="set"><h3>Gemini AI <span class="badge info" style="float:right">Planned</span></h3><p>Structured extraction for summaries, action items, deadlines and contextual brief generation.</p><button class="btn soft act">Configure API</button></div>
+<div class="set"><h3>Gmail <span class="badge med" style="float:right">Demo data</span></h3><p>Read-only OAuth integration for live inbox analysis. Sending email remains user-controlled.</p><button class="btn soft act">Connect Gmail</button></div>
+<div class="set"><h3>Google Calendar <span class="badge med" style="float:right">Demo data</span></h3><p>Read events, detect preparation needs and link meetings to tasks and email context.</p><button class="btn soft act">Connect Calendar</button></div>
+<div class="set"><h3>Explainability Layer <span class="badge low" style="float:right">Active</span></h3><p>Priority score is deterministic and auditable instead of depending only on an LLM.</p></div>
+</div>
+</section>
+</main></div>
 
 <div class="modal" id="modal"><div class="modal-card">
-  <div class="page-title"><h3>AI Email Analyzer</h3><button class="btn soft" id="closeModal">Close</button></div>
-  <textarea id="emailInput" placeholder="Paste an email here...">Please send the revised FYP proposal before Friday and reply to confirm that you received this message.</textarea>
-  <div style="margin-top:10px"><button class="btn primary" id="runAnalysis">Run AI Analysis</button></div>
-  <div class="analysis" id="analysis"></div>
+<div class="page-title"><div><p class="eyebrow" id="modalEyebrow">AI ANALYSIS</p><h2 id="modalTitle">Analyze Email</h2></div><button class="btn ghost" id="closeModal">Close</button></div>
+<div id="emailBox"><textarea id="emailInput">Please send the revised FYP proposal before Friday and reply to confirm that you received this message.</textarea><div style="margin-top:9px"><button class="btn primary" id="runAnalysis">Run Analysis</button></div></div>
+<div class="result" id="result"></div>
 </div></div>
+<div class="toast" id="toast"></div>
 
 <script>
-const pages=[...document.querySelectorAll('.page')];
-function go(id){pages.forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));window.scrollTo({top:0,behavior:'smooth'})}
-document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>go(b.dataset.page));
-document.querySelectorAll('.go').forEach(b=>b.onclick=()=>go(b.dataset.go));
+const pages=[...document.querySelectorAll('.page')], nav=[...document.querySelectorAll('.nav button')];
+function go(id){pages.forEach(p=>p.classList.toggle('active',p.id===id));nav.forEach(b=>b.classList.toggle('active',b.dataset.page===id));window.scrollTo({top:0,behavior:'smooth'})}
+nav.forEach(b=>b.onclick=()=>go(b.dataset.page));document.querySelectorAll('.go').forEach(b=>b.onclick=()=>go(b.dataset.go));
 document.getElementById('today').textContent=new Date().toLocaleDateString([], {weekday:'long',month:'long',day:'numeric',year:'numeric'});
-document.querySelectorAll('.check').forEach(c=>c.onchange=()=>{c.closest('.task').classList.toggle('done',c.checked);document.getElementById('pendingCount').textContent=document.querySelectorAll('.check:not(:checked)').length});
-document.getElementById('emailSearch').addEventListener('input',e=>{const q=e.target.value.toLowerCase();document.querySelectorAll('#emailTable tbody tr').forEach(r=>r.style.display=r.innerText.toLowerCase().includes(q)?'':'none')});
-const modal=document.getElementById('modal');document.getElementById('analyzeBtn').onclick=()=>modal.classList.add('show');document.getElementById('closeModal').onclick=()=>modal.classList.remove('show');
-document.getElementById('runAnalysis').onclick=()=>{const t=document.getElementById('emailInput').value.toLowerCase();const deadline=/friday|tomorrow|today|monday|deadline|before/.test(t);const reply=/reply|confirm|respond|let me know/.test(t);const important=/proposal|supervisor|urgent|deadline|required/.test(t);const task=t.includes('proposal')?'Update and send FYP proposal':'Review and respond to email';const box=document.getElementById('analysis');box.classList.add('show');box.innerHTML='<b>Structured AI Output</b><br><br>Summary: Sender requests an action related to the FYP proposal.<br>Importance: <b>'+(important?'High':'Medium')+'</b><br>Needs Reply: <b>'+(reply?'Yes':'No')+'</b><br>Task: <b>'+task+'</b><br>Deadline detected: <b>'+(deadline?'Yes':'No')+'</b><br>Category: <b>Academic</b>'};
-document.getElementById('addTask').onclick=()=>{const title=prompt('Task title');if(!title)return;const el=document.createElement('label');el.className='task';el.innerHTML='<input class="check" type="checkbox"><div class="grow"><b>'+title.replace(/[<>]/g,'')+'</b><span>Manual task · newly added</span></div><span class="badge medium">Medium · 45</span>';document.getElementById('taskList').appendChild(el);const c=el.querySelector('.check');c.onchange=()=>{el.classList.toggle('done',c.checked);document.getElementById('pendingCount').textContent=document.querySelectorAll('.check:not(:checked)').length};document.getElementById('pendingCount').textContent=document.querySelectorAll('.check:not(:checked)').length};
-</script>
-</body></html>
+const modal=document.getElementById('modal'), result=document.getElementById('result'), emailBox=document.getElementById('emailBox');
+function showModal(title,html,showEmail=false){document.getElementById('modalTitle').textContent=title;emailBox.style.display=showEmail?'block':'none';result.classList.add('show');result.innerHTML=html;modal.classList.add('show')}
+document.getElementById('closeModal').onclick=()=>modal.classList.remove('show');
+document.getElementById('analyzeBtn').onclick=()=>{document.getElementById('modalTitle').textContent='Analyze New Email';emailBox.style.display='block';result.classList.remove('show');modal.classList.add('show')};
+document.getElementById('runAnalysis').onclick=()=>{const t=document.getElementById('emailInput').value.toLowerCase(),deadline=/friday|tomorrow|today|monday|deadline|before/.test(t),reply=/reply|confirm|respond|let me know/.test(t),important=/proposal|supervisor|urgent|required|deadline/.test(t);result.classList.add('show');result.innerHTML='<div class="kv"><span>Summary</span><b>Action requested from the recipient.</b></div><div class="kv"><span>Importance</span><b>'+(important?'High':'Medium')+'</b></div><div class="kv"><span>Needs reply</span><b>'+(reply?'Yes':'No')+'</b></div><div class="kv"><span>Task</span><b>'+(t.includes('proposal')?'Update and send FYP proposal':'Review and respond')+'</b></div><div class="kv"><span>Deadline detected</span><b>'+(deadline?'Yes':'No')+'</b></div><div class="kv"><span>Confidence</span><b>0.91</b></div>'};
+document.getElementById('whyBtn').onclick=()=>showModal('Why this plan?','<div class="kv"><span>1. Deadline risk</span><b>Proposal is due tomorrow.</b></div><div class="kv"><span>2. Sender signal</span><b>Supervisor email has high source weight.</b></div><div class="kv"><span>3. Reply requirement</span><b>Explicit confirmation requested.</b></div><div class="kv"><span>4. Meeting context</span><b>Tomorrow’s review depends on the same project.</b></div>');
+document.getElementById('changesBtn').onclick=()=>showModal('What changed since yesterday?','<div class="kv"><span>New email</span><b>Supervisor requested revised proposal.</b></div><div class="kv"><span>Priority change</span><b>Proposal moved from 61 → 92.</b></div><div class="kv"><span>New conflict</span><b>Architecture prep now overlaps with proposal work.</b></div>');
+document.querySelectorAll('.explain').forEach(b=>b.onclick=()=>{const [score,why]=b.dataset.explain.split('|');showModal('Why priority score = '+score,'<div class="kv"><span>Scoring logic</span><b>'+why+'</b></div><div class="kv"><span>Design choice</span><b>Deterministic scoring makes the system auditable for users and examiners.</b></div>')});
+document.getElementById('askBtn').onclick=()=>{const q=document.getElementById('askInput').value.trim();showModal('NEXA Answer','<div class="kv"><span>Your question</span><b>'+(q||'What should I focus on today?')+'</b></div><div class="kv"><span>Answer</span><b>Finish the FYP proposal first, reply to the supervisor, then use the 3:00–4:30 PM focus window for the architecture diagram.</b></div><div class="kv"><span>Evidence</span><b>2 emails · 3 tasks · 2 calendar events</b></div>')};
+document.getElementById('emailSearch').oninput=e=>{const q=e.target.value.toLowerCase();document.querySelectorAll('#emailTable tbody tr').forEach(r=>r.style.display=r.innerText.toLowerCase().includes(q)?'':'none')};
+document.querySelectorAll('.check').forEach(c=>c.onchange=()=>c.closest('.task').classList.toggle('done',c.checked));
+document.getElementById('addTask').onclick=()=>{const t=prompt('Task title');if(!t)return;const e=document.createElement('label');e.className='task';e.innerHTML='<input class="check" type="checkbox"><div class="grow"><b>'+t.replace(/[<>]/g,'')+'</b><span>Manual task · base priority</span></div><span class="badge med">45 Medium</span><button class="explain">Explain</button>';document.getElementById('taskList').appendChild(e);toast('Task added to the priority engine')};
+function toast(t){const x=document.getElementById('toast');x.textContent=t;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),1800)}
+document.querySelectorAll('.act').forEach(b=>b.onclick=()=>toast(b.textContent+' — prototype action completed'));
+</script></body></html>
