@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Project Quote Calculator | Price a Fixed-Fee Project</title>
+<meta name="description" content="Turn an hours estimate into a fixed project price with complexity, revisions, rush fees, expenses, discount, tax and a deposit figure. Free quoting calculator for freelancers.">
+<link rel="canonical" href="https://freelancefigures.com/tools/project-quote-calculator.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FreelanceFigures">
+<meta property="og:title" content="Project Quote Calculator | Price a Fixed-Fee Project">
+<meta property="og:description" content="Turn an hours estimate into a fixed project price with complexity, revisions, rush fees, expenses, discount, tax and a deposit figure. Free quoting calculator for freelancers.">
+<meta property="og:url" content="https://freelancefigures.com/tools/project-quote-calculator.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/main.css">
+<script src="/assets/js/theme-init.js"></script>
+<script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/tool-quote.js" defer></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Project Quote Calculator","url":"https://freelancefigures.com/tools/project-quote-calculator.html","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Turn an hours estimate into a fixed project price with complexity, revisions, rush fees, expenses, discount, tax and a deposit figure. Free quoting calculator for freelancers."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Should I show the client my hourly rate?","acceptedAnswer":{"@type":"Answer","text":"Generally no. Once a client knows your hourly rate, every conversation becomes about hours rather than outcomes, and efficiency starts to look like overcharging. Quote the project. Keep the rate as the private tool you use to check the quote is worth doing."}},{"@type":"Question","name":"What if I estimate the hours badly?","acceptedAnswer":{"@type":"Answer","text":"Everyone does, almost always downward. Two defences: the complexity multiplier here, and a written scope that says exactly what is included. Over time, track actual hours against your estimates &mdash; most freelancers find a personal correction factor somewhere between 1.3 and 1.8 and start applying it automatically."}},{"@type":"Question","name":"Is a 40% deposit really normal?","acceptedAnswer":{"@type":"Answer","text":"Yes, across design, development, writing and consulting. Common structures are 50/50, 40/30/30 across milestones, or 30% up front with monthly billing on longer engagements. The clients who object loudest to deposits are, reliably, the clients who later pay late."}},{"@type":"Question","name":"How do I handle scope creep after the quote is accepted?","acceptedAnswer":{"@type":"Answer","text":"With a change order, not with resentment. &ldquo;Happy to add that &mdash; it is about six hours, so $540, and it moves delivery to the 14th. Shall I send a revised quote?&rdquo; Said early and without drama, this almost never damages a relationship; silently absorbing the work always damages the project."}},{"@type":"Question","name":"Does the calculator store my quotes?","acceptedAnswer":{"@type":"Answer","text":"No. Everything runs in your browser and disappears when you close the tab. Use the copy button to paste the breakdown into your own notes or proposal."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://freelancefigures.com/"},{"@type":"ListItem","position":2,"name":"Calculators","item":"https://freelancefigures.com/#tools"},{"@type":"ListItem","position":3,"name":"Project quote"}]}</script>
+</head>
+<body>
+<header class="site-head">
+<div class="wrap head-row">
+<a class="logo" href="/"><span class="logo-mark" aria-hidden="true">FF</span>FreelanceFigures</a>
+<button class="menu-btn" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+<nav class="nav" aria-label="Main">
+<a href="/#tools" aria-current="page">Tools</a>
+<a href="/#guides">Guides</a>
+<a href="/about.html">About</a>
+<a href="/contact.html">Contact</a>
+</nav>
+<button class="theme-btn" type="button" aria-label="Switch theme">&#9790;</button>
+</div>
+</header>
+<main>
+<div class="wrap narrow">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/#tools">Calculators</a> &rsaquo; Project quote</nav>
+<section class="hero" style="padding:26px 0 0;margin-bottom:24px;">
+<h1>Project Quote Calculator</h1>
+<p>Hourly billing punishes you for being good at your job: the faster you work, the less you earn. Fixed-fee quoting fixes that &mdash; but only if the number covers revisions, scope creep and the parts of the job nobody mentioned in the brief. This builds that number.</p>
+</section>
+
+<form class="calc" id="calcForm" autocomplete="off">
+<div class="row2"><div class="field"><label for="hours">Estimated hours</label><span class="hint">Your honest best estimate of focused working time.</span><div class="input-wrap"><input id="hours" name="hours" type="number" step="any" min="0" inputmode="decimal" value="40"><span class="affix post">hrs</span></div></div><div class="field"><label for="rate">Your hourly rate</label><span class="hint">Not sure? Use the hourly rate calculator first.</span><div class="input-wrap"><span class="affix pre">$</span><input id="rate" name="rate" type="number" step="any" min="0" inputmode="decimal" value="90"></div></div></div>
+<div class="field"><label for="complexity">Complexity multiplier</label><span class="hint">How much harder than routine work is this?</span><select id="complexity" name="complexity">
+<option value="1">1.00 &times; &mdash; routine work you have done many times</option>
+<option value="1.25" selected>1.25 &times; &mdash; some unfamiliar elements</option>
+<option value="1.5">1.50 &times; &mdash; new domain, unclear brief, many stakeholders</option>
+<option value="2">2.00 &times; &mdash; high risk, legacy mess, or difficult client</option>
+</select></div>
+<div class="row2"><div class="field"><label for="revisionBuffer">Revision buffer</label><span class="hint">Rounds of feedback always cost more than you think.</span><div class="input-wrap"><input id="revisionBuffer" name="revisionBuffer" type="number" step="any" min="0" inputmode="decimal" value="20"><span class="affix post">%</span></div></div><div class="field"><label for="rushFee">Rush fee</label><span class="hint">Charge for displacing other work and for evenings.</span><div class="input-wrap"><input id="rushFee" name="rushFee" type="number" step="any" min="0" inputmode="decimal" value="0"><span class="affix post">%</span></div></div></div>
+<div class="row2"><div class="field"><label for="expenses">Pass-through expenses</label><span class="hint">Stock photos, fonts, hosting, plugins, travel.</span><div class="input-wrap"><span class="affix pre">$</span><input id="expenses" name="expenses" type="number" step="any" min="0" inputmode="decimal" value="0"></div></div><div class="field"><label for="discount">Discount</label><span class="hint">Long contracts or a retainer may earn one. Nothing else should.</span><div class="input-wrap"><input id="discount" name="discount" type="number" step="any" min="0" inputmode="decimal" value="0"><span class="affix post">%</span></div></div></div>
+<div class="row2"><div class="field"><label for="taxRate">Sales tax / VAT / GST</label><span class="hint">Added on top of the quote if you are registered.</span><div class="input-wrap"><input id="taxRate" name="taxRate" type="number" step="any" min="0" inputmode="decimal" value="0"><span class="affix post">%</span></div></div><div class="field"><label for="depositPct">Deposit required</label><span class="hint">40&ndash;50% up front is normal and protects you.</span><div class="input-wrap"><input id="depositPct" name="depositPct" type="number" step="any" min="0" inputmode="decimal" value="40"><span class="affix post">%</span></div></div></div>
+<div class="field">
+<label for="currency">Currency</label>
+<select id="currency" name="currency">
+<option value="USD">USD &ndash; US dollar</option>
+<option value="EUR">EUR &ndash; Euro</option>
+<option value="GBP">GBP &ndash; British pound</option>
+<option value="CAD">CAD &ndash; Canadian dollar</option>
+<option value="AUD">AUD &ndash; Australian dollar</option>
+<option value="NZD">NZD &ndash; New Zealand dollar</option>
+<option value="SGD">SGD &ndash; Singapore dollar</option>
+<option value="AED">AED &ndash; UAE dirham</option>
+<option value="INR">INR &ndash; Indian rupee</option>
+<option value="PKR">PKR &ndash; Pakistani rupee</option>
+<option value="ZAR">ZAR &ndash; South African rand</option>
+</select>
+</div>
+<p class="headline-sub" id="warn" hidden style="color:var(--danger);"></p>
+<div class="btn-row">
+<button class="btn" type="submit">Calculate</button>
+<button class="btn btn-ghost" type="button" id="copyBtn">Copy result</button>
+<button class="btn btn-ghost" type="button" id="resetBtn">Reset</button>
+</div>
+<div class="result" id="result" hidden>
+<div class="headline-label">Quote this price</div>
+<div class="headline" id="outTotal">&mdash;</div>
+<p class="headline-sub" id="outSub"></p>
+<div class="pill-row">
+<div class="pill"><div class="k">Deposit up front</div><div class="v" id="outDeposit">&mdash;</div></div>
+<div class="pill"><div class="k">Balance on delivery</div><div class="v" id="outBalance">&mdash;</div></div>
+<div class="pill"><div class="k">Effective hourly</div><div class="v" id="outEffective">&mdash;</div></div>
+<div class="pill"><div class="k">Realistic hours</div><div class="v" id="outHours">&mdash;</div></div>
+</div>
+<table class="breakdown">
+<tr><td>Base work</td><td id="bBase">&mdash;</td></tr>
+<tr class="sub"><td></td><td id="bBaseNote">&mdash;</td></tr>
+<tr><td>Revision buffer</td><td id="bRev">&mdash;</td></tr>
+<tr><td>Rush premium</td><td id="bRush">&mdash;</td></tr>
+<tr><td>Expenses</td><td id="bExp">&mdash;</td></tr>
+<tr><td>Subtotal</td><td id="bSub">&mdash;</td></tr>
+<tr><td>Discount</td><td id="bDisc">&mdash;</td></tr>
+<tr><td>Tax / VAT</td><td id="bTax">&mdash;</td></tr>
+<tr class="total"><td>Total quote</td><td id="bTotal">&mdash;</td></tr>
+</table>
+
+</div>
+</form>
+
+<div class="ad-slot" data-slot="1111111111" data-format="auto"><div class="ad-label">Advertisement</div></div>
+
+<article class="prose">
+
+<h2>Why hours &times; rate is not a quote</h2>
+<p>An estimate of 40 hours at $90 gives you $3,600. Then the client asks for a third round of changes,
+the brand assets arrive in the wrong format, and two stakeholders disagree about the homepage. You
+deliver in 58 hours and earned $62 an hour, not $90.</p>
+<p>A quote is not a prediction of hours. It is a price for an outcome, carrying the risk that the
+outcome takes longer than planned. Everything this calculator adds on top of base hours is a price for
+that risk.</p>
+
+<h2>What each input is doing</h2>
+<h3>Complexity multiplier</h3>
+<p>Work you have done fifty times is genuinely cheaper for you to deliver than work you have never done.
+Unfamiliar domains, legacy systems, five-stakeholder approval chains and vague briefs all inflate the
+real hours in ways your estimate cannot see. Be honest here &mdash; it is the single biggest lever on
+whether a project is profitable.</p>
+<h3>Revision buffer</h3>
+<p>Twenty percent is a sensible default for two rounds of feedback. If you have not written a revision
+limit into your contract, use more. The sentence that saves careers is: <em>&ldquo;The quote includes
+two rounds of revisions; further rounds are billed at my hourly rate.&rdquo;</em></p>
+<h3>Rush fee</h3>
+<p>A rush job is not just overtime, it is displacement &mdash; you are pushing other clients back to fit
+it in. 25% to 50% is standard. Charging nothing teaches clients that your calendar is free.</p>
+<h3>Deposit</h3>
+<p>Forty to fifty percent before work starts is normal professional practice, not an insult. It funds
+the work, it filters out clients who were never going to pay, and it means a disappearing client costs
+you half a project rather than all of it. If an invoice does go unpaid, the
+<a href="/tools/invoice-late-fee-calculator.html">late fee calculator</a> works out what they owe.</p>
+
+<h2>A worked example</h2>
+<p>A 40-hour website build at $90 an hour, somewhat unfamiliar (1.25&times;), with a 20% revision buffer
+and $200 of stock assets:</p>
+<table>
+<tr><th>Line</th><th>Amount</th></tr>
+<tr><td>Base: 40 &times; $90 &times; 1.25</td><td>$4,500</td></tr>
+<tr><td>Revision buffer (20%)</td><td>$900</td></tr>
+<tr><td>Expenses</td><td>$200</td></tr>
+<tr><td><strong>Quote</strong></td><td><strong>$5,600</strong></td></tr>
+<tr><td>Deposit at 40%</td><td>$2,240</td></tr>
+</table>
+<p>Note the effective hourly figure the calculator shows. It is the rate you earn if the pessimistic
+case happens &mdash; complexity and revisions both land in full. If that number is below your target
+rate, the quote is too low no matter how good $5,600 sounds.</p>
+
+<h2>How to present it</h2>
+<ul>
+<li><strong>Send one number.</strong> An itemised breakdown invites line-by-line negotiation. Keep the
+breakdown for yourself.</li>
+<li><strong>Offer three options, not one price.</strong> A reduced scope, the recommended scope and an
+expanded scope. Clients who are given three options choose between them instead of choosing whether to
+hire you.</li>
+<li><strong>Never discount without removing scope.</strong> If the price drops, something must come out.
+Otherwise you have taught the client that your first number was not real.</li>
+<li><strong>Put the expiry date on it.</strong> &ldquo;This quote is valid for 30 days&rdquo; prevents a
+client from accepting last spring's price next autumn.</li>
+</ul>
+
+</article>
+
+<div class="ad-slot" data-slot="2222222222" data-format="fluid"><div class="ad-label">Advertisement</div></div>
+
+<section class="prose">
+<h2>Frequently asked questions</h2>
+<details class="faq"><summary>Should I show the client my hourly rate?</summary><div class="faq-body"><p>Generally no. Once a client knows your hourly rate, every conversation becomes about hours rather than outcomes, and efficiency starts to look like overcharging. Quote the project. Keep the rate as the private tool you use to check the quote is worth doing.</p></div></details>
+<details class="faq"><summary>What if I estimate the hours badly?</summary><div class="faq-body"><p>Everyone does, almost always downward. Two defences: the complexity multiplier here, and a written scope that says exactly what is included. Over time, track actual hours against your estimates &mdash; most freelancers find a personal correction factor somewhere between 1.3 and 1.8 and start applying it automatically.</p></div></details>
+<details class="faq"><summary>Is a 40% deposit really normal?</summary><div class="faq-body"><p>Yes, across design, development, writing and consulting. Common structures are 50/50, 40/30/30 across milestones, or 30% up front with monthly billing on longer engagements. The clients who object loudest to deposits are, reliably, the clients who later pay late.</p></div></details>
+<details class="faq"><summary>How do I handle scope creep after the quote is accepted?</summary><div class="faq-body"><p>With a change order, not with resentment. &ldquo;Happy to add that &mdash; it is about six hours, so $540, and it moves delivery to the 14th. Shall I send a revised quote?&rdquo; Said early and without drama, this almost never damages a relationship; silently absorbing the work always damages the project.</p></div></details>
+<details class="faq"><summary>Does the calculator store my quotes?</summary><div class="faq-body"><p>No. Everything runs in your browser and disappears when you close the tab. Use the copy button to paste the breakdown into your own notes or proposal.</p></div></details>
+</section>
+</div>
+
+<div class="wrap">
+<section style="margin-top:46px;">
+<h2 style="font-size:24px;margin-bottom:14px;">Other calculators</h2>
+<div class="grid">
+<a class="card" href="/tools/freelance-hourly-rate-calculator.html"><span class="tag">Calculator</span><h3>Freelance hourly rate</h3><p>Work backwards from the income you want to the rate you must charge.</p></a>
+<a class="card" href="/tools/self-employment-tax-calculator.html"><span class="tag">Calculator</span><h3>Self-employment tax (US)</h3><p>The 15.3% you owe before income tax, with the wage cap applied properly.</p></a>
+<a class="card" href="/tools/invoice-late-fee-calculator.html"><span class="tag">Calculator</span><h3>Invoice late fee</h3><p>Interest and fees on an overdue invoice, including UK statutory rates.</p></a>
+</div>
+</section>
+<section class="prose narrow wrap" style="padding:0;">
+<h2>Related reading</h2>
+<ul>
+<li><a href="/guides/how-much-should-a-freelancer-charge.html">How Much Should a Freelancer Charge? A Realistic 2026 Answer</a></li>
+<li><a href="/guides/get-clients-to-pay-on-time.html">How to Get Freelance Clients to Pay On Time</a></li>
+<li><a href="/guides/freelance-tax-first-year-checklist.html">Your First Year Freelancing: The Tax Checklist Nobody Gives You</a></li>
+</ul>
+</section>
+</div>
+
+<div class="ad-slot" data-slot="3333333333" data-format="auto"><div class="ad-label">Advertisement</div></div>
+</main>
+<footer class="site-foot">
+<div class="wrap">
+<div class="foot-grid">
+<div>
+<a class="logo" href="/"><span class="logo-mark" aria-hidden="true">FF</span>FreelanceFigures</a>
+<p style="color:var(--text-mute);margin:10px 0 0;max-width:38ch;font-size:14.5px;">
+Free money calculators for freelancers and small businesses. No sign-up, no paywall, nothing leaves your browser.</p>
+</div>
+<div>
+<h4>Calculators</h4>
+<ul>
+<li><a href="/tools/freelance-hourly-rate-calculator.html">Freelance hourly rate</a></li>
+<li><a href="/tools/self-employment-tax-calculator.html">Self-employment tax (US)</a></li>
+<li><a href="/tools/invoice-late-fee-calculator.html">Invoice late fee</a></li>
+<li><a href="/tools/project-quote-calculator.html">Project quote</a></li>
+<li><a href="/tools/freelance-take-home-pay-calculator.html">Freelance take-home pay</a></li>
+<li><a href="/tools/quarterly-tax-savings-calculator.html">Quarterly tax set-aside</a></li>
+</ul>
+</div>
+<div>
+<h4>Site</h4>
+<ul>
+<li><a href="/about.html">About</a></li>
+<li><a href="/contact.html">Contact</a></li>
+<li><a href="/privacy.html">Privacy policy</a></li>
+<li><a href="/terms.html">Terms of use</a></li>
+<li><a href="/disclaimer.html">Disclaimer</a></li>
+</ul>
+</div>
+</div>
+<div class="foot-bottom">
+<span>&copy; 2026 FreelanceFigures. All rights reserved.</span>
+<span>Figures are estimates, not professional tax advice.</span>
+</div>
+</div>
+</footer>
+</body>
+</html>

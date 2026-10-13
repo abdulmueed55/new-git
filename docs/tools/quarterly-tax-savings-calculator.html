@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quarterly Tax Set-Aside Calculator | How Much to Save Per Invoice</title>
+<meta name="description" content="Work out how much of every freelance payment to move into savings for tax, and what each quarterly estimated payment should be. Free calculator, no sign-up.">
+<link rel="canonical" href="https://freelancefigures.com/tools/quarterly-tax-savings-calculator.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FreelanceFigures">
+<meta property="og:title" content="Quarterly Tax Set-Aside Calculator | How Much to Save Per Invoice">
+<meta property="og:description" content="Work out how much of every freelance payment to move into savings for tax, and what each quarterly estimated payment should be. Free calculator, no sign-up.">
+<meta property="og:url" content="https://freelancefigures.com/tools/quarterly-tax-savings-calculator.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/main.css">
+<script src="/assets/js/theme-init.js"></script>
+<script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/tool-set-aside.js" defer></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Quarterly Tax Set-Aside Calculator","url":"https://freelancefigures.com/tools/quarterly-tax-savings-calculator.html","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Work out how much of every freelance payment to move into savings for tax, and what each quarterly estimated payment should be. Free calculator, no sign-up."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do I have to pay quarterly, or can I just pay in April?","acceptedAnswer":{"@type":"Answer","text":"In the US, if you expect to owe $1,000 or more in tax for the year, the IRS expects quarterly estimated payments. Paying it all in April means an underpayment penalty on top, calculated as interest on what you should have paid earlier. The penalty is not enormous, but it is entirely avoidable."}},{"@type":"Question","name":"What if my income is wildly unpredictable?","acceptedAnswer":{"@type":"Answer","text":"Use the per-invoice mode and set a percentage aside from every payment as it arrives. Your savings then track your income automatically, with no forecasting. At each quarterly deadline, pay what the safe-harbour rule requires and leave the rest in the account."}},{"@type":"Question","name":"Should I set aside from revenue or from profit?","acceptedAnswer":{"@type":"Answer","text":"Profit is correct, because that is what is taxed. Setting aside from revenue is simpler and deliberately over-saves, which many freelancers prefer in their first couple of years. Pick one and apply it the same way every time."}},{"@type":"Question","name":"Does this apply outside the United States?","acceptedAnswer":{"@type":"Answer","text":"The percentage logic applies everywhere; the deadlines do not. UK self-assessment uses payments on account due 31 January and 31 July. Canada uses 15 March, June, September and December. Australia uses quarterly BAS or PAYG instalments. Set your own reminders for your country's dates."}},{"@type":"Question","name":"Where should I keep the money?","acceptedAnswer":{"@type":"Answer","text":"A separate high-yield savings account at a bank different from your main one &mdash; the extra friction is a feature. Keep it liquid and keep it safe. Tax money is not an investment fund; it has a due date and it is not really yours."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://freelancefigures.com/"},{"@type":"ListItem","position":2,"name":"Calculators","item":"https://freelancefigures.com/#tools"},{"@type":"ListItem","position":3,"name":"Quarterly tax set-aside"}]}</script>
+</head>
+<body>
+<header class="site-head">
+<div class="wrap head-row">
+<a class="logo" href="/"><span class="logo-mark" aria-hidden="true">FF</span>FreelanceFigures</a>
+<button class="menu-btn" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+<nav class="nav" aria-label="Main">
+<a href="/#tools" aria-current="page">Tools</a>
+<a href="/#guides">Guides</a>
+<a href="/about.html">About</a>
+<a href="/contact.html">Contact</a>
+</nav>
+<button class="theme-btn" type="button" aria-label="Switch theme">&#9790;</button>
+</div>
+</header>
+<main>
+<div class="wrap narrow">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/#tools">Calculators</a> &rsaquo; Quarterly tax set-aside</nav>
+<section class="hero" style="padding:26px 0 0;margin-bottom:24px;">
+<h1>Quarterly Tax Set-Aside Calculator</h1>
+<p>The freelancer's classic disaster is spending money that was never theirs. The fix is mechanical, not moral: the day a client pays, a fixed percentage moves to a separate account and stops existing. This works out that percentage and what each quarterly payment will be.</p>
+</section>
+
+<form class="calc" id="calcForm" autocomplete="off">
+<div class="field"><label for="mode">Work it out from</label><select id="mode" name="mode">
+<option value="annual" selected>My expected profit for the year</option>
+<option value="invoice">A typical invoice amount</option>
+</select></div>
+<div class="field" id="f-annual"><label for="annualProfit">Expected net profit this year</label><span class="hint">Revenue minus business expenses.</span><div class="input-wrap"><span class="affix pre">$</span><input id="annualProfit" name="annualProfit" type="number" step="any" min="0" inputmode="decimal" value="90000"></div></div>
+<div class="row2" id="f-invoice"><div class="field"><label for="invoiceAmount">Typical invoice amount</label><div class="input-wrap"><span class="affix pre">$</span><input id="invoiceAmount" name="invoiceAmount" type="number" step="any" min="0" inputmode="decimal" value="4000"></div></div><div class="field"><label for="invoicesPerYear">Invoices per year</label><div class="input-wrap"><input id="invoicesPerYear" name="invoicesPerYear" type="number" step="any" min="0" inputmode="decimal" value="24"><span class="affix post">inv</span></div></div></div>
+<div class="field"><label for="taxRate">Set-aside rate</label><span class="hint">25&ndash;30% suits most freelancers. 35&ndash;40% if you are in a high-tax state or bracket.</span><div class="input-wrap"><input id="taxRate" name="taxRate" type="number" step="any" min="0" inputmode="decimal" value="30"><span class="affix post">%</span></div></div>
+<div class="field"><label for="alreadyPaid">Estimated tax already paid this year</label><span class="hint">Payments you have made so far.</span><div class="input-wrap"><span class="affix pre">$</span><input id="alreadyPaid" name="alreadyPaid" type="number" step="any" min="0" inputmode="decimal" value="0"></div></div>
+<div class="field">
+<label for="currency">Currency</label>
+<select id="currency" name="currency">
+<option value="USD">USD &ndash; US dollar</option>
+<option value="EUR">EUR &ndash; Euro</option>
+<option value="GBP">GBP &ndash; British pound</option>
+<option value="CAD">CAD &ndash; Canadian dollar</option>
+<option value="AUD">AUD &ndash; Australian dollar</option>
+<option value="NZD">NZD &ndash; New Zealand dollar</option>
+<option value="SGD">SGD &ndash; Singapore dollar</option>
+<option value="AED">AED &ndash; UAE dirham</option>
+<option value="INR">INR &ndash; Indian rupee</option>
+<option value="PKR">PKR &ndash; Pakistani rupee</option>
+<option value="ZAR">ZAR &ndash; South African rand</option>
+</select>
+</div>
+<p class="headline-sub" id="warn" hidden style="color:var(--danger);"></p>
+<div class="btn-row">
+<button class="btn" type="submit">Calculate</button>
+<button class="btn btn-ghost" type="button" id="copyBtn">Copy result</button>
+<button class="btn btn-ghost" type="button" id="resetBtn">Reset</button>
+</div>
+<div class="result" id="result" hidden>
+<div class="headline-label">Each quarterly payment</div>
+<div class="headline" id="outQuarter">&mdash;</div>
+<p class="headline-sub" id="outSub"></p>
+<div class="pill-row">
+<div class="pill"><div class="k">Tax for the year</div><div class="v" id="outYear">&mdash;</div></div>
+<div class="pill"><div class="k">Per month</div><div class="v" id="outMonth">&mdash;</div></div>
+<div class="pill"><div class="k">Set-aside rate</div><div class="v" id="outPct">&mdash;</div></div>
+</div>
+<table class="breakdown">
+<tr><td>Expected net profit</td><td id="bAnnual">&mdash;</td></tr>
+<tr class="sub"><td>Set-aside rate</td><td id="bRate">&mdash;</td></tr>
+<tr><td>Total tax to cover</td><td id="bTotal">&mdash;</td></tr>
+<tr><td>Already paid</td><td id="bPaid">&mdash;</td></tr>
+<tr><td>Still to pay</td><td id="bRemain">&mdash;</td></tr>
+<tr class="total"><td>Per quarter</td><td id="bQuarter">&mdash;</td></tr>
+</table>
+<div class="pill-row" id="invoiceRow" hidden><div class="pill"><div class="k">Move aside per invoice</div><div class="v" id="outInvoice">&mdash;</div></div></div>
+</div>
+</form>
+
+<div class="ad-slot" data-slot="1111111111" data-format="auto"><div class="ad-label">Advertisement</div></div>
+
+<article class="prose">
+
+<h2>Why a separate account beats willpower</h2>
+<p>Nobody overspends their tax money on purpose. It happens because a $4,000 payment lands in the same
+account as everything else and, for three months, it looks like $4,000 of available money. By the time
+the quarterly payment is due, some of it is a new laptop.</p>
+<p>The freelancers who never have this problem all do the same thing: a second savings account, and a
+standing habit that the moment a client payment clears, a fixed percentage moves out of reach. It takes
+thirty seconds and it removes an entire category of anxiety from your year.</p>
+
+<h2>What percentage should you set aside?</h2>
+<table>
+<tr><th>Situation</th><th>Suggested set-aside</th></tr>
+<tr><td>Low profit, no state income tax</td><td>20&ndash;25%</td></tr>
+<tr><td>Typical US freelancer, moderate state tax</td><td>28&ndash;32%</td></tr>
+<tr><td>High earner, or a high-tax state such as California or New York</td><td>35&ndash;40%</td></tr>
+<tr><td>UK sole trader, basic rate</td><td>25&ndash;30%</td></tr>
+</table>
+<p>Set it against <em>profit</em>, not revenue. If you invoice $10,000 and spend $2,500 running the
+business, the 30% applies to $7,500. Setting aside a percentage of revenue is simpler and over-saves,
+which is a pleasant problem; just be consistent about which one you are doing.</p>
+
+<h2>The quarterly deadlines</h2>
+<p>US <a href="/tools/quarterly-tax-savings-calculator.html">estimated tax payments</a> are due four times a year, usually on these dates (they shift to the next
+business day when one falls on a weekend or holiday):</p>
+<table>
+<tr><th>Quarter</th><th>Income period</th><th>Usually due</th></tr>
+<tr><td>Q1</td><td>1 January &ndash; 31 March</td><td>15 April</td></tr>
+<tr><td>Q2</td><td>1 April &ndash; 31 May</td><td>15 June</td></tr>
+<tr><td>Q3</td><td>1 June &ndash; 31 August</td><td>15 September</td></tr>
+<tr><td>Q4</td><td>1 September &ndash; 31 December</td><td>15 January, next year</td></tr>
+</table>
+<p>Note that the quarters are not equal lengths &mdash; Q2 covers two months and Q3 covers three. It is
+a quirk of the tax code, not a mistake.</p>
+
+<h2>The safe-harbour rule, which removes the guesswork</h2>
+<p>You cannot know this year's income in April. The US tax code solves that: if you pay at least 100% of
+last year's total tax across your four estimated payments &mdash; 110% if your prior-year adjusted gross
+income was above $150,000 &mdash; you cannot be charged an underpayment penalty, no matter how much you
+end up earning. Take last year's total tax, divide by four, and pay that. Any extra is settled in April.</p>
+<div class="note">
+<p><strong>First year freelancing?</strong> There is no prior year to copy, so estimate forwards and set
+aside generously. Over-saving costs you a little interest; under-saving costs you a penalty and a very
+unpleasant April.</p>
+</div>
+
+<h2>Keep the money working</h2>
+<p>Tax money sitting in a current account earns nothing while you hold it for up to a year. A
+high-yield savings account or money market fund keeps it liquid and pays interest &mdash; on an average
+balance of $9,000 at 4%, that is a few hundred dollars a year for no work. Do not lock it up or invest
+it in anything that can fall; this money has a deadline.</p>
+<p>To refine your set-aside rate, run your figures through the
+<a href="/tools/self-employment-tax-calculator.html">self-employment tax calculator</a> and the
+<a href="/tools/freelance-take-home-pay-calculator.html">take-home pay calculator</a>.</p>
+
+</article>
+
+<div class="ad-slot" data-slot="2222222222" data-format="fluid"><div class="ad-label">Advertisement</div></div>
+
+<section class="prose">
+<h2>Frequently asked questions</h2>
+<details class="faq"><summary>Do I have to pay quarterly, or can I just pay in April?</summary><div class="faq-body"><p>In the US, if you expect to owe $1,000 or more in tax for the year, the IRS expects quarterly estimated payments. Paying it all in April means an underpayment penalty on top, calculated as interest on what you should have paid earlier. The penalty is not enormous, but it is entirely avoidable.</p></div></details>
+<details class="faq"><summary>What if my income is wildly unpredictable?</summary><div class="faq-body"><p>Use the per-invoice mode and set a percentage aside from every payment as it arrives. Your savings then track your income automatically, with no forecasting. At each quarterly deadline, pay what the safe-harbour rule requires and leave the rest in the account.</p></div></details>
+<details class="faq"><summary>Should I set aside from revenue or from profit?</summary><div class="faq-body"><p>Profit is correct, because that is what is taxed. Setting aside from revenue is simpler and deliberately over-saves, which many freelancers prefer in their first couple of years. Pick one and apply it the same way every time.</p></div></details>
+<details class="faq"><summary>Does this apply outside the United States?</summary><div class="faq-body"><p>The percentage logic applies everywhere; the deadlines do not. UK self-assessment uses payments on account due 31 January and 31 July. Canada uses 15 March, June, September and December. Australia uses quarterly BAS or PAYG instalments. Set your own reminders for your country's dates.</p></div></details>
+<details class="faq"><summary>Where should I keep the money?</summary><div class="faq-body"><p>A separate high-yield savings account at a bank different from your main one &mdash; the extra friction is a feature. Keep it liquid and keep it safe. Tax money is not an investment fund; it has a due date and it is not really yours.</p></div></details>
+</section>
+</div>
+
+<div class="wrap">
+<section style="margin-top:46px;">
+<h2 style="font-size:24px;margin-bottom:14px;">Other calculators</h2>
+<div class="grid">
+<a class="card" href="/tools/freelance-hourly-rate-calculator.html"><span class="tag">Calculator</span><h3>Freelance hourly rate</h3><p>Work backwards from the income you want to the rate you must charge.</p></a>
+<a class="card" href="/tools/self-employment-tax-calculator.html"><span class="tag">Calculator</span><h3>Self-employment tax (US)</h3><p>The 15.3% you owe before income tax, with the wage cap applied properly.</p></a>
+<a class="card" href="/tools/invoice-late-fee-calculator.html"><span class="tag">Calculator</span><h3>Invoice late fee</h3><p>Interest and fees on an overdue invoice, including UK statutory rates.</p></a>
+</div>
+</section>
+<section class="prose narrow wrap" style="padding:0;">
+<h2>Related reading</h2>
+<ul>
+<li><a href="/guides/how-much-should-a-freelancer-charge.html">How Much Should a Freelancer Charge? A Realistic 2026 Answer</a></li>
+<li><a href="/guides/get-clients-to-pay-on-time.html">How to Get Freelance Clients to Pay On Time</a></li>
+<li><a href="/guides/freelance-tax-first-year-checklist.html">Your First Year Freelancing: The Tax Checklist Nobody Gives You</a></li>
+</ul>
+</section>
+</div>
+
+<div class="ad-slot" data-slot="3333333333" data-format="auto"><div class="ad-label">Advertisement</div></div>
+</main>
+<footer class="site-foot">
+<div class="wrap">
+<div class="foot-grid">
+<div>
+<a class="logo" href="/"><span class="logo-mark" aria-hidden="true">FF</span>FreelanceFigures</a>
+<p style="color:var(--text-mute);margin:10px 0 0;max-width:38ch;font-size:14.5px;">
+Free money calculators for freelancers and small businesses. No sign-up, no paywall, nothing leaves your browser.</p>
+</div>
+<div>
+<h4>Calculators</h4>
+<ul>
+<li><a href="/tools/freelance-hourly-rate-calculator.html">Freelance hourly rate</a></li>
+<li><a href="/tools/self-employment-tax-calculator.html">Self-employment tax (US)</a></li>
+<li><a href="/tools/invoice-late-fee-calculator.html">Invoice late fee</a></li>
+<li><a href="/tools/project-quote-calculator.html">Project quote</a></li>
+<li><a href="/tools/freelance-take-home-pay-calculator.html">Freelance take-home pay</a></li>
+<li><a href="/tools/quarterly-tax-savings-calculator.html">Quarterly tax set-aside</a></li>
+</ul>
+</div>
+<div>
+<h4>Site</h4>
+<ul>
+<li><a href="/about.html">About</a></li>
+<li><a href="/contact.html">Contact</a></li>
+<li><a href="/privacy.html">Privacy policy</a></li>
+<li><a href="/terms.html">Terms of use</a></li>
+<li><a href="/disclaimer.html">Disclaimer</a></li>
+</ul>
+</div>
+</div>
+<div class="foot-bottom">
+<span>&copy; 2026 FreelanceFigures. All rights reserved.</span>
+<span>Figures are estimates, not professional tax advice.</span>
+</div>
+</div>
+</footer>
+</body>
+</html>

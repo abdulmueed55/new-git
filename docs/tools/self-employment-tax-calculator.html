@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Self-Employment Tax Calculator | Social Security + Medicare</title>
+<meta name="description" content="Calculate the 15.3% US self-employment tax on your net profit, including the Social Security wage cap, Additional Medicare tax and your quarterly payment. Free and instant.">
+<link rel="canonical" href="https://freelancefigures.com/tools/self-employment-tax-calculator.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FreelanceFigures">
+<meta property="og:title" content="Self-Employment Tax Calculator | Social Security + Medicare">
+<meta property="og:description" content="Calculate the 15.3% US self-employment tax on your net profit, including the Social Security wage cap, Additional Medicare tax and your quarterly payment. Free and instant.">
+<meta property="og:url" content="https://freelancefigures.com/tools/self-employment-tax-calculator.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/main.css">
+<script src="/assets/js/theme-init.js"></script>
+<script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/tool-se-tax.js" defer></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Self-Employment Tax Calculator","url":"https://freelancefigures.com/tools/self-employment-tax-calculator.html","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Calculate the 15.3% US self-employment tax on your net profit, including the Social Security wage cap, Additional Medicare tax and your quarterly payment. Free and instant."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do I owe self-employment tax if I only made a few thousand dollars?","acceptedAnswer":{"@type":"Answer","text":"You owe it once your net earnings from self-employment reach $400 for the year. Below that threshold there is no SE tax, although the income may still be reportable for income tax."}},{"@type":"Question","name":"Is self-employment tax the same as income tax?","acceptedAnswer":{"@type":"Answer","text":"No, and this is the single most expensive misunderstanding in freelancing. SE tax funds Social Security and Medicare and is calculated on your business profit. Income tax is calculated separately on your taxable income after deductions. You pay both."}},{"@type":"Question","name":"Does forming an S corporation reduce this?","acceptedAnswer":{"@type":"Answer","text":"It can. An S corp lets you split your profit into a reasonable salary (which pays payroll tax) and a distribution (which does not). The saving only outweighs the payroll, filing and accounting costs at a certain profit level &mdash; commonly cited as somewhere above $80,000 to $100,000 of net profit, but it depends on your state and your reasonable salary. Talk to a CPA before restructuring."}},{"@type":"Question","name":"Why is the wage base an editable field?","acceptedAnswer":{"@type":"Answer","text":"Because the Social Security Administration raises it every year with average wage growth, and a hard-coded figure in a calculator goes stale the moment it changes. Check the current year's number on the SSA website and type it in &mdash; the rest of the maths adapts."}},{"@type":"Question","name":"What if I had a loss this year?","acceptedAnswer":{"@type":"Answer","text":"No self-employment tax is due on a loss. The calculator needs a positive net profit to produce a figure. A business loss may offset other income for income-tax purposes, which is worth raising with a tax preparer."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://freelancefigures.com/"},{"@type":"ListItem","position":2,"name":"Calculators","item":"https://freelancefigures.com/#tools"},{"@type":"ListItem","position":3,"name":"Self-employment tax (US)"}]}</script>
+</head>
+<body>
+<header class="site-head">
+<div class="wrap head-row">
+<a class="logo" href="/"><span class="logo-mark" aria-hidden="true">FF</span>FreelanceFigures</a>
+<button class="menu-btn" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+<nav class="nav" aria-label="Main">
+<a href="/#tools" aria-current="page">Tools</a>
+<a href="/#guides">Guides</a>
+<a href="/about.html">About</a>
+<a href="/contact.html">Contact</a>
+</nav>
+<button class="theme-btn" type="button" aria-label="Switch theme">&#9790;</button>
+</div>
+</header>
+<main>
+<div class="wrap narrow">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/#tools">Calculators</a> &rsaquo; Self-employment tax (US)</nav>
+<section class="hero" style="padding:26px 0 0;margin-bottom:24px;">
+<h1>Self-Employment Tax Calculator</h1>
+<p>If you are self-employed in the United States you pay both halves of Social Security and Medicare &mdash; 15.3% &mdash; before a single dollar of income tax is worked out. This calculator applies the 92.35% adjustment, the Social Security wage cap and the Additional Medicare surtax, and shows what to send the IRS each quarter.</p>
+</section>
+
+<form class="calc" id="calcForm" autocomplete="off">
+<div class="field"><label for="netProfit">Net profit from self-employment</label><span class="hint">Business income minus deductible business expenses &mdash; the bottom line of Schedule C.</span><div class="input-wrap"><span class="affix pre">$</span><input id="netProfit" name="netProfit" type="number" step="any" min="0" inputmode="decimal" value="80000"></div></div>
+<div class="field"><label for="w2Wages">W-2 wages from a job (if any)</label><span class="hint">Wages already taxed for Social Security this year. These use up the wage cap first.</span><div class="input-wrap"><span class="affix pre">$</span><input id="w2Wages" name="w2Wages" type="number" step="any" min="0" inputmode="decimal" value="0"></div></div>
+<div class="field"><label for="filingStatus">Filing status</label><span class="hint">Sets the Additional Medicare threshold.</span><select id="filingStatus" name="filingStatus">
+<option value="single" selected>Single</option>
+<option value="mfj">Married filing jointly</option>
+<option value="mfs">Married filing separately</option>
+<option value="hoh">Head of household</option>
+</select></div>
+<div class="row2"><div class="field"><label for="wageBase">Social Security wage base</label><span class="hint">Set by the SSA each year &mdash; check the current figure and edit if needed.</span><div class="input-wrap"><span class="affix pre">$</span><input id="wageBase" name="wageBase" type="number" step="any" min="0" inputmode="decimal" value="184500"></div></div><div class="field"><label for="ssRate">Social Security rate</label><span class="hint">12.4% combined employer + employee.</span><div class="input-wrap"><input id="ssRate" name="ssRate" type="number" step="any" min="0" inputmode="decimal" value="12.4"><span class="affix post">%</span></div></div></div>
+<div class="field"><label for="medRate">Medicare rate</label><span class="hint">2.9% combined, with no upper limit.</span><div class="input-wrap"><input id="medRate" name="medRate" type="number" step="any" min="0" inputmode="decimal" value="2.9"><span class="affix post">%</span></div></div>
+<p class="headline-sub" id="warn" hidden style="color:var(--danger);"></p>
+<div class="btn-row">
+<button class="btn" type="submit">Calculate</button>
+<button class="btn btn-ghost" type="button" id="copyBtn">Copy result</button>
+<button class="btn btn-ghost" type="button" id="resetBtn">Reset</button>
+</div>
+<div class="result" id="result" hidden>
+<div class="headline-label">Self-employment tax owed</div>
+<div class="headline" id="outTotal">&mdash;</div>
+<p class="headline-sub" id="outSub"></p>
+<div class="pill-row">
+<div class="pill"><div class="k">Each quarter</div><div class="v" id="outQuarter">&mdash;</div></div>
+<div class="pill"><div class="k">Income-tax deduction</div><div class="v" id="outDeduct">&mdash;</div></div>
+<div class="pill"><div class="k">Effective rate</div><div class="v" id="outEff">&mdash;</div></div>
+</div>
+<table class="breakdown">
+<tr><td>Net profit</td><td id="bProfit">&mdash;</td></tr>
+<tr class="sub"><td>&times; 92.35% = SE tax base</td><td id="bSeBase">&mdash;</td></tr>
+<tr class="sub"><td>Subject to Social Security</td><td id="bSsTaxable">&mdash;</td></tr>
+<tr><td>Social Security portion</td><td id="bSs">&mdash;</td></tr>
+<tr><td>Medicare portion</td><td id="bMed">&mdash;</td></tr>
+<tr><td>Additional Medicare (0.9%)</td><td id="bAddl">&mdash;</td></tr>
+<tr class="total"><td>Total self-employment tax</td><td id="bTotal">&mdash;</td></tr>
+</table>
+<p class="headline-sub" id="capNote" hidden></p>
+</div>
+</form>
+
+<div class="ad-slot" data-slot="1111111111" data-format="auto"><div class="ad-label">Advertisement</div></div>
+
+<article class="prose">
+
+<h2>What self-employment tax actually is</h2>
+<p>An employee and their employer each pay 7.65% of wages into Social Security and Medicare. When you
+are self-employed you are both parties, so you pay the full 15.3%. This is <em>separate from and in
+addition to</em> federal income tax &mdash; which is why a freelancer earning $80,000 can be shocked by
+a tax bill that an employee earning $80,000 never sees.</p>
+<p>It breaks into three pieces:</p>
+<table>
+<tr><th>Component</th><th>Rate</th><th>Applies to</th></tr>
+<tr><td>Social Security (OASDI)</td><td>12.4%</td><td>Earnings up to the annual wage base, then nothing</td></tr>
+<tr><td>Medicare</td><td>2.9%</td><td>Every dollar, no ceiling</td></tr>
+<tr><td>Additional Medicare</td><td>0.9%</td><td>Earnings above $200k single / $250k married filing jointly</td></tr>
+</table>
+
+<h2>The 92.35% rule nobody explains</h2>
+<p>You do not pay SE tax on your full net profit. You pay it on 92.35% of it. The reasoning is that an
+employer's half of payroll tax is a deductible business expense, so the law gives the self-employed an
+equivalent adjustment by shrinking the base. On $80,000 of profit, the taxable base is $73,880, and
+15.3% of that is $11,303.64 &mdash; not $12,240.</p>
+<div class="note">
+<p><strong>SE tax base</strong> = net profit &times; 0.9235<br>
+<strong>Social Security</strong> = min(SE base, wage base &minus; W-2 wages) &times; 12.4%<br>
+<strong>Medicare</strong> = SE base &times; 2.9%<br>
+<strong>Additional Medicare</strong> = (SE base + W-2 wages &minus; threshold) &times; 0.9%</p>
+</div>
+
+<h2>The wage cap, and why a side job changes your bill</h2>
+<p>Social Security stops at a ceiling that the Social Security Administration resets every year. Above
+it, you keep paying Medicare but the 12.4% disappears &mdash; so very high earners have a lower
+<em>effective</em> SE rate than middle earners.</p>
+<p>The catch that surprises people with both a job and a side business: your W-2 wages fill that cap
+first. If you already earned $150,000 at a job and the cap is $184,500, only $34,500 of your freelance
+profit faces Social Security tax. Enter your W-2 wages above and the calculator handles it.</p>
+
+<h2>Half of it comes back as a deduction</h2>
+<p>You can deduct one half of your <a href="/tools/self-employment-tax-calculator.html">self-employment tax</a> when calculating your adjusted gross income. It
+is an above-the-line deduction, so you get it whether or not you itemise. The 0.9% Additional Medicare
+surtax is not deductible. The calculator shows the deductible figure separately &mdash; it typically
+knocks a few hundred to a few thousand dollars off your income tax.</p>
+
+<h2>Paying it: quarterly, not in April</h2>
+<p>The IRS expects estimated payments four times a year, generally 15 April, 15 June, 15 September and
+15 January. Miss them and you owe an underpayment penalty even if you pay the full amount later. The
+safest approach for most freelancers is the safe-harbour rule: pay 100% of last year's total tax
+(110% if your prior-year AGI was over $150,000) and you cannot be penalised, however well this year
+goes.</p>
+<p>Use the <a href="/tools/quarterly-tax-savings-calculator.html">quarterly set-aside calculator</a> to
+work out what to move into a savings account from each invoice, and the
+<a href="/tools/freelance-take-home-pay-calculator.html">take-home pay calculator</a> to see SE tax and
+income tax together.</p>
+
+</article>
+
+<div class="ad-slot" data-slot="2222222222" data-format="fluid"><div class="ad-label">Advertisement</div></div>
+
+<section class="prose">
+<h2>Frequently asked questions</h2>
+<details class="faq"><summary>Do I owe self-employment tax if I only made a few thousand dollars?</summary><div class="faq-body"><p>You owe it once your net earnings from self-employment reach $400 for the year. Below that threshold there is no SE tax, although the income may still be reportable for income tax.</p></div></details>
+<details class="faq"><summary>Is self-employment tax the same as income tax?</summary><div class="faq-body"><p>No, and this is the single most expensive misunderstanding in freelancing. SE tax funds Social Security and Medicare and is calculated on your business profit. Income tax is calculated separately on your taxable income after deductions. You pay both.</p></div></details>
+<details class="faq"><summary>Does forming an S corporation reduce this?</summary><div class="faq-body"><p>It can. An S corp lets you split your profit into a reasonable salary (which pays payroll tax) and a distribution (which does not). The saving only outweighs the payroll, filing and accounting costs at a certain profit level &mdash; commonly cited as somewhere above $80,000 to $100,000 of net profit, but it depends on your state and your reasonable salary. Talk to a CPA before restructuring.</p></div></details>
+<details class="faq"><summary>Why is the wage base an editable field?</summary><div class="faq-body"><p>Because the Social Security Administration raises it every year with average wage growth, and a hard-coded figure in a calculator goes stale the moment it changes. Check the current year's number on the SSA website and type it in &mdash; the rest of the maths adapts.</p></div></details>
+<details class="faq"><summary>What if I had a loss this year?</summary><div class="faq-body"><p>No self-employment tax is due on a loss. The calculator needs a positive net profit to produce a figure. A business loss may offset other income for income-tax purposes, which is worth raising with a tax preparer.</p></div></details>
+</section>
+</div>
+
+<div class="wrap">
+<section style="margin-top:46px;">
+<h2 style="font-size:24px;margin-bottom:14px;">Other calculators</h2>
+<div class="grid">
+<a class="card" href="/tools/freelance-hourly-rate-calculator.html"><span class="tag">Calculator</span><h3>Freelance hourly rate</h3><p>Work backwards from the income you want to the rate you must charge.</p></a>
+<a class="card" href="/tools/invoice-late-fee-calculator.html"><span class="tag">Calculator</span><h3>Invoice late fee</h3><p>Interest and fees on an overdue invoice, including UK statutory rates.</p></a>
+<a class="card" href="/tools/project-quote-calculator.html"><span class="tag">Calculator</span><h3>Project quote</h3><p>Turn an hours estimate into a defensible fixed price, with a deposit figure.</p></a>
+</div>
+</section>
+<section class="prose narrow wrap" style="padding:0;">
+<h2>Related reading</h2>
+<ul>
+<li><a href="/guides/how-much-should-a-freelancer-charge.html">How Much Should a Freelancer Charge? A Realistic 2026 Answer</a></li>
+<li><a href="/guides/get-clients-to-pay-on-time.html">How to Get Freelance Clients to Pay On Time</a></li>
+<li><a href="/guides/freelance-tax-first-year-checklist.html">Your First Year Freelancing: The Tax Checklist Nobody Gives You</a></li>
+</ul>
+</section>
+</div>
+
+<div class="ad-slot" data-slot="3333333333" data-format="auto"><div class="ad-label">Advertisement</div></div>
+</main>
+<footer class="site-foot">
+<div class="wrap">
+<div class="foot-grid">
+<div>
+<a class="logo" href="/"><span class="logo-mark" aria-hidden="true">FF</span>FreelanceFigures</a>
+<p style="color:var(--text-mute);margin:10px 0 0;max-width:38ch;font-size:14.5px;">
+Free money calculators for freelancers and small businesses. No sign-up, no paywall, nothing leaves your browser.</p>
+</div>
+<div>
+<h4>Calculators</h4>
+<ul>
+<li><a href="/tools/freelance-hourly-rate-calculator.html">Freelance hourly rate</a></li>
+<li><a href="/tools/self-employment-tax-calculator.html">Self-employment tax (US)</a></li>
+<li><a href="/tools/invoice-late-fee-calculator.html">Invoice late fee</a></li>
+<li><a href="/tools/project-quote-calculator.html">Project quote</a></li>
+<li><a href="/tools/freelance-take-home-pay-calculator.html">Freelance take-home pay</a></li>
+<li><a href="/tools/quarterly-tax-savings-calculator.html">Quarterly tax set-aside</a></li>
+</ul>
+</div>
+<div>
+<h4>Site</h4>
+<ul>
+<li><a href="/about.html">About</a></li>
+<li><a href="/contact.html">Contact</a></li>
+<li><a href="/privacy.html">Privacy policy</a></li>
+<li><a href="/terms.html">Terms of use</a></li>
+<li><a href="/disclaimer.html">Disclaimer</a></li>
+</ul>
+</div>
+</div>
+<div class="foot-bottom">
+<span>&copy; 2026 FreelanceFigures. All rights reserved.</span>
+<span>Figures are estimates, not professional tax advice.</span>
+</div>
+</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Invoice Late Fee Calculator | Interest on Overdue Invoices</title>
+<meta name="description" content="Calculate late payment interest and fees on an overdue invoice: monthly percentage, annual rate, flat fee, or UK statutory interest with fixed compensation. Free, instant.">
+<link rel="canonical" href="https://freelancefigures.com/tools/invoice-late-fee-calculator.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FreelanceFigures">
+<meta property="og:title" content="Invoice Late Fee Calculator | Interest on Overdue Invoices">
+<meta property="og:description" content="Calculate late payment interest and fees on an overdue invoice: monthly percentage, annual rate, flat fee, or UK statutory interest with fixed compensation. Free, instant.">
+<meta property="og:url" content="https://freelancefigures.com/tools/invoice-late-fee-calculator.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/main.css">
+<script src="/assets/js/theme-init.js"></script>
+<script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/tool-late-fee.js" defer></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Invoice Late Fee Calculator","url":"https://freelancefigures.com/tools/invoice-late-fee-calculator.html","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Calculate late payment interest and fees on an overdue invoice: monthly percentage, annual rate, flat fee, or UK statutory interest with fixed compensation. Free, instant."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is a reasonable late fee percentage?","acceptedAnswer":{"@type":"Answer","text":"1% to 1.5% per month is the usual range for freelancers and small agencies, equal to 12% to 18% a year. Going much higher risks a court treating the term as a penalty rather than genuine compensation, which can make it unenforceable. Some US states also cap the interest a business may charge, so check your state's usury rules before writing 2% or more into a contract."}},{"@type":"Question","name":"Do I charge the late fee on the invoice total including sales tax or VAT?","acceptedAnswer":{"@type":"Answer","text":"Normally yes &mdash; the client owes the gross amount, so interest runs on the gross amount. Under the UK statutory scheme interest runs on the full debt including VAT. The fee itself is generally treated as compensation rather than a supply, so you usually do not add VAT to the interest; confirm with your accountant for your country."}},{"@type":"Question","name":"When does the clock start?","acceptedAnswer":{"@type":"Answer","text":"The day after the payment due date, not the invoice date. If your terms are net 30 and you invoiced on 1 March, payment is due 31 March and interest starts 1 April. Where no terms were agreed, many jurisdictions default to 30 days after the client received the invoice or the goods, whichever is later."}},{"@type":"Question","name":"Should I waive the fee if the client finally pays?","acceptedAnswer":{"@type":"Answer","text":"Often, yes &mdash; and say so explicitly: &ldquo;I have waived the $92.50 interest this time.&rdquo; You keep the relationship, and you have established that the fee is real, which makes it credible the next time. Waiving it silently teaches the client that the term is decorative."}},{"@type":"Question","name":"Is this legal advice?","acceptedAnswer":{"@type":"Answer","text":"No. This is a calculator and a general explanation. Late payment rules vary by country, state and contract, and nothing here is a substitute for advice from a lawyer in your jurisdiction."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://freelancefigures.com/"},{"@type":"ListItem","position":2,"name":"Calculators","item":"https://freelancefigures.com/#tools"},{"@type":"ListItem","position":3,"name":"Invoice late fee"}]}</script>
+</head>
+<body>
+<header class="site-head">
+<div class="wrap head-row">
+<a class="logo" href="/"><span class="logo-mark" aria-hidden="true">FF</span>FreelanceFigures</a>
+<button class="menu-btn" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+<nav class="nav" aria-label="Main">
+<a href="/#tools" aria-current="page">Tools</a>
+<a href="/#guides">Guides</a>
+<a href="/about.html">About</a>
+<a href="/contact.html">Contact</a>
+</nav>
+<button class="theme-btn" type="button" aria-label="Switch theme">&#9790;</button>
+</div>
+</header>
+<main>
+<div class="wrap narrow">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/#tools">Calculators</a> &rsaquo; Invoice late fee</nav>
+<section class="hero" style="padding:26px 0 0;margin-bottom:24px;">
+<h1>Invoice Late Fee Calculator</h1>
+<p>An invoice that is 60 days late is a loan you did not agree to make. Work out exactly what the client owes you in interest and fees, so the figure on your reminder is a calculation rather than a guess &mdash; including UK statutory interest under the Late Payment of Commercial Debts Act.</p>
+</section>
+
+<form class="calc" id="calcForm" autocomplete="off">
+<div class="field"><label for="invoiceAmount">Invoice amount</label><span class="hint">The unpaid balance, excluding any fees already added.</span><div class="input-wrap"><span class="affix pre">$</span><input id="invoiceAmount" name="invoiceAmount" type="number" step="any" min="0" inputmode="decimal" value="2500"></div></div>
+<div class="row2"><div class="field"><label for="dueDate">Payment was due</label><span class="hint">The date on the invoice, not the date you sent it.</span><input id="dueDate" name="dueDate" type="date"></div><div class="field"><label for="asOfDate">Calculate up to</label><span class="hint">Usually today, or the date you expect payment.</span><input id="asOfDate" name="asOfDate" type="date"></div></div>
+<div class="field"><label for="method">Late fee method</label><span class="hint">Use whatever your contract specifies.</span><select id="method" name="method">
+<option value="monthly" selected>Percentage per month (most common)</option>
+<option value="annual">Annual interest rate</option>
+<option value="flat">Flat fee only</option>
+<option value="flatmonthly">Flat fee + monthly percentage</option>
+<option value="uk">UK statutory interest (base + 8%)</option>
+</select></div>
+<div class="field" id="f-monthly"><label for="monthlyRate">Monthly late fee rate</label><span class="hint">1.5% per month (18% a year) is the common contract term.</span><div class="input-wrap"><input id="monthlyRate" name="monthlyRate" type="number" step="any" min="0" inputmode="decimal" value="1.5"><span class="affix post">%</span></div></div>
+<div class="field" id="f-proration"><label for="proration">How to count part months</label><select id="proration" name="proration">
+<option value="daily" selected>Prorate daily (fairer, harder to argue with)</option>
+<option value="month">Charge a full month once a month starts</option>
+</select></div>
+<div class="field" id="f-annual"><label for="annualRate">Annual interest rate</label><div class="input-wrap"><input id="annualRate" name="annualRate" type="number" step="any" min="0" inputmode="decimal" value="8"><span class="affix post">%</span></div></div>
+<div class="field" id="f-flat"><label for="flatFee">Flat late fee</label><div class="input-wrap"><span class="affix pre">$</span><input id="flatFee" name="flatFee" type="number" step="any" min="0" inputmode="decimal" value="50"></div></div>
+<div class="field" id="f-ukbase"><label for="ukBaseRate">Bank of England base rate</label><span class="hint">Statutory interest is the base rate plus 8%. Check the current base rate and edit.</span><div class="input-wrap"><input id="ukBaseRate" name="ukBaseRate" type="number" step="any" min="0" inputmode="decimal" value="4.0"><span class="affix post">%</span></div></div>
+<div class="field">
+<label for="currency">Currency</label>
+<select id="currency" name="currency">
+<option value="USD">USD &ndash; US dollar</option>
+<option value="EUR">EUR &ndash; Euro</option>
+<option value="GBP">GBP &ndash; British pound</option>
+<option value="CAD">CAD &ndash; Canadian dollar</option>
+<option value="AUD">AUD &ndash; Australian dollar</option>
+<option value="NZD">NZD &ndash; New Zealand dollar</option>
+<option value="SGD">SGD &ndash; Singapore dollar</option>
+<option value="AED">AED &ndash; UAE dirham</option>
+<option value="INR">INR &ndash; Indian rupee</option>
+<option value="PKR">PKR &ndash; Pakistani rupee</option>
+<option value="ZAR">ZAR &ndash; South African rand</option>
+</select>
+</div>
+<p class="headline-sub" id="warn" hidden style="color:var(--danger);"></p>
+<div class="btn-row">
+<button class="btn" type="submit">Calculate</button>
+<button class="btn btn-ghost" type="button" id="copyBtn">Copy result</button>
+<button class="btn btn-ghost" type="button" id="resetBtn">Reset</button>
+</div>
+<div class="result" id="result" hidden>
+<div class="headline-label">Total now owed</div>
+<div class="headline" id="outTotal">&mdash;</div>
+<p class="headline-sub" id="outSub"></p>
+<div class="pill-row">
+<div class="pill"><div class="k">Days overdue</div><div class="v" id="outDays">&mdash;</div></div>
+<div class="pill"><div class="k">Interest per day</div><div class="v" id="outPerDay">&mdash;</div></div>
+<div class="pill"><div class="k">Late charges</div><div class="v" id="outFee">&mdash;</div></div>
+</div>
+<table class="breakdown">
+<tr><td>Original invoice</td><td id="bAmount">&mdash;</td></tr>
+<tr><td>Flat fee / compensation</td><td id="bFlat">&mdash;</td></tr>
+<tr><td>Interest</td><td id="bInterest">&mdash;</td></tr>
+<tr class="total"><td>Total payable</td><td id="bTotal">&mdash;</td></tr>
+<tr class="sub"><td>Method</td><td id="bLabel">&mdash;</td></tr>
+<tr class="sub"><td>Calculated over</td><td id="bBasis">&mdash;</td></tr>
+</table>
+
+</div>
+</form>
+
+<div class="ad-slot" data-slot="1111111111" data-format="auto"><div class="ad-label">Advertisement</div></div>
+
+<article class="prose">
+
+<h2>Can you actually charge a late fee?</h2>
+<p>In most countries, yes &mdash; but only if you can point to a term the client agreed to, or to a
+statute. Three routes exist, and they are not equally strong:</p>
+<ul>
+<li><strong>Your contract or your invoice terms.</strong> The strongest position. A line such as
+&ldquo;overdue amounts accrue interest at 1.5% per month&rdquo; in a signed agreement is enforceable in
+most jurisdictions. A line that appears for the first time on the invoice is weaker, because the client
+never agreed to it, but it is still worth having.</li>
+<li><strong>Statute.</strong> Several countries give you a right to interest even with no contract term
+at all. The UK's Late Payment of Commercial Debts (Interest) Act and the EU Late Payment Directive both
+do this for business-to-business debts.</li>
+<li><strong>Nothing in writing anywhere.</strong> You can still ask, and clients often pay to keep the
+relationship. You just have little leverage if they refuse.</li>
+</ul>
+
+<h2>The three ways to calculate it</h2>
+<h3>Monthly percentage</h3>
+<p>The freelancer standard: 1.5% per month, which is 18% a year. On a $2,500 invoice that is $37.50 a
+month, or $1.23 a day. Decide whether a part month counts as a whole month &mdash; charging a full
+month's interest on day 31 is legal if your terms say so, but prorating daily is much harder for a
+client to argue with, and this calculator does either.</p>
+<h3>Annual rate</h3>
+<p>Interest &times; days &divide; 365. Used where contracts quote an annual figure, and the basis for
+almost every statutory scheme.</p>
+<h3>UK statutory interest</h3>
+<p>For business-to-business debts, the rate is the Bank of England base rate plus 8 percentage points,
+calculated daily. You can also claim fixed compensation on top, as a flat sum per invoice:</p>
+<table>
+<tr><th>Debt size</th><th>Fixed compensation</th></tr>
+<tr><td>Up to &pound;999.99</td><td>&pound;40</td></tr>
+<tr><td>&pound;1,000 to &pound;9,999.99</td><td>&pound;70</td></tr>
+<tr><td>&pound;10,000 or more</td><td>&pound;100</td></tr>
+</table>
+<p>Select the UK statutory option above and the calculator applies the right compensation band and
+daily interest automatically.</p>
+
+<h2>A worked example</h2>
+<p>A $2,500 invoice, due 1 March, still unpaid on 14 May &mdash; 74 days late, with 1.5% per month in
+the contract:</p>
+<table>
+<tr><th>Step</th><th>Figure</th></tr>
+<tr><td>Months overdue (prorated)</td><td>74 &divide; 30 = 2.47 months</td></tr>
+<tr><td>Interest</td><td>$2,500 &times; 1.5% &times; 2.47 = $92.50</td></tr>
+<tr><td><strong>Total payable</strong></td><td><strong>$2,592.50</strong></td></tr>
+</table>
+
+<h2>Getting paid, not just getting owed</h2>
+<p>The fee is leverage, not income. Freelancers who get paid fastest tend to do the same four things:</p>
+<ol>
+<li><strong>Put the term in the contract</strong>, not just the invoice, and say it out loud at kickoff
+so it is never a surprise.</li>
+<li><strong>Chase on day one, politely.</strong> Most late payments are an unopened email or a missing
+purchase-order number, not a refusal to pay.</li>
+<li><strong>Send the calculation, not a complaint.</strong> &ldquo;As of today the balance is $2,592.50,
+including $92.50 of contractual interest&rdquo; moves an invoice up the queue in a way that
+&ldquo;just checking in&rdquo; never does.</li>
+<li><strong>Take a deposit next time.</strong> The <a href="/tools/project-quote-calculator.html">project
+quote calculator</a> works out a deposit amount for you. A client who will not pay 40% up front is
+telling you something useful.</li>
+</ol>
+
+</article>
+
+<div class="ad-slot" data-slot="2222222222" data-format="fluid"><div class="ad-label">Advertisement</div></div>
+
+<section class="prose">
+<h2>Frequently asked questions</h2>
+<details class="faq"><summary>What is a reasonable late fee percentage?</summary><div class="faq-body"><p>1% to 1.5% per month is the usual range for freelancers and small agencies, equal to 12% to 18% a year. Going much higher risks a court treating the term as a penalty rather than genuine compensation, which can make it unenforceable. Some US states also cap the interest a business may charge, so check your state's usury rules before writing 2% or more into a contract.</p></div></details>
+<details class="faq"><summary>Do I charge the late fee on the invoice total including sales tax or VAT?</summary><div class="faq-body"><p>Normally yes &mdash; the client owes the gross amount, so interest runs on the gross amount. Under the UK statutory scheme interest runs on the full debt including VAT. The fee itself is generally treated as compensation rather than a supply, so you usually do not add VAT to the interest; confirm with your accountant for your country.</p></div></details>
+<details class="faq"><summary>When does the clock start?</summary><div class="faq-body"><p>The day after the payment due date, not the invoice date. If your terms are net 30 and you invoiced on 1 March, payment is due 31 March and interest starts 1 April. Where no terms were agreed, many jurisdictions default to 30 days after the client received the invoice or the goods, whichever is later.</p></div></details>
+<details class="faq"><summary>Should I waive the fee if the client finally pays?</summary><div class="faq-body"><p>Often, yes &mdash; and say so explicitly: &ldquo;I have waived the $92.50 interest this time.&rdquo; You keep the relationship, and you have established that the fee is real, which makes it credible the next time. Waiving it silently teaches the client that the term is decorative.</p></div></details>
+<details class="faq"><summary>Is this legal advice?</summary><div class="faq-body"><p>No. This is a calculator and a general explanation. Late payment rules vary by country, state and contract, and nothing here is a substitute for advice from a lawyer in your jurisdiction.</p></div></details>
+</section>
+</div>
+
+<div class="wrap">
+<section style="margin-top:46px;">
+<h2 style="font-size:24px;margin-bottom:14px;">Other calculators</h2>
+<div class="grid">
+<a class="card" href="/tools/freelance-hourly-rate-calculator.html"><span class="tag">Calculator</span><h3>Freelance hourly rate</h3><p>Work backwards from the income you want to the rate you must charge.</p></a>
+<a class="card" href="/tools/self-employment-tax-calculator.html"><span class="tag">Calculator</span><h3>Self-employment tax (US)</h3><p>The 15.3% you owe before income tax, with the wage cap applied properly.</p></a>
+<a class="card" href="/tools/project-quote-calculator.html"><span class="tag">Calculator</span><h3>Project quote</h3><p>Turn an hours estimate into a defensible fixed price, with a deposit figure.</p></a>
+</div>
+</section>
+<section class="prose narrow wrap" style="padding:0;">
+<h2>Related reading</h2>
+<ul>
+<li><a href="/guides/how-much-should-a-freelancer-charge.html">How Much Should a Freelancer Charge? A Realistic 2026 Answer</a></li>
+<li><a href="/guides/get-clients-to-pay-on-time.html">How to Get Freelance Clients to Pay On Time</a></li>
+<li><a href="/guides/freelance-tax-first-year-checklist.html">Your First Year Freelancing: The Tax Checklist Nobody Gives You</a></li>
+</ul>
+</section>
+</div>
+
+<div class="ad-slot" data-slot="3333333333" data-format="auto"><div class="ad-label">Advertisement</div></div>
+</main>
+<footer class="site-foot">
+<div class="wrap">
+<div class="foot-grid">
+<div>
+<a class="logo" href="/"><span class="logo-mark" aria-hidden="true">FF</span>FreelanceFigures</a>
+<p style="color:var(--text-mute);margin:10px 0 0;max-width:38ch;font-size:14.5px;">
+Free money calculators for freelancers and small businesses. No sign-up, no paywall, nothing leaves your browser.</p>
+</div>
+<div>
+<h4>Calculators</h4>
+<ul>
+<li><a href="/tools/freelance-hourly-rate-calculator.html">Freelance hourly rate</a></li>
+<li><a href="/tools/self-employment-tax-calculator.html">Self-employment tax (US)</a></li>
+<li><a href="/tools/invoice-late-fee-calculator.html">Invoice late fee</a></li>
+<li><a href="/tools/project-quote-calculator.html">Project quote</a></li>
+<li><a href="/tools/freelance-take-home-pay-calculator.html">Freelance take-home pay</a></li>
+<li><a href="/tools/quarterly-tax-savings-calculator.html">Quarterly tax set-aside</a></li>
+</ul>
+</div>
+<div>
+<h4>Site</h4>
+<ul>
+<li><a href="/about.html">About</a></li>
+<li><a href="/contact.html">Contact</a></li>
+<li><a href="/privacy.html">Privacy policy</a></li>
+<li><a href="/terms.html">Terms of use</a></li>
+<li><a href="/disclaimer.html">Disclaimer</a></li>
+</ul>
+</div>
+</div>
+<div class="foot-bottom">
+<span>&copy; 2026 FreelanceFigures. All rights reserved.</span>
+<span>Figures are estimates, not professional tax advice.</span>
+</div>
+</div>
+</footer>
+</body>
+</html>

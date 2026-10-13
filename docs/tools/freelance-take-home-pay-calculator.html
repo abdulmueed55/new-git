@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Freelance Take-Home Pay Calculator | What You Actually Keep</title>
+<meta name="description" content="See what you really keep from freelance revenue after business expenses, self-employment tax, income tax, retirement contributions and health insurance. Free monthly take-home calculator.">
+<link rel="canonical" href="https://freelancefigures.com/tools/freelance-take-home-pay-calculator.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FreelanceFigures">
+<meta property="og:title" content="Freelance Take-Home Pay Calculator | What You Actually Keep">
+<meta property="og:description" content="See what you really keep from freelance revenue after business expenses, self-employment tax, income tax, retirement contributions and health insurance. Free monthly take-home calculator.">
+<meta property="og:url" content="https://freelancefigures.com/tools/freelance-take-home-pay-calculator.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/main.css">
+<script src="/assets/js/theme-init.js"></script>
+<script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/tool-take-home.js" defer></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Freelance Take-Home Pay Calculator","url":"https://freelancefigures.com/tools/freelance-take-home-pay-calculator.html","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"See what you really keep from freelance revenue after business expenses, self-employment tax, income tax, retirement contributions and health insurance. Free monthly take-home calculator."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why is my retirement contribution subtracted from take-home pay?","acceptedAnswer":{"@type":"Answer","text":"Because it is not money you can spend this month. It is still yours &mdash; which is why the results show it as its own figure. Think of take-home as spendable cash and the retirement line as savings you have already made, rather than money lost."}},{"@type":"Question","name":"What effective income tax rate should I enter?","acceptedAnswer":{"@type":"Answer","text":"The most reliable source is last year's tax return: divide total tax by total income. If you have no return yet, a US freelancer with $80,000&ndash;$120,000 of net profit is often in the 13&ndash;18% effective federal range. Enter your top bracket and the result will be unduly pessimistic."}},{"@type":"Question","name":"Does this work for UK, Canadian or Australian freelancers?","acceptedAnswer":{"@type":"Answer","text":"Yes, with your own rates. A UK sole trader would enter roughly 6% for Class 4 National Insurance and their effective income tax rate, with 0% state tax. A Canadian would use CPP contributions plus federal and provincial rates. An Australian sole trader would enter 0% for social tax and their effective rate, plus superannuation in the retirement field."}},{"@type":"Question","name":"Should I use this to decide between freelancing and a job offer?","acceptedAnswer":{"@type":"Answer","text":"It is a good starting point, as long as you compare like with like. Against a $95,000 salary, compare your freelance take-home plus retirement plus health premiums, because the employer was paying for those too. Also price the things this calculator cannot: unpaid leave, income volatility, and the time you spend selling rather than working."}},{"@type":"Question","name":"Is any of this stored or sent to a server?","acceptedAnswer":{"@type":"Answer","text":"No. The calculation is JavaScript running in your own browser. Nothing is transmitted, saved or logged."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://freelancefigures.com/"},{"@type":"ListItem","position":2,"name":"Calculators","item":"https://freelancefigures.com/#tools"},{"@type":"ListItem","position":3,"name":"Freelance take-home pay"}]}</script>
+</head>
+<body>
+<header class="site-head">
+<div class="wrap head-row">
+<a class="logo" href="/"><span class="logo-mark" aria-hidden="true">FF</span>FreelanceFigures</a>
+<button class="menu-btn" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+<nav class="nav" aria-label="Main">
+<a href="/#tools" aria-current="page">Tools</a>
+<a href="/#guides">Guides</a>
+<a href="/about.html">About</a>
+<a href="/contact.html">Contact</a>
+</nav>
+<button class="theme-btn" type="button" aria-label="Switch theme">&#9790;</button>
+</div>
+</header>
+<main>
+<div class="wrap narrow">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/#tools">Calculators</a> &rsaquo; Freelance take-home pay</nav>
+<section class="hero" style="padding:26px 0 0;margin-bottom:24px;">
+<h1>Freelance Take-Home Pay Calculator</h1>
+<p>Invoicing $120,000 does not mean earning $120,000. Between business costs, self-employment tax, income tax, retirement savings and your own health insurance, the number that reaches your personal account is a different animal entirely. This shows you which one.</p>
+</section>
+
+<form class="calc" id="calcForm" autocomplete="off">
+<div class="row2"><div class="field"><label for="grossRevenue">Revenue you will invoice</label><span class="hint">Everything clients pay you this year.</span><div class="input-wrap"><span class="affix pre">$</span><input id="grossRevenue" name="grossRevenue" type="number" step="any" min="0" inputmode="decimal" value="120000"></div></div><div class="field"><label for="businessExpenses">Business expenses</label><span class="hint">Software, equipment, insurance, travel, fees.</span><div class="input-wrap"><span class="affix pre">$</span><input id="businessExpenses" name="businessExpenses" type="number" step="any" min="0" inputmode="decimal" value="15000"></div></div></div>
+<div class="row2"><div class="field"><label for="seRate">Self-employment / social tax</label><span class="hint">US: 15.3%. UK Class 4: ~6%. Edit for your country.</span><div class="input-wrap"><input id="seRate" name="seRate" type="number" step="any" min="0" inputmode="decimal" value="15.3"><span class="affix post">%</span></div></div><div class="field"><label for="federalRate">Income tax rate</label><span class="hint">Your effective rate, not your top bracket.</span><div class="input-wrap"><input id="federalRate" name="federalRate" type="number" step="any" min="0" inputmode="decimal" value="16"><span class="affix post">%</span></div></div></div>
+<div class="row2"><div class="field"><label for="stateRate">State / provincial / local tax</label><span class="hint">Zero in nine US states. Enter 0 if it does not apply.</span><div class="input-wrap"><input id="stateRate" name="stateRate" type="number" step="any" min="0" inputmode="decimal" value="5"><span class="affix post">%</span></div></div><div class="field"><label for="retirementPct">Retirement contribution</label><span class="hint">Still your money &mdash; just not spendable today.</span><div class="input-wrap"><input id="retirementPct" name="retirementPct" type="number" step="any" min="0" inputmode="decimal" value="10"><span class="affix post">%</span></div></div></div>
+<div class="field"><label for="healthMonthly">Health insurance per month</label><span class="hint">The premium an employer would otherwise pay for you.</span><div class="input-wrap"><span class="affix pre">$</span><input id="healthMonthly" name="healthMonthly" type="number" step="any" min="0" inputmode="decimal" value="450"></div></div>
+<div class="field">
+<label for="currency">Currency</label>
+<select id="currency" name="currency">
+<option value="USD">USD &ndash; US dollar</option>
+<option value="EUR">EUR &ndash; Euro</option>
+<option value="GBP">GBP &ndash; British pound</option>
+<option value="CAD">CAD &ndash; Canadian dollar</option>
+<option value="AUD">AUD &ndash; Australian dollar</option>
+<option value="NZD">NZD &ndash; New Zealand dollar</option>
+<option value="SGD">SGD &ndash; Singapore dollar</option>
+<option value="AED">AED &ndash; UAE dirham</option>
+<option value="INR">INR &ndash; Indian rupee</option>
+<option value="PKR">PKR &ndash; Pakistani rupee</option>
+<option value="ZAR">ZAR &ndash; South African rand</option>
+</select>
+</div>
+<p class="headline-sub" id="warn" hidden style="color:var(--danger);"></p>
+<div class="btn-row">
+<button class="btn" type="submit">Calculate</button>
+<button class="btn btn-ghost" type="button" id="copyBtn">Copy result</button>
+<button class="btn btn-ghost" type="button" id="resetBtn">Reset</button>
+</div>
+<div class="result" id="result" hidden>
+<div class="headline-label">Take-home per month</div>
+<div class="headline" id="outMonthly">&mdash;</div>
+<p class="headline-sub" id="outSub"></p>
+<div class="pill-row">
+<div class="pill"><div class="k">Take-home per year</div><div class="v" id="outYear">&mdash;</div></div>
+<div class="pill"><div class="k">Total tax</div><div class="v" id="outTax">&mdash;</div></div>
+<div class="pill"><div class="k">Effective tax rate</div><div class="v" id="outEff">&mdash;</div></div>
+<div class="pill"><div class="k">Into retirement</div><div class="v" id="outRetire">&mdash;</div></div>
+</div>
+<table class="breakdown">
+<tr><td>Revenue invoiced</td><td id="bGross">&mdash;</td></tr>
+<tr><td>Business expenses</td><td id="bExp">&mdash;</td></tr>
+<tr class="total"><td>Net profit</td><td id="bNet">&mdash;</td></tr>
+<tr><td>Self-employment tax</td><td id="bSe">&mdash;</td></tr>
+<tr><td>Income tax</td><td id="bFed">&mdash;</td></tr>
+<tr><td>State / local tax</td><td id="bState">&mdash;</td></tr>
+<tr><td>Retirement contribution</td><td id="bRetire">&mdash;</td></tr>
+<tr><td>Health insurance</td><td id="bHealth">&mdash;</td></tr>
+<tr class="total"><td>Take-home pay</td><td id="bTake">&mdash;</td></tr>
+</table>
+
+</div>
+</form>
+
+<div class="ad-slot" data-slot="1111111111" data-format="auto"><div class="ad-label">Advertisement</div></div>
+
+<article class="prose">
+
+<h2>The gap nobody warns you about</h2>
+<p>The reason experienced freelancers tell beginners to charge double their old salary is not greed.
+It is this gap. An employee sees a gross salary and a net salary, and the distance between them is tax.
+A freelancer has four layers of distance:</p>
+<ol>
+<li><strong>Business expenses</strong> come out before anything is yours.</li>
+<li><strong><a href="/tools/self-employment-tax-calculator.html">Self-employment tax</a></strong> &mdash; you pay both the employee and employer halves of social
+contributions. In the US that is 15.3% rather than 7.65%.</li>
+<li><strong>Income tax</strong>, with no employer withholding it for you, which is why the bill feels
+so much larger even when the rate is identical.</li>
+<li><strong>Benefits you now buy yourself:</strong> health insurance, retirement, paid leave, disability
+cover. An employer's contribution to these is typically worth 20&ndash;30% of salary.</li>
+</ol>
+<p>Run the numbers and a freelancer invoicing $120,000 commonly lands somewhere near $65,000&ndash;$72,000
+of genuine take-home pay. That is a good living. It is not $120,000.</p>
+
+<h2>How the calculation runs</h2>
+<div class="note">
+<p><strong>Net profit</strong> = revenue &minus; business expenses<br>
+<strong>SE tax</strong> = net profit &times; 92.35% &times; your social tax rate<br>
+<strong>Taxable income</strong> = net profit &minus; half the SE tax &minus; retirement &minus; health premiums<br>
+<strong>Take-home</strong> = net profit &minus; all taxes &minus; retirement &minus; health premiums</p>
+</div>
+<p>Two deliberate simplifications. First, income tax uses a single effective rate rather than progressive
+brackets, because an effective rate is the honest way to think about a whole year and brackets differ by
+country. Second, the retirement contribution is subtracted from take-home even though it remains your
+money &mdash; it is shown separately in the results so you can see both views. For precise
+self-employment tax including the wage cap, use the
+<a href="/tools/self-employment-tax-calculator.html">self-employment tax calculator</a>.</p>
+
+<h2>What an effective tax rate actually is</h2>
+<p>Your marginal rate is what the next dollar costs. Your effective rate is total tax divided by total
+income, and it is always lower. A US freelancer in the 24% bracket typically has an effective federal
+rate near 14&ndash;17%, because the early portions of income were taxed at 10% and 12%. Entering your
+top bracket here will make the picture look much worse than reality &mdash; use last year's return to
+find your real effective rate.</p>
+
+<h2>Three ways to widen the gap in your favour</h2>
+<ul>
+<li><strong>Claim every legitimate expense.</strong> Home office, phone, internet, software, courses,
+professional insurance, bank fees, accounting. Each dollar of genuine expense saves you both income tax
+and self-employment tax &mdash; roughly 30&ndash;40 cents on the dollar.</li>
+<li><strong>Use the retirement accounts you are entitled to.</strong> In the US a SEP-IRA or solo 401(k)
+lets a self-employed person shelter far more than a regular IRA. The contribution reduces taxable income
+today and stays yours.</li>
+<li><strong>Raise your rate before raising your hours.</strong> Ten percent more revenue at the same
+hours flows almost entirely to profit. Ten percent more hours costs you ten percent of your life. The
+<a href="/tools/freelance-hourly-rate-calculator.html">hourly rate calculator</a> shows where you should
+be.</li>
+</ul>
+
+</article>
+
+<div class="ad-slot" data-slot="2222222222" data-format="fluid"><div class="ad-label">Advertisement</div></div>
+
+<section class="prose">
+<h2>Frequently asked questions</h2>
+<details class="faq"><summary>Why is my retirement contribution subtracted from take-home pay?</summary><div class="faq-body"><p>Because it is not money you can spend this month. It is still yours &mdash; which is why the results show it as its own figure. Think of take-home as spendable cash and the retirement line as savings you have already made, rather than money lost.</p></div></details>
+<details class="faq"><summary>What effective income tax rate should I enter?</summary><div class="faq-body"><p>The most reliable source is last year's tax return: divide total tax by total income. If you have no return yet, a US freelancer with $80,000&ndash;$120,000 of net profit is often in the 13&ndash;18% effective federal range. Enter your top bracket and the result will be unduly pessimistic.</p></div></details>
+<details class="faq"><summary>Does this work for UK, Canadian or Australian freelancers?</summary><div class="faq-body"><p>Yes, with your own rates. A UK sole trader would enter roughly 6% for Class 4 National Insurance and their effective income tax rate, with 0% state tax. A Canadian would use CPP contributions plus federal and provincial rates. An Australian sole trader would enter 0% for social tax and their effective rate, plus superannuation in the retirement field.</p></div></details>
+<details class="faq"><summary>Should I use this to decide between freelancing and a job offer?</summary><div class="faq-body"><p>It is a good starting point, as long as you compare like with like. Against a $95,000 salary, compare your freelance <em>take-home plus retirement plus health premiums</em>, because the employer was paying for those too. Also price the things this calculator cannot: unpaid leave, income volatility, and the time you spend selling rather than working.</p></div></details>
+<details class="faq"><summary>Is any of this stored or sent to a server?</summary><div class="faq-body"><p>No. The calculation is JavaScript running in your own browser. Nothing is transmitted, saved or logged.</p></div></details>
+</section>
+</div>
+
+<div class="wrap">
+<section style="margin-top:46px;">
+<h2 style="font-size:24px;margin-bottom:14px;">Other calculators</h2>
+<div class="grid">
+<a class="card" href="/tools/freelance-hourly-rate-calculator.html"><span class="tag">Calculator</span><h3>Freelance hourly rate</h3><p>Work backwards from the income you want to the rate you must charge.</p></a>
+<a class="card" href="/tools/self-employment-tax-calculator.html"><span class="tag">Calculator</span><h3>Self-employment tax (US)</h3><p>The 15.3% you owe before income tax, with the wage cap applied properly.</p></a>
+<a class="card" href="/tools/invoice-late-fee-calculator.html"><span class="tag">Calculator</span><h3>Invoice late fee</h3><p>Interest and fees on an overdue invoice, including UK statutory rates.</p></a>
+</div>
+</section>
+<section class="prose narrow wrap" style="padding:0;">
+<h2>Related reading</h2>
+<ul>
+<li><a href="/guides/how-much-should-a-freelancer-charge.html">How Much Should a Freelancer Charge? A Realistic 2026 Answer</a></li>
+<li><a href="/guides/get-clients-to-pay-on-time.html">How to Get Freelance Clients to Pay On Time</a></li>
+<li><a href="/guides/freelance-tax-first-year-checklist.html">Your First Year Freelancing: The Tax Checklist Nobody Gives You</a></li>
+</ul>
+</section>
+</div>
+
+<div class="ad-slot" data-slot="3333333333" data-format="auto"><div class="ad-label">Advertisement</div></div>
+</main>
+<footer class="site-foot">
+<div class="wrap">
+<div class="foot-grid">
+<div>
+<a class="logo" href="/"><span class="logo-mark" aria-hidden="true">FF</span>FreelanceFigures</a>
+<p style="color:var(--text-mute);margin:10px 0 0;max-width:38ch;font-size:14.5px;">
+Free money calculators for freelancers and small businesses. No sign-up, no paywall, nothing leaves your browser.</p>
+</div>
+<div>
+<h4>Calculators</h4>
+<ul>
+<li><a href="/tools/freelance-hourly-rate-calculator.html">Freelance hourly rate</a></li>
+<li><a href="/tools/self-employment-tax-calculator.html">Self-employment tax (US)</a></li>
+<li><a href="/tools/invoice-late-fee-calculator.html">Invoice late fee</a></li>
+<li><a href="/tools/project-quote-calculator.html">Project quote</a></li>
+<li><a href="/tools/freelance-take-home-pay-calculator.html">Freelance take-home pay</a></li>
+<li><a href="/tools/quarterly-tax-savings-calculator.html">Quarterly tax set-aside</a></li>
+</ul>
+</div>
+<div>
+<h4>Site</h4>
+<ul>
+<li><a href="/about.html">About</a></li>
+<li><a href="/contact.html">Contact</a></li>
+<li><a href="/privacy.html">Privacy policy</a></li>
+<li><a href="/terms.html">Terms of use</a></li>
+<li><a href="/disclaimer.html">Disclaimer</a></li>
+</ul>
+</div>
+</div>
+<div class="foot-bottom">
+<span>&copy; 2026 FreelanceFigures. All rights reserved.</span>
+<span>Figures are estimates, not professional tax advice.</span>
+</div>
+</div>
+</footer>
+</body>
+</html>

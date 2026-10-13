@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Freelance Hourly Rate Calculator | What Should You Charge?</title>
+<meta name="description" content="Work out the hourly rate you actually need to charge as a freelancer, after tax, business expenses, unpaid time off and non-billable hours. Free, instant, no sign-up.">
+<link rel="canonical" href="https://freelancefigures.com/tools/freelance-hourly-rate-calculator.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FreelanceFigures">
+<meta property="og:title" content="Freelance Hourly Rate Calculator | What Should You Charge?">
+<meta property="og:description" content="Work out the hourly rate you actually need to charge as a freelancer, after tax, business expenses, unpaid time off and non-billable hours. Free, instant, no sign-up.">
+<meta property="og:url" content="https://freelancefigures.com/tools/freelance-hourly-rate-calculator.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/main.css">
+<script src="/assets/js/theme-init.js"></script>
+<script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/tool-hourly-rate.js" defer></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Freelance Hourly Rate Calculator","url":"https://freelancefigures.com/tools/freelance-hourly-rate-calculator.html","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Work out the hourly rate you actually need to charge as a freelancer, after tax, business expenses, unpaid time off and non-billable hours. Free, instant, no sign-up."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is a realistic number of billable hours per week?","acceptedAnswer":{"@type":"Answer","text":"Between 20 and 27 for most full-time freelancers. The rest of a 40-hour week goes to proposals, invoicing, email, bookkeeping, marketing and learning. Agencies plan for 60&ndash;70% utilisation on salaried staff and they have administrators; a solo freelancer doing their own admin should not plan for more."}},{"@type":"Question","name":"Should I charge the same rate to every client?","acceptedAnswer":{"@type":"Answer","text":"No. The figure here is your minimum. Rush work, difficult stakeholders, unclear scope and high-stakes projects all justify a premium, and the calculator has a rush and complexity multiplier in the project quote tool for exactly that. What should never happen is going below this number, because then the work costs you money to do."}},{"@type":"Question","name":"Does this work outside the United States?","acceptedAnswer":{"@type":"Answer","text":"Yes. The maths is country-neutral &mdash; pick your currency and enter your own combined tax rate. A UK sole trader would enter income tax plus Class 4 National Insurance; a German freelancer would enter Einkommensteuer plus their health insurance contribution; a Canadian would enter federal plus provincial plus CPP."}},{"@type":"Question","name":"Why does the calculator add a profit buffer on top of my salary?","acceptedAnswer":{"@type":"Answer","text":"Because your salary is a cost of the business, not its profit. The buffer is what absorbs the invoice that gets paid 90 days late, the client that disappears, the project that runs over, and the new laptop you did not budget for. Freelancers who skip it end up funding those events out of their own take-home pay."}},{"@type":"Question","name":"Is my data sent anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. Every calculation on this site runs in your browser with JavaScript. Nothing you type is uploaded, stored or logged by us."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://freelancefigures.com/"},{"@type":"ListItem","position":2,"name":"Calculators","item":"https://freelancefigures.com/#tools"},{"@type":"ListItem","position":3,"name":"Freelance hourly rate"}]}</script>
+</head>
+<body>
+<header class="site-head">
+<div class="wrap head-row">
+<a class="logo" href="/"><span class="logo-mark" aria-hidden="true">FF</span>FreelanceFigures</a>
+<button class="menu-btn" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+<nav class="nav" aria-label="Main">
+<a href="/#tools" aria-current="page">Tools</a>
+<a href="/#guides">Guides</a>
+<a href="/about.html">About</a>
+<a href="/contact.html">Contact</a>
+</nav>
+<button class="theme-btn" type="button" aria-label="Switch theme">&#9790;</button>
+</div>
+</header>
+<main>
+<div class="wrap narrow">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/#tools">Calculators</a> &rsaquo; Freelance hourly rate</nav>
+<section class="hero" style="padding:26px 0 0;margin-bottom:24px;">
+<h1>Freelance Hourly Rate Calculator</h1>
+<p>Most freelancers pick a rate by copying someone else, then wonder why the money never adds up. This calculator works backwards from the life you want: the income you need to take home, the costs of running your business, and the honest number of hours you can actually bill.</p>
+</section>
+
+<form class="calc" id="calcForm" autocomplete="off">
+<div class="field"><label for="targetIncome">Income you want to take home</label><span class="hint">After tax, per year. The money that reaches your personal account.</span><div class="input-wrap"><span class="affix pre">$</span><input id="targetIncome" name="targetIncome" type="number" step="any" min="0" inputmode="decimal" value="60000"></div></div>
+<div class="field"><label for="expenses">Annual business expenses</label><span class="hint">Software, hardware, insurance, accountant, coworking, marketing.</span><div class="input-wrap"><span class="affix pre">$</span><input id="expenses" name="expenses" type="number" step="any" min="0" inputmode="decimal" value="6000"></div></div>
+<div class="row2"><div class="field"><label for="billableHours">Billable hours per week</label><span class="hint">Be honest. Most full-time freelancers bill 20&ndash;25.</span><div class="input-wrap"><input id="billableHours" name="billableHours" type="number" step="any" min="0" inputmode="decimal" value="25"><span class="affix post">hrs</span></div></div><div class="field"><label for="taxRate">Estimated tax rate</label><span class="hint">Income tax plus self-employment / national insurance.</span><div class="input-wrap"><input id="taxRate" name="taxRate" type="number" step="any" min="0" inputmode="decimal" value="28"><span class="affix post">%</span></div></div></div>
+<div class="row2"><div class="field"><label for="vacationWeeks">Weeks of holiday per year</label><span class="hint">Unpaid — you earn nothing these weeks.</span><div class="input-wrap"><input id="vacationWeeks" name="vacationWeeks" type="number" step="any" min="0" inputmode="decimal" value="4"><span class="affix post">wks</span></div></div><div class="field"><label for="holidayDays">Public holidays per year</label><div class="input-wrap"><input id="holidayDays" name="holidayDays" type="number" step="any" min="0" inputmode="decimal" value="8"><span class="affix post">days</span></div></div></div>
+<div class="row2"><div class="field"><label for="sickDays">Sick / buffer days</label><span class="hint">Days you will lose to illness and life.</span><div class="input-wrap"><input id="sickDays" name="sickDays" type="number" step="any" min="0" inputmode="decimal" value="5"><span class="affix post">days</span></div></div><div class="field"><label for="profitMargin">Profit buffer</label><span class="hint">A cushion for bad debts, scope creep and reinvestment.</span><div class="input-wrap"><input id="profitMargin" name="profitMargin" type="number" step="any" min="0" inputmode="decimal" value="10"><span class="affix post">%</span></div></div></div>
+<div class="field">
+<label for="currency">Currency</label>
+<select id="currency" name="currency">
+<option value="USD">USD &ndash; US dollar</option>
+<option value="EUR">EUR &ndash; Euro</option>
+<option value="GBP">GBP &ndash; British pound</option>
+<option value="CAD">CAD &ndash; Canadian dollar</option>
+<option value="AUD">AUD &ndash; Australian dollar</option>
+<option value="NZD">NZD &ndash; New Zealand dollar</option>
+<option value="SGD">SGD &ndash; Singapore dollar</option>
+<option value="AED">AED &ndash; UAE dirham</option>
+<option value="INR">INR &ndash; Indian rupee</option>
+<option value="PKR">PKR &ndash; Pakistani rupee</option>
+<option value="ZAR">ZAR &ndash; South African rand</option>
+</select>
+</div>
+<p class="headline-sub" id="warn" hidden style="color:var(--danger);"></p>
+<div class="btn-row">
+<button class="btn" type="submit">Calculate</button>
+<button class="btn btn-ghost" type="button" id="copyBtn">Copy result</button>
+<button class="btn btn-ghost" type="button" id="resetBtn">Reset</button>
+</div>
+<div class="result" id="result" hidden>
+<div class="headline-label">Your minimum hourly rate</div>
+<div class="headline" id="outRate">&mdash;</div>
+<p class="headline-sub" id="outSub"></p>
+<div class="pill-row">
+<div class="pill"><div class="k">Day rate (8 hrs)</div><div class="v" id="outDay">&mdash;</div></div>
+<div class="pill"><div class="k">Week rate</div><div class="v" id="outWeek">&mdash;</div></div>
+<div class="pill"><div class="k">Monthly revenue</div><div class="v" id="outMonth">&mdash;</div></div>
+<div class="pill"><div class="k">Billable hours / yr</div><div class="v" id="outHours">&mdash;</div></div>
+</div>
+<table class="breakdown">
+<tr><td>Take-home income target</td><td id="bTarget">&mdash;</td></tr>
+<tr><td>Tax to cover on top</td><td id="bTaxUp">&mdash;</td></tr>
+<tr><td>Business expenses</td><td id="bExpenses">&mdash;</td></tr>
+<tr><td>Profit buffer</td><td id="bProfit">&mdash;</td></tr>
+<tr class="total"><td>Revenue you must invoice</td><td id="bTotal">&mdash;</td></tr>
+<tr class="sub"><td>Working weeks per year</td><td id="bWeeks">&mdash;</td></tr>
+<tr class="sub"><td>Utilisation</td><td id="bUtil">&mdash;</td></tr>
+<tr class="sub"><td>Break-even rate (no profit buffer)</td><td id="bMin">&mdash;</td></tr>
+</table>
+
+</div>
+</form>
+
+<div class="ad-slot" data-slot="1111111111" data-format="auto"><div class="ad-label">Advertisement</div></div>
+
+<article class="prose">
+
+<h2>How this calculator works</h2>
+<p>The arithmetic that sinks most freelancers is simple: they divide the salary they used to earn
+by 2,080 hours and call it a rate. That number is always too low, for three reasons. An employer
+pays for your holidays, your sick days and the hours you spend in meetings that nobody invoices.
+When you work for yourself, you pay for all of it.</p>
+<p>So this tool runs the calculation in the order money actually moves:</p>
+<ol>
+<li><strong>Start with take-home pay.</strong> The income figure you enter is what you want to keep,
+not what you want to invoice.</li>
+<li><strong>Gross it up for tax.</strong> If you want to keep $60,000 and lose 28% to tax, you need
+$60,000 &divide; 0.72 = $83,333 of taxable profit, not $76,800. Grossing up and discounting are not
+the same operation, and this is where most back-of-envelope sums go wrong.</li>
+<li><strong>Add business expenses.</strong> Your laptop, your accountant and your insurance come out
+of revenue, so revenue has to cover them.</li>
+<li><strong>Add a profit buffer.</strong> Some invoices get paid late, some never get paid, and some
+projects run 20% over. A 10% cushion is not greed, it is survival.</li>
+<li><strong>Divide by hours you can really bill.</strong> Not 40 a week. After holidays, public
+holidays, sick days, admin, sales calls, proposals and invoicing, 25 billable hours in a 40-hour
+week is a good week.</li>
+</ol>
+
+<h2>The formula</h2>
+<div class="note">
+<p><strong>Billable hours per year</strong> = weekly billable hours &times; (52 &minus; holiday weeks
+&minus; public holidays &divide; 5 &minus; sick days &divide; 5)</p>
+<p><strong>Revenue needed</strong> = (take-home &divide; (1 &minus; tax rate)) + expenses</p>
+<p><strong>Hourly rate</strong> = revenue needed &times; (1 + profit buffer) &divide; billable hours</p>
+</div>
+
+<h2>A worked example</h2>
+<p>Say you want $60,000 in your pocket, you spend $6,000 a year running the business, you lose 28%
+to tax, and you can bill 25 hours a week. You take four weeks off, eight public holidays and allow
+five sick days.</p>
+<table>
+<tr><th>Step</th><th>Figure</th></tr>
+<tr><td>Working weeks</td><td>52 &minus; 4 &minus; 1.6 &minus; 1 = 45.4 weeks</td></tr>
+<tr><td>Billable hours</td><td>25 &times; 45.4 = 1,135 hours</td></tr>
+<tr><td>Revenue for take-home</td><td>$60,000 &divide; 0.72 = $83,333</td></tr>
+<tr><td>Plus expenses</td><td>$89,333</td></tr>
+<tr><td>Plus 10% buffer</td><td>$98,267</td></tr>
+<tr><td><strong>Hourly rate</strong></td><td><strong>$86.58 &rarr; quote $90</strong></td></tr>
+</table>
+<p>If you had used the naive method &mdash; $60,000 &divide; 2,080 &mdash; you would have charged
+$28.85 an hour and gone out of business inside two years.</p>
+
+<h2>What to do with the number</h2>
+<p>Treat it as a floor, not a ceiling. It is the rate below which you are subsidising your clients.
+Three things to remember when you quote it:</p>
+<ul>
+<li><strong>Round up, never down.</strong> $86.58 becomes $90. No client has ever walked away over 4%,
+and an odd number looks like you are negotiating against yourself.</li>
+<li><strong>Quote projects, not hours, once you can.</strong> Hourly billing punishes you for getting
+faster. Use this rate to price the project, then quote the project.</li>
+<li><strong>Raise it every year.</strong> Your costs rise. If your rate does not, you take a pay cut
+annually without noticing.</li>
+</ul>
+<p>Once you have a rate, run it through the <a href="/tools/project-quote-calculator.html">project quote
+calculator</a> to turn it into a fixed price, and the
+<a href="/tools/freelance-take-home-pay-calculator.html">take-home pay calculator</a> to check what
+actually lands in your account.</p>
+
+</article>
+
+<div class="ad-slot" data-slot="2222222222" data-format="fluid"><div class="ad-label">Advertisement</div></div>
+
+<section class="prose">
+<h2>Frequently asked questions</h2>
+<details class="faq"><summary>What is a realistic number of billable hours per week?</summary><div class="faq-body"><p>Between 20 and 27 for most full-time freelancers. The rest of a 40-hour week goes to proposals, invoicing, email, bookkeeping, marketing and learning. Agencies plan for 60&ndash;70% utilisation on salaried staff and they have administrators; a solo freelancer doing their own admin should not plan for more.</p></div></details>
+<details class="faq"><summary>Should I charge the same rate to every client?</summary><div class="faq-body"><p>No. The figure here is your minimum. Rush work, difficult stakeholders, unclear scope and high-stakes projects all justify a premium, and the calculator has a rush and complexity multiplier in the project quote tool for exactly that. What should never happen is going <em>below</em> this number, because then the work costs you money to do.</p></div></details>
+<details class="faq"><summary>Does this work outside the United States?</summary><div class="faq-body"><p>Yes. The maths is country-neutral &mdash; pick your currency and enter your own combined tax rate. A UK sole trader would enter income tax plus Class 4 National Insurance; a German freelancer would enter Einkommensteuer plus their health insurance contribution; a Canadian would enter federal plus provincial plus CPP.</p></div></details>
+<details class="faq"><summary>Why does the calculator add a profit buffer on top of my salary?</summary><div class="faq-body"><p>Because your salary is a cost of the business, not its profit. The buffer is what absorbs the invoice that gets paid 90 days late, the client that disappears, the project that runs over, and the new laptop you did not budget for. Freelancers who skip it end up funding those events out of their own take-home pay.</p></div></details>
+<details class="faq"><summary>Is my data sent anywhere?</summary><div class="faq-body"><p>No. Every calculation on this site runs in your browser with JavaScript. Nothing you type is uploaded, stored or logged by us.</p></div></details>
+</section>
+</div>
+
+<div class="wrap">
+<section style="margin-top:46px;">
+<h2 style="font-size:24px;margin-bottom:14px;">Other calculators</h2>
+<div class="grid">
+<a class="card" href="/tools/self-employment-tax-calculator.html"><span class="tag">Calculator</span><h3>Self-employment tax (US)</h3><p>The 15.3% you owe before income tax, with the wage cap applied properly.</p></a>
+<a class="card" href="/tools/invoice-late-fee-calculator.html"><span class="tag">Calculator</span><h3>Invoice late fee</h3><p>Interest and fees on an overdue invoice, including UK statutory rates.</p></a>
+<a class="card" href="/tools/project-quote-calculator.html"><span class="tag">Calculator</span><h3>Project quote</h3><p>Turn an hours estimate into a defensible fixed price, with a deposit figure.</p></a>
+</div>
+</section>
+<section class="prose narrow wrap" style="padding:0;">
+<h2>Related reading</h2>
+<ul>
+<li><a href="/guides/how-much-should-a-freelancer-charge.html">How Much Should a Freelancer Charge? A Realistic 2026 Answer</a></li>
+<li><a href="/guides/get-clients-to-pay-on-time.html">How to Get Freelance Clients to Pay On Time</a></li>
+<li><a href="/guides/freelance-tax-first-year-checklist.html">Your First Year Freelancing: The Tax Checklist Nobody Gives You</a></li>
+</ul>
+</section>
+</div>
+
+<div class="ad-slot" data-slot="3333333333" data-format="auto"><div class="ad-label">Advertisement</div></div>
+</main>
+<footer class="site-foot">
+<div class="wrap">
+<div class="foot-grid">
+<div>
+<a class="logo" href="/"><span class="logo-mark" aria-hidden="true">FF</span>FreelanceFigures</a>
+<p style="color:var(--text-mute);margin:10px 0 0;max-width:38ch;font-size:14.5px;">
+Free money calculators for freelancers and small businesses. No sign-up, no paywall, nothing leaves your browser.</p>
+</div>
+<div>
+<h4>Calculators</h4>
+<ul>
+<li><a href="/tools/freelance-hourly-rate-calculator.html">Freelance hourly rate</a></li>
+<li><a href="/tools/self-employment-tax-calculator.html">Self-employment tax (US)</a></li>
+<li><a href="/tools/invoice-late-fee-calculator.html">Invoice late fee</a></li>
+<li><a href="/tools/project-quote-calculator.html">Project quote</a></li>
+<li><a href="/tools/freelance-take-home-pay-calculator.html">Freelance take-home pay</a></li>
+<li><a href="/tools/quarterly-tax-savings-calculator.html">Quarterly tax set-aside</a></li>
+</ul>
+</div>
+<div>
+<h4>Site</h4>
+<ul>
+<li><a href="/about.html">About</a></li>
+<li><a href="/contact.html">Contact</a></li>
+<li><a href="/privacy.html">Privacy policy</a></li>
+<li><a href="/terms.html">Terms of use</a></li>
+<li><a href="/disclaimer.html">Disclaimer</a></li>
+</ul>
+</div>
+</div>
+<div class="foot-bottom">
+<span>&copy; 2026 FreelanceFigures. All rights reserved.</span>
+<span>Figures are estimates, not professional tax advice.</span>
+</div>
+</div>
+</footer>
+</body>
+</html>
