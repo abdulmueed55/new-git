@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Project Quote Calculator | Price a Fixed-Fee Project</title>
-<meta name="description" content="Turn an hours estimate into a fixed project price with complexity, revisions, rush fees, expenses, discount, tax and a deposit figure. Free quoting calculator for freelancers.">
+<meta name="description" content="Turn an hours estimate into a fixed project price with complexity, revisions, rush fees, expenses and a deposit figure. Free quoting calculator.">
 <link rel="canonical" href="https://freelancefigures.com/tools/project-quote-calculator.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="FreelanceFigures">
 <meta property="og:title" content="Project Quote Calculator | Price a Fixed-Fee Project">
-<meta property="og:description" content="Turn an hours estimate into a fixed project price with complexity, revisions, rush fees, expenses, discount, tax and a deposit figure. Free quoting calculator for freelancers.">
+<meta property="og:description" content="Turn an hours estimate into a fixed project price with complexity, revisions, rush fees, expenses and a deposit figure. Free quoting calculator.">
 <meta property="og:url" content="https://freelancefigures.com/tools/project-quote-calculator.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
@@ -18,7 +18,7 @@
 <script src="/assets/js/theme-init.js"></script>
 <script src="/assets/js/site.js" defer></script>
 <script src="/assets/js/tool-quote.js" defer></script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Project Quote Calculator","url":"https://freelancefigures.com/tools/project-quote-calculator.html","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Turn an hours estimate into a fixed project price with complexity, revisions, rush fees, expenses, discount, tax and a deposit figure. Free quoting calculator for freelancers."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Project Quote Calculator","url":"https://freelancefigures.com/tools/project-quote-calculator.html","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Turn an hours estimate into a fixed project price with complexity, revisions, rush fees, expenses and a deposit figure. Free quoting calculator."}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Should I show the client my hourly rate?","acceptedAnswer":{"@type":"Answer","text":"Generally no. Once a client knows your hourly rate, every conversation becomes about hours rather than outcomes, and efficiency starts to look like overcharging. Quote the project. Keep the rate as the private tool you use to check the quote is worth doing."}},{"@type":"Question","name":"What if I estimate the hours badly?","acceptedAnswer":{"@type":"Answer","text":"Everyone does, almost always downward. Two defences: the complexity multiplier here, and a written scope that says exactly what is included. Over time, track actual hours against your estimates &mdash; most freelancers find a personal correction factor somewhere between 1.3 and 1.8 and start applying it automatically."}},{"@type":"Question","name":"Is a 40% deposit really normal?","acceptedAnswer":{"@type":"Answer","text":"Yes, across design, development, writing and consulting. Common structures are 50/50, 40/30/30 across milestones, or 30% up front with monthly billing on longer engagements. The clients who object loudest to deposits are, reliably, the clients who later pay late."}},{"@type":"Question","name":"How do I handle scope creep after the quote is accepted?","acceptedAnswer":{"@type":"Answer","text":"With a change order, not with resentment. &ldquo;Happy to add that &mdash; it is about six hours, so $540, and it moves delivery to the 14th. Shall I send a revised quote?&rdquo; Said early and without drama, this almost never damages a relationship; silently absorbing the work always damages the project."}},{"@type":"Question","name":"Does the calculator store my quotes?","acceptedAnswer":{"@type":"Answer","text":"No. Everything runs in your browser and disappears when you close the tab. Use the copy button to paste the breakdown into your own notes or proposal."}}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://freelancefigures.com/"},{"@type":"ListItem","position":2,"name":"Calculators","item":"https://freelancefigures.com/#tools"},{"@type":"ListItem","position":3,"name":"Project quote"}]}</script>
 </head>
@@ -58,7 +58,7 @@
 <div class="field">
 <label for="currency">Currency</label>
 <select id="currency" name="currency">
-<option value="USD">USD &ndash; US dollar</option>
+<option value="USD" selected>USD &ndash; US dollar</option>
 <option value="EUR">EUR &ndash; Euro</option>
 <option value="GBP">GBP &ndash; British pound</option>
 <option value="CAD">CAD &ndash; Canadian dollar</option>
@@ -69,6 +69,21 @@
 <option value="INR">INR &ndash; Indian rupee</option>
 <option value="PKR">PKR &ndash; Pakistani rupee</option>
 <option value="ZAR">ZAR &ndash; South African rand</option>
+<option value="CHF">CHF &ndash; Swiss franc</option>
+<option value="SEK">SEK &ndash; Swedish krona</option>
+<option value="DKK">DKK &ndash; Danish krone</option>
+<option value="NOK">NOK &ndash; Norwegian krone</option>
+<option value="PLN">PLN &ndash; Polish złoty</option>
+<option value="CZK">CZK &ndash; Czech koruna</option>
+<option value="HUF">HUF &ndash; Hungarian forint</option>
+<option value="JPY">JPY &ndash; Japanese yen</option>
+<option value="KRW">KRW &ndash; South Korean won</option>
+<option value="SAR">SAR &ndash; Saudi riyal</option>
+<option value="TRY">TRY &ndash; Turkish lira</option>
+<option value="ILS">ILS &ndash; Israeli shekel</option>
+<option value="MXN">MXN &ndash; Mexican peso</option>
+<option value="NGN">NGN &ndash; Nigerian naira</option>
+<option value="KES">KES &ndash; Kenyan shilling</option>
 </select>
 </div>
 <p class="headline-sub" id="warn" hidden style="color:var(--danger);"></p>
@@ -187,9 +202,9 @@ client from accepting last spring's price next autumn.</li>
 <section class="prose narrow wrap" style="padding:0;">
 <h2>Related reading</h2>
 <ul>
-<li><a href="/guides/how-much-should-a-freelancer-charge.html">How Much Should a Freelancer Charge? A Realistic 2026 Answer</a></li>
+<li><a href="/guides/how-much-should-a-freelancer-charge.html">How Much Should a Freelancer Charge?</a></li>
 <li><a href="/guides/get-clients-to-pay-on-time.html">How to Get Freelance Clients to Pay On Time</a></li>
-<li><a href="/guides/freelance-tax-first-year-checklist.html">Your First Year Freelancing: The Tax Checklist Nobody Gives You</a></li>
+<li><a href="/guides/freelance-tax-first-year-checklist.html">Your First Year Freelancing: A Tax Checklist</a></li>
 </ul>
 </section>
 </div>

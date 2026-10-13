@@ -9,10 +9,17 @@ The existing `index.html` at the repo root (the Vybrex agency page) is untouched
 lives entirely in `docs/`.
 
 ```
-build/generate.py        the generator — all page content and templates live here
+build/generate.py        the generator — templates and the nine calculators
+build/data.py            countries and professions; each entry becomes a page
+build/keywords.py        writes the keyword plan
+build/seo_check.py       audits the built site before it goes live
 content/articles/*.html  one file per guide; drop a new one in and rebuild
+content/keywords.csv     6,767 keywords mapped to the page that serves them
 docs/                    the generated site — this is what you upload
 ```
+
+96 pages: 9 calculators, 35 country tax pages, 40 profession rate pages, guides,
+two hub pages and the legal pages AdSense asks for.
 
 ## Build
 
@@ -127,6 +134,57 @@ Then run `python3 build/generate.py`. The generator will:
 
 That last part is the internal linking engine. Add new phrase → URL pairs to `LINK_MAP` in
 `build/generate.py` as the site grows.
+
+## Programmatic pages
+
+`build/data.py` holds 35 countries and 40 professions. Each entry becomes its own page, and each
+entry carries its own facts: Germany's small-business exemption, Canada's province-by-province
+rate, Pakistan's provincial services tax, a photographer's equipment burden, a voice actor's
+unpaid audition time.
+
+That per-entry detail is the whole point. A template with one word swapped is a doorway page, and
+Google removes those. Adding a country or a profession means writing real content for it — if you
+cannot say something true and specific about an entry, it should not have a page.
+
+## Keywords
+
+```bash
+python3 build/keywords.py        # writes content/keywords.csv
+```
+
+6,767 keywords, each mapped to the page meant to serve it and tiered:
+
+| Tier | Meaning | Count |
+|---|---|---|
+| 1 | a page for it exists today | 1,275 |
+| 2 | the page is planned | 5,136 |
+| 3 | needs a new page first | 356 |
+
+No search volumes are included, because inventing them would be worse than useless. Import the CSV
+into Google Keyword Planner, Ahrefs or Semrush for real volume and difficulty numbers.
+
+**The file is a plan, not something to paste into pages.** A keyword earns its place in a page by
+being what the page genuinely answers. Keywords pasted into markup are keyword stuffing, which is
+what the audit below exists to catch.
+
+## The SEO audit
+
+```bash
+python3 build/seo_check.py           # report
+python3 build/seo_check.py --strict  # exit 1 on any error, used in CI
+```
+
+It fails the build on:
+
+- **over-used words** — any single word above 3.5% of a page, any two-word phrase above 2%
+- **near-duplicate pages** — any two pages more than 80% identical
+- **duplicate titles or h1s** across the site
+- **missing or malformed meta descriptions**
+- **thin content** — under 280 words outside index pages
+
+It has already earned its place: it found a guide whose meta description was silently truncated to
+seven characters because the text contained a double quote, and a hub page that repeated the same
+two words forty times.
 
 ## Getting traffic
 

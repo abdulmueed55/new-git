@@ -20,6 +20,9 @@ jobs:
       - name: Rebuild the site
         run: python3 build/generate.py
 
+      - name: Audit for keyword stuffing and duplicate pages
+        run: python3 build/seo_check.py --strict
+
       - name: Check the committed output is current
         run: |
           if [ -n "$(git status --porcelain docs)" ]; then

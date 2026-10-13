@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Freelance Take-Home Pay Calculator | What You Actually Keep</title>
-<meta name="description" content="See what you really keep from freelance revenue after business expenses, self-employment tax, income tax, retirement contributions and health insurance. Free monthly take-home calculator.">
+<meta name="description" content="See what you really keep from freelance revenue after business expenses, self-employment tax, income tax, retirement and health insurance.">
 <link rel="canonical" href="https://freelancefigures.com/tools/freelance-take-home-pay-calculator.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="FreelanceFigures">
 <meta property="og:title" content="Freelance Take-Home Pay Calculator | What You Actually Keep">
-<meta property="og:description" content="See what you really keep from freelance revenue after business expenses, self-employment tax, income tax, retirement contributions and health insurance. Free monthly take-home calculator.">
+<meta property="og:description" content="See what you really keep from freelance revenue after business expenses, self-employment tax, income tax, retirement and health insurance.">
 <meta property="og:url" content="https://freelancefigures.com/tools/freelance-take-home-pay-calculator.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
@@ -18,7 +18,7 @@
 <script src="/assets/js/theme-init.js"></script>
 <script src="/assets/js/site.js" defer></script>
 <script src="/assets/js/tool-take-home.js" defer></script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Freelance Take-Home Pay Calculator","url":"https://freelancefigures.com/tools/freelance-take-home-pay-calculator.html","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"See what you really keep from freelance revenue after business expenses, self-employment tax, income tax, retirement contributions and health insurance. Free monthly take-home calculator."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Freelance Take-Home Pay Calculator","url":"https://freelancefigures.com/tools/freelance-take-home-pay-calculator.html","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"See what you really keep from freelance revenue after business expenses, self-employment tax, income tax, retirement and health insurance."}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why is my retirement contribution subtracted from take-home pay?","acceptedAnswer":{"@type":"Answer","text":"Because it is not money you can spend this month. It is still yours &mdash; which is why the results show it as its own figure. Think of take-home as spendable cash and the retirement line as savings you have already made, rather than money lost."}},{"@type":"Question","name":"What effective income tax rate should I enter?","acceptedAnswer":{"@type":"Answer","text":"The most reliable source is last year's tax return: divide total tax by total income. If you have no return yet, a US freelancer with $80,000&ndash;$120,000 of net profit is often in the 13&ndash;18% effective federal range. Enter your top bracket and the result will be unduly pessimistic."}},{"@type":"Question","name":"Does this work for UK, Canadian or Australian freelancers?","acceptedAnswer":{"@type":"Answer","text":"Yes, with your own rates. A UK sole trader would enter roughly 6% for Class 4 National Insurance and their effective income tax rate, with 0% state tax. A Canadian would use CPP contributions plus federal and provincial rates. An Australian sole trader would enter 0% for social tax and their effective rate, plus superannuation in the retirement field."}},{"@type":"Question","name":"Should I use this to decide between freelancing and a job offer?","acceptedAnswer":{"@type":"Answer","text":"It is a good starting point, as long as you compare like with like. Against a $95,000 salary, compare your freelance take-home plus retirement plus health premiums, because the employer was paying for those too. Also price the things this calculator cannot: unpaid leave, income volatility, and the time you spend selling rather than working."}},{"@type":"Question","name":"Is any of this stored or sent to a server?","acceptedAnswer":{"@type":"Answer","text":"No. The calculation is JavaScript running in your own browser. Nothing is transmitted, saved or logged."}}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://freelancefigures.com/"},{"@type":"ListItem","position":2,"name":"Calculators","item":"https://freelancefigures.com/#tools"},{"@type":"ListItem","position":3,"name":"Freelance take-home pay"}]}</script>
 </head>
@@ -52,7 +52,7 @@
 <div class="field">
 <label for="currency">Currency</label>
 <select id="currency" name="currency">
-<option value="USD">USD &ndash; US dollar</option>
+<option value="USD" selected>USD &ndash; US dollar</option>
 <option value="EUR">EUR &ndash; Euro</option>
 <option value="GBP">GBP &ndash; British pound</option>
 <option value="CAD">CAD &ndash; Canadian dollar</option>
@@ -63,6 +63,21 @@
 <option value="INR">INR &ndash; Indian rupee</option>
 <option value="PKR">PKR &ndash; Pakistani rupee</option>
 <option value="ZAR">ZAR &ndash; South African rand</option>
+<option value="CHF">CHF &ndash; Swiss franc</option>
+<option value="SEK">SEK &ndash; Swedish krona</option>
+<option value="DKK">DKK &ndash; Danish krone</option>
+<option value="NOK">NOK &ndash; Norwegian krone</option>
+<option value="PLN">PLN &ndash; Polish złoty</option>
+<option value="CZK">CZK &ndash; Czech koruna</option>
+<option value="HUF">HUF &ndash; Hungarian forint</option>
+<option value="JPY">JPY &ndash; Japanese yen</option>
+<option value="KRW">KRW &ndash; South Korean won</option>
+<option value="SAR">SAR &ndash; Saudi riyal</option>
+<option value="TRY">TRY &ndash; Turkish lira</option>
+<option value="ILS">ILS &ndash; Israeli shekel</option>
+<option value="MXN">MXN &ndash; Mexican peso</option>
+<option value="NGN">NGN &ndash; Nigerian naira</option>
+<option value="KES">KES &ndash; Kenyan shilling</option>
 </select>
 </div>
 <p class="headline-sub" id="warn" hidden style="color:var(--danger);"></p>
@@ -177,9 +192,9 @@ be.</li>
 <section class="prose narrow wrap" style="padding:0;">
 <h2>Related reading</h2>
 <ul>
-<li><a href="/guides/how-much-should-a-freelancer-charge.html">How Much Should a Freelancer Charge? A Realistic 2026 Answer</a></li>
+<li><a href="/guides/how-much-should-a-freelancer-charge.html">How Much Should a Freelancer Charge?</a></li>
 <li><a href="/guides/get-clients-to-pay-on-time.html">How to Get Freelance Clients to Pay On Time</a></li>
-<li><a href="/guides/freelance-tax-first-year-checklist.html">Your First Year Freelancing: The Tax Checklist Nobody Gives You</a></li>
+<li><a href="/guides/freelance-tax-first-year-checklist.html">Your First Year Freelancing: A Tax Checklist</a></li>
 </ul>
 </section>
 </div>

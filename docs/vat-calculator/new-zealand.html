@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GST Calculator for New Zealand (15%) | Add or Remove GST</title>
+<meta name="description" content="Work out GST in New Zealand at 15%: add it to a net price or strip it from a total, with the registration rules and who collects it.">
+<link rel="canonical" href="https://freelancefigures.com/vat-calculator/new-zealand.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FreelanceFigures">
+<meta property="og:title" content="GST Calculator for New Zealand (15%) | Add or Remove GST">
+<meta property="og:description" content="Work out GST in New Zealand at 15%: add it to a net price or strip it from a total, with the registration rules and who collects it.">
+<meta property="og:url" content="https://freelancefigures.com/vat-calculator/new-zealand.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/main.css">
+<script src="/assets/js/theme-init.js"></script>
+<script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/tool-vat.js" defer></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"GST calculator for New Zealand","url":"https://freelancefigures.com/vat-calculator/new-zealand.html","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</head>
+<body>
+<header class="site-head">
+<div class="wrap head-row">
+<a class="logo" href="/"><span class="logo-mark" aria-hidden="true">FF</span>FreelanceFigures</a>
+<button class="menu-btn" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+<nav class="nav" aria-label="Main">
+<a href="/#tools" aria-current="page">Tools</a>
+<a href="/#guides">Guides</a>
+<a href="/about.html">About</a>
+<a href="/contact.html">Contact</a>
+</nav>
+<button class="theme-btn" type="button" aria-label="Switch theme">&#9790;</button>
+</div>
+</header>
+<main>
+<div class="wrap narrow">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/vat-calculator/">By country</a> &rsaquo; New Zealand</nav>
+<section class="hero" style="padding:26px 0 0;margin-bottom:24px;">
+<h1>GST Calculator for New Zealand</h1>
+<p>New Zealand's GST is often cited as the cleanest consumption tax in the world because it has almost no exemptions. That also means almost nothing you sell is outside it.</p>
+</section>
+
+<form class="calc" id="calcForm" autocomplete="off">
+<div class="field"><label for="mode">What do you want to do?</label><select id="mode" name="mode">
+<option value="add" selected>Add it to a net price</option>
+<option value="remove">Remove it from a gross price</option>
+</select></div><div class="field"><label for="amount">Amount</label><span class="hint">The figure you are starting from.</span><div class="input-wrap"><span class="affix pre">$</span><input id="amount" name="amount" type="number" step="any" min="0" inputmode="decimal" value="1000"></div></div><div class="field"><label for="rate">Rate</label><span class="hint">Editable &mdash; confirm the current figure first.</span><div class="input-wrap"><input id="rate" name="rate" type="number" step="any" min="0" inputmode="decimal" value="15"><span class="affix post">%</span></div></div><div class="field">
+<label for="currency">Currency</label>
+<select id="currency" name="currency">
+<option value="USD">USD &ndash; US dollar</option>
+<option value="EUR">EUR &ndash; Euro</option>
+<option value="GBP">GBP &ndash; British pound</option>
+<option value="CAD">CAD &ndash; Canadian dollar</option>
+<option value="AUD">AUD &ndash; Australian dollar</option>
+<option value="NZD" selected>NZD &ndash; New Zealand dollar</option>
+<option value="SGD">SGD &ndash; Singapore dollar</option>
+<option value="AED">AED &ndash; UAE dirham</option>
+<option value="INR">INR &ndash; Indian rupee</option>
+<option value="PKR">PKR &ndash; Pakistani rupee</option>
+<option value="ZAR">ZAR &ndash; South African rand</option>
+<option value="CHF">CHF &ndash; Swiss franc</option>
+<option value="SEK">SEK &ndash; Swedish krona</option>
+<option value="DKK">DKK &ndash; Danish krone</option>
+<option value="NOK">NOK &ndash; Norwegian krone</option>
+<option value="PLN">PLN &ndash; Polish złoty</option>
+<option value="CZK">CZK &ndash; Czech koruna</option>
+<option value="HUF">HUF &ndash; Hungarian forint</option>
+<option value="JPY">JPY &ndash; Japanese yen</option>
+<option value="KRW">KRW &ndash; South Korean won</option>
+<option value="SAR">SAR &ndash; Saudi riyal</option>
+<option value="TRY">TRY &ndash; Turkish lira</option>
+<option value="ILS">ILS &ndash; Israeli shekel</option>
+<option value="MXN">MXN &ndash; Mexican peso</option>
+<option value="NGN">NGN &ndash; Nigerian naira</option>
+<option value="KES">KES &ndash; Kenyan shilling</option>
+</select>
+</div>
+<p class="headline-sub" id="warn" hidden style="color:var(--danger);"></p>
+<div class="btn-row">
+<button class="btn" type="submit">Calculate</button>
+<button class="btn btn-ghost" type="button" id="copyBtn">Copy result</button>
+<button class="btn btn-ghost" type="button" id="resetBtn">Reset</button>
+</div>
+<div class="result" id="result" hidden>
+<div class="headline-label">Result</div>
+<div class="headline" id="outMain">&mdash;</div>
+<p class="headline-sub" id="outSub"></p>
+<div class="pill-row">
+<div class="pill"><div class="k">Net (before tax)</div><div class="v" id="outNet">&mdash;</div></div>
+<div class="pill"><div class="k">Tax</div><div class="v" id="outTax">&mdash;</div></div>
+<div class="pill"><div class="k">Gross (total)</div><div class="v" id="outGross">&mdash;</div></div>
+</div>
+<table class="breakdown">
+<tr><td>Net amount</td><td id="bNet">&mdash;</td></tr>
+<tr class="sub"><td>Rate applied</td><td id="bRate">&mdash;</td></tr>
+<tr><td>Tax</td><td id="bTax">&mdash;</td></tr>
+<tr class="total"><td>Gross amount</td><td id="bGross">&mdash;</td></tr>
+<tr class="sub"><td>Direction</td><td id="bLabel">&mdash;</td></tr>
+</table>
+
+</div>
+</form>
+
+<div class="ad-slot" data-slot="1212121212" data-format="auto"><div class="ad-label">Advertisement</div></div>
+
+<article class="prose">
+<div class="note"><p><strong>Check the rate before you invoice.</strong> This field is prefilled with the figure commonly cited for New Zealand, but rates move and the page you are reading may be older than the change. Confirm with Inland Revenue and type the current figure in &mdash; the calculator works at any rate.</p></div>
+<h2>Registering in New Zealand</h2>
+<p>Registration becomes compulsory at <strong>NZ$60,000 of turnover in any 12 months</strong>, collected by Inland Revenue.</p>
+<h2>Rates other than the standard one</h2>
+<p>Almost no reduced rates; the system is deliberately broad and simple.</p>
+<h2>Working backwards from a total</h2>
+<p>To find what you actually earned inside a figure that already includes the tax, divide rather than
+subtract. Taking a percentage off the gross always leaves too little, and the error grows with the rate.
+Switch the box above to the removing mode and the calculator does it correctly.</p>
+<p>Whatever the rate, the money you collect was never income. It is held on behalf of Inland Revenue
+and will be asked for. Freelancers who treat it as revenue are the ones who cannot pay at the end of the
+quarter &mdash; the <a href="/tools/quarterly-tax-savings-calculator.html">set-aside calculator</a> applies
+the same habit to income tax.</p>
+</article>
+</div>
+<div class="wrap">
+<section style="margin-top:40px;">
+<h2 style="font-size:24px;margin-bottom:14px;">Related</h2>
+<div class="grid">
+<a class="card" href="/tools/vat-sales-tax-calculator.html"><span class="tag">Any rate</span><h3>General VAT &amp; sales tax calculator</h3><p>The same tool with presets for every country on the list.</p></a>
+<a class="card" href="/vat-calculator/"><span class="tag">Index</span><h3>Rates by country</h3><p>All 35 countries covered, with thresholds and who collects.</p></a>
+<a class="card" href="/tools/freelance-hourly-rate-calculator.html"><span class="tag">Calculator</span><h3>Freelance hourly rate</h3><p>Work backwards from the income you want to the rate you must charge.</p></a>
+</div>
+</section>
+</div>
+</main>
+<footer class="site-foot">
+<div class="wrap">
+<div class="foot-grid">
+<div>
+<a class="logo" href="/"><span class="logo-mark" aria-hidden="true">FF</span>FreelanceFigures</a>
+<p style="color:var(--text-mute);margin:10px 0 0;max-width:38ch;font-size:14.5px;">
+Free money calculators for freelancers and small businesses. No sign-up, no paywall, nothing leaves your browser.</p>
+</div>
+<div>
+<h4>Calculators</h4>
+<ul>
+<li><a href="/tools/freelance-hourly-rate-calculator.html">Freelance hourly rate</a></li>
+<li><a href="/tools/self-employment-tax-calculator.html">Self-employment tax (US)</a></li>
+<li><a href="/tools/invoice-late-fee-calculator.html">Invoice late fee</a></li>
+<li><a href="/tools/project-quote-calculator.html">Project quote</a></li>
+<li><a href="/tools/freelance-take-home-pay-calculator.html">Freelance take-home pay</a></li>
+<li><a href="/tools/quarterly-tax-savings-calculator.html">Quarterly tax set-aside</a></li>
+<li><a href="/tools/salary-to-freelance-rate-converter.html">Salary to freelance rate</a></li>
+<li><a href="/tools/vat-sales-tax-calculator.html">VAT / sales tax</a></li>
+<li><a href="/tools/profit-margin-calculator.html">Profit margin &amp; markup</a></li>
+</ul>
+</div>
+<div>
+<h4>Site</h4>
+<ul>
+<li><a href="/about.html">About</a></li>
+<li><a href="/contact.html">Contact</a></li>
+<li><a href="/privacy.html">Privacy policy</a></li>
+<li><a href="/terms.html">Terms of use</a></li>
+<li><a href="/disclaimer.html">Disclaimer</a></li>
+</ul>
+</div>
+</div>
+<div class="foot-bottom">
+<span>&copy; 2026 FreelanceFigures. All rights reserved.</span>
+<span>Figures are estimates, not professional tax advice.</span>
+</div>
+</div>
+</footer>
+</body>
+</html>

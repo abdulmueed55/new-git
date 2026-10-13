@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Freelance Rate Calculator for Data Scientists | What to Charge</title>
+<meta name="description" content="Work out what to charge as a freelance data scientist: costs, realistic billable hours and the rate that covers them.">
+<link rel="canonical" href="https://freelancefigures.com/freelance-rates/data-scientist.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FreelanceFigures">
+<meta property="og:title" content="Freelance Rate Calculator for Data Scientists | What to Charge">
+<meta property="og:description" content="Work out what to charge as a freelance data scientist: costs, realistic billable hours and the rate that covers them.">
+<meta property="og:url" content="https://freelancefigures.com/freelance-rates/data-scientist.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/main.css">
+<script src="/assets/js/theme-init.js"></script>
+<script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/tool-hourly-rate.js" defer></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Freelance Rate Calculator for Data Scientists | What to Charge","url":"https://freelancefigures.com/freelance-rates/data-scientist.html","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</head>
+<body>
+<header class="site-head">
+<div class="wrap head-row">
+<a class="logo" href="/"><span class="logo-mark" aria-hidden="true">FF</span>FreelanceFigures</a>
+<button class="menu-btn" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+<nav class="nav" aria-label="Main">
+<a href="/#tools" aria-current="page">Tools</a>
+<a href="/#guides">Guides</a>
+<a href="/about.html">About</a>
+<a href="/contact.html">Contact</a>
+</nav>
+<button class="theme-btn" type="button" aria-label="Switch theme">&#9790;</button>
+</div>
+</header>
+<main>
+<div class="wrap narrow">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/freelance-rates/">By profession</a> &rsaquo; Data Scientist</nav>
+<section class="hero" style="padding:26px 0 0;margin-bottom:24px;">
+<h1>What Should a Freelance Data Scientist Charge?</h1>
+<p>Projects here fail at handover far more often than at modelling. A notebook that nobody can run in production is worth nothing, so price deployment, monitoring and documentation as part of the engagement rather than hoping someone else picks them up.</p>
+</section>
+
+<form class="calc" id="calcForm" autocomplete="off">
+<div class="field"><label for="targetIncome">Income you want to take home</label><span class="hint">After tax, per year.</span><div class="input-wrap"><span class="affix pre">$</span><input id="targetIncome" name="targetIncome" type="number" step="any" min="0" inputmode="decimal" value="95000"></div></div><div class="field"><label for="expenses">Annual business expenses</label><span class="hint">For data scientists this usually covers compute for training, data subscriptions, experiment tracking, cloud storage, conference attendance.</span><div class="input-wrap"><span class="affix pre">$</span><input id="expenses" name="expenses" type="number" step="any" min="0" inputmode="decimal" value="6400"></div></div><div class="row2"><div class="field"><label for="billableHours">Billable hours per week</label><span class="hint">23 is realistic in this field.</span><div class="input-wrap"><input id="billableHours" name="billableHours" type="number" step="any" min="0" inputmode="decimal" value="23"><span class="affix post">hrs</span></div></div><div class="field"><label for="taxRate">Estimated tax rate</label><span class="hint">Income tax plus self-employment contributions.</span><div class="input-wrap"><input id="taxRate" name="taxRate" type="number" step="any" min="0" inputmode="decimal" value="28"><span class="affix post">%</span></div></div></div><div class="row2"><div class="field"><label for="vacationWeeks">Weeks of holiday</label><div class="input-wrap"><input id="vacationWeeks" name="vacationWeeks" type="number" step="any" min="0" inputmode="decimal" value="4"><span class="affix post">wks</span></div></div><div class="field"><label for="holidayDays">Public holidays</label><div class="input-wrap"><input id="holidayDays" name="holidayDays" type="number" step="any" min="0" inputmode="decimal" value="8"><span class="affix post">days</span></div></div></div><div class="row2"><div class="field"><label for="sickDays">Sick / buffer days</label><div class="input-wrap"><input id="sickDays" name="sickDays" type="number" step="any" min="0" inputmode="decimal" value="5"><span class="affix post">days</span></div></div><div class="field"><label for="profitMargin">Profit buffer</label><div class="input-wrap"><input id="profitMargin" name="profitMargin" type="number" step="any" min="0" inputmode="decimal" value="10"><span class="affix post">%</span></div></div></div><div class="field">
+<label for="currency">Currency</label>
+<select id="currency" name="currency">
+<option value="USD" selected>USD &ndash; US dollar</option>
+<option value="EUR">EUR &ndash; Euro</option>
+<option value="GBP">GBP &ndash; British pound</option>
+<option value="CAD">CAD &ndash; Canadian dollar</option>
+<option value="AUD">AUD &ndash; Australian dollar</option>
+<option value="NZD">NZD &ndash; New Zealand dollar</option>
+<option value="SGD">SGD &ndash; Singapore dollar</option>
+<option value="AED">AED &ndash; UAE dirham</option>
+<option value="INR">INR &ndash; Indian rupee</option>
+<option value="PKR">PKR &ndash; Pakistani rupee</option>
+<option value="ZAR">ZAR &ndash; South African rand</option>
+<option value="CHF">CHF &ndash; Swiss franc</option>
+<option value="SEK">SEK &ndash; Swedish krona</option>
+<option value="DKK">DKK &ndash; Danish krone</option>
+<option value="NOK">NOK &ndash; Norwegian krone</option>
+<option value="PLN">PLN &ndash; Polish złoty</option>
+<option value="CZK">CZK &ndash; Czech koruna</option>
+<option value="HUF">HUF &ndash; Hungarian forint</option>
+<option value="JPY">JPY &ndash; Japanese yen</option>
+<option value="KRW">KRW &ndash; South Korean won</option>
+<option value="SAR">SAR &ndash; Saudi riyal</option>
+<option value="TRY">TRY &ndash; Turkish lira</option>
+<option value="ILS">ILS &ndash; Israeli shekel</option>
+<option value="MXN">MXN &ndash; Mexican peso</option>
+<option value="NGN">NGN &ndash; Nigerian naira</option>
+<option value="KES">KES &ndash; Kenyan shilling</option>
+</select>
+</div>
+<p class="headline-sub" id="warn" hidden style="color:var(--danger);"></p>
+<div class="btn-row">
+<button class="btn" type="submit">Calculate</button>
+<button class="btn btn-ghost" type="button" id="copyBtn">Copy result</button>
+<button class="btn btn-ghost" type="button" id="resetBtn">Reset</button>
+</div>
+<div class="result" id="result" hidden>
+<div class="headline-label">Your minimum hourly rate</div>
+<div class="headline" id="outRate">&mdash;</div>
+<p class="headline-sub" id="outSub"></p>
+<div class="pill-row">
+<div class="pill"><div class="k">Day rate (8 hrs)</div><div class="v" id="outDay">&mdash;</div></div>
+<div class="pill"><div class="k">Week rate</div><div class="v" id="outWeek">&mdash;</div></div>
+<div class="pill"><div class="k">Monthly revenue</div><div class="v" id="outMonth">&mdash;</div></div>
+<div class="pill"><div class="k">Billable hours / yr</div><div class="v" id="outHours">&mdash;</div></div>
+</div>
+<table class="breakdown">
+<tr><td>Take-home income target</td><td id="bTarget">&mdash;</td></tr>
+<tr><td>Tax to cover on top</td><td id="bTaxUp">&mdash;</td></tr>
+<tr><td>Business expenses</td><td id="bExpenses">&mdash;</td></tr>
+<tr><td>Profit buffer</td><td id="bProfit">&mdash;</td></tr>
+<tr class="total"><td>Revenue you must invoice</td><td id="bTotal">&mdash;</td></tr>
+<tr class="sub"><td>Working weeks per year</td><td id="bWeeks">&mdash;</td></tr>
+<tr class="sub"><td>Utilisation</td><td id="bUtil">&mdash;</td></tr>
+<tr class="sub"><td>Break-even rate (no profit buffer)</td><td id="bMin">&mdash;</td></tr>
+</table>
+
+</div>
+</form>
+
+<div class="ad-slot" data-slot="1313131313" data-format="auto"><div class="ad-label">Advertisement</div></div>
+
+<article class="prose">
+<h2>What the work costs you</h2>
+<p>The expenses box is prefilled with $6,400 a year, which for data scientists
+typically goes on compute for training, data subscriptions, experiment tracking, cloud storage, conference attendance. Replace it with your own total &mdash; every pound of genuine cost has
+to come out of revenue before any of it is yours.</p>
+<h2>Why 23 billable hours and not forty</h2>
+<p>Nobody pays you to write proposals, chase invoices, answer email or learn. The figure above assumes
+23 genuinely billable hours a week, which is what a busy freelance data scientist
+actually logs once the unpaid work is excluded. Entering forty will produce a rate that looks
+competitive and loses money.</p>
+<h2>What moves the number up</h2>
+<p>In this field, rates rise with deployment skills, measurable business impact, and being able to say when a model is the wrong answer. None of those are about working faster, which is
+the point: an hourly rate rewards slowness, so use this figure to price the project rather than the
+hour. The <a href="/tools/project-quote-calculator.html">quote calculator</a> turns it into a fixed
+price with revisions and a deposit built in.</p>
+<p>Once you have a number, check what survives tax with the
+<a href="/tools/freelance-take-home-pay-calculator.html">take-home pay calculator</a>.</p>
+</article>
+</div>
+<div class="wrap">
+<section style="margin-top:40px;">
+<h2 style="font-size:24px;margin-bottom:14px;">Related</h2>
+<div class="grid">
+<a class="card" href="/tools/freelance-hourly-rate-calculator.html"><span class="tag">Calculator</span><h3>General hourly rate calculator</h3><p>The same method without the profession presets.</p></a>
+<a class="card" href="/tools/salary-to-freelance-rate-converter.html"><span class="tag">Calculator</span><h3>Salary to freelance rate</h3><p>What rate replaces the job you left.</p></a>
+<a class="card" href="/freelance-rates/"><span class="tag">Index</span><h3>Rates by profession</h3><p>All 40 fields covered.</p></a>
+</div>
+</section>
+</div>
+</main>
+<footer class="site-foot">
+<div class="wrap">
+<div class="foot-grid">
+<div>
+<a class="logo" href="/"><span class="logo-mark" aria-hidden="true">FF</span>FreelanceFigures</a>
+<p style="color:var(--text-mute);margin:10px 0 0;max-width:38ch;font-size:14.5px;">
+Free money calculators for freelancers and small businesses. No sign-up, no paywall, nothing leaves your browser.</p>
+</div>
+<div>
+<h4>Calculators</h4>
+<ul>
+<li><a href="/tools/freelance-hourly-rate-calculator.html">Freelance hourly rate</a></li>
+<li><a href="/tools/self-employment-tax-calculator.html">Self-employment tax (US)</a></li>
+<li><a href="/tools/invoice-late-fee-calculator.html">Invoice late fee</a></li>
+<li><a href="/tools/project-quote-calculator.html">Project quote</a></li>
+<li><a href="/tools/freelance-take-home-pay-calculator.html">Freelance take-home pay</a></li>
+<li><a href="/tools/quarterly-tax-savings-calculator.html">Quarterly tax set-aside</a></li>
+<li><a href="/tools/salary-to-freelance-rate-converter.html">Salary to freelance rate</a></li>
+<li><a href="/tools/vat-sales-tax-calculator.html">VAT / sales tax</a></li>
+<li><a href="/tools/profit-margin-calculator.html">Profit margin &amp; markup</a></li>
+</ul>
+</div>
+<div>
+<h4>Site</h4>
+<ul>
+<li><a href="/about.html">About</a></li>
+<li><a href="/contact.html">Contact</a></li>
+<li><a href="/privacy.html">Privacy policy</a></li>
+<li><a href="/terms.html">Terms of use</a></li>
+<li><a href="/disclaimer.html">Disclaimer</a></li>
+</ul>
+</div>
+</div>
+<div class="foot-bottom">
+<span>&copy; 2026 FreelanceFigures. All rights reserved.</span>
+<span>Figures are estimates, not professional tax advice.</span>
+</div>
+</div>
+</footer>
+</body>
+</html>

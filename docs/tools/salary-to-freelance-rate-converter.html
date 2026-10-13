@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Salary to Freelance Rate Converter | What Rate Matches My Salary?</title>
-<meta name="description" content="Convert an employee salary into the freelance hourly rate that actually replaces it, including benefits, employer taxes and paid time off. Free converter, instant result.">
+<meta name="description" content="Convert an employee salary into the freelance hourly rate that replaces it, including benefits, employer taxes and paid time off. Free and instant.">
 <link rel="canonical" href="https://freelancefigures.com/tools/salary-to-freelance-rate-converter.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="FreelanceFigures">
 <meta property="og:title" content="Salary to Freelance Rate Converter | What Rate Matches My Salary?">
-<meta property="og:description" content="Convert an employee salary into the freelance hourly rate that actually replaces it, including benefits, employer taxes and paid time off. Free converter, instant result.">
+<meta property="og:description" content="Convert an employee salary into the freelance hourly rate that replaces it, including benefits, employer taxes and paid time off. Free and instant.">
 <meta property="og:url" content="https://freelancefigures.com/tools/salary-to-freelance-rate-converter.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
@@ -18,7 +18,7 @@
 <script src="/assets/js/theme-init.js"></script>
 <script src="/assets/js/site.js" defer></script>
 <script src="/assets/js/tool-salary-convert.js" defer></script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Salary to Freelance Rate Converter","url":"https://freelancefigures.com/tools/salary-to-freelance-rate-converter.html","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Convert an employee salary into the freelance hourly rate that actually replaces it, including benefits, employer taxes and paid time off. Free converter, instant result."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Salary to Freelance Rate Converter","url":"https://freelancefigures.com/tools/salary-to-freelance-rate-converter.html","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Convert an employee salary into the freelance hourly rate that replaces it, including benefits, employer taxes and paid time off. Free and instant."}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is it true that freelancers should charge double their old hourly wage?","acceptedAnswer":{"@type":"Answer","text":"The rule of thumb is roughly right and for the wrong reasons, which is why people apply it badly. The doubling is not a premium for being self-employed; it is the arithmetic of lost benefits, employer taxes, unpaid time off and non-billable hours. Run your own numbers and the multiple usually lands between 2.2 and 2.8."}},{"@type":"Question","name":"What percentage should I use for benefits?","acceptedAnswer":{"@type":"Answer","text":"Twenty to thirty percent covers most employees in the US and Western Europe. Use the higher end if you had good health cover, a generous retirement match, or an employer who paid for equipment and training. If you genuinely had no benefits at all, enter 0 &mdash; but check first, because paid leave and employer taxes still count and are entered separately."}},{"@type":"Question","name":"Why does the calculator show the value of my paid time off separately?","acceptedAnswer":{"@type":"Answer","text":"Because it is the part people find hardest to believe. Twenty-five paid days off is roughly 9.6% of a working year &mdash; on $85,000 that is about $8,170 you were paid for not working. It is shown for context rather than added twice; the rate already covers it, because the billable hours figure excludes the weeks you take off."}},{"@type":"Question","name":"Should I quote this rate to clients, or is it just for me?","acceptedAnswer":{"@type":"Answer","text":"It is a floor for your own decision-making. Quote projects rather than hours wherever you can, using the project quote calculator. Clients buy outcomes; hourly rates invite them to audit your speed instead of valuing your result."}},{"@type":"Question","name":"Does this work in the UK, Canada or Australia?","acceptedAnswer":{"@type":"Answer","text":"Yes &mdash; change the currency and the employer tax percentage. UK employer National Insurance is higher than US employer FICA, Australian employers pay compulsory superannuation on top of salary, and Canadian employers pay CPP and EI contributions. The structure of the calculation is identical everywhere."}}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://freelancefigures.com/"},{"@type":"ListItem","position":2,"name":"Calculators","item":"https://freelancefigures.com/#tools"},{"@type":"ListItem","position":3,"name":"Salary to freelance rate"}]}</script>
 </head>
@@ -52,7 +52,7 @@
 <div class="field">
 <label for="currency">Currency</label>
 <select id="currency" name="currency">
-<option value="USD">USD &ndash; US dollar</option>
+<option value="USD" selected>USD &ndash; US dollar</option>
 <option value="EUR">EUR &ndash; Euro</option>
 <option value="GBP">GBP &ndash; British pound</option>
 <option value="CAD">CAD &ndash; Canadian dollar</option>
@@ -63,6 +63,21 @@
 <option value="INR">INR &ndash; Indian rupee</option>
 <option value="PKR">PKR &ndash; Pakistani rupee</option>
 <option value="ZAR">ZAR &ndash; South African rand</option>
+<option value="CHF">CHF &ndash; Swiss franc</option>
+<option value="SEK">SEK &ndash; Swedish krona</option>
+<option value="DKK">DKK &ndash; Danish krone</option>
+<option value="NOK">NOK &ndash; Norwegian krone</option>
+<option value="PLN">PLN &ndash; Polish złoty</option>
+<option value="CZK">CZK &ndash; Czech koruna</option>
+<option value="HUF">HUF &ndash; Hungarian forint</option>
+<option value="JPY">JPY &ndash; Japanese yen</option>
+<option value="KRW">KRW &ndash; South Korean won</option>
+<option value="SAR">SAR &ndash; Saudi riyal</option>
+<option value="TRY">TRY &ndash; Turkish lira</option>
+<option value="ILS">ILS &ndash; Israeli shekel</option>
+<option value="MXN">MXN &ndash; Mexican peso</option>
+<option value="NGN">NGN &ndash; Nigerian naira</option>
+<option value="KES">KES &ndash; Kenyan shilling</option>
 </select>
 </div>
 <p class="headline-sub" id="warn" hidden style="color:var(--danger);"></p>
@@ -182,9 +197,9 @@ lands in your account.</p>
 <section class="prose narrow wrap" style="padding:0;">
 <h2>Related reading</h2>
 <ul>
-<li><a href="/guides/how-much-should-a-freelancer-charge.html">How Much Should a Freelancer Charge? A Realistic 2026 Answer</a></li>
+<li><a href="/guides/how-much-should-a-freelancer-charge.html">How Much Should a Freelancer Charge?</a></li>
 <li><a href="/guides/get-clients-to-pay-on-time.html">How to Get Freelance Clients to Pay On Time</a></li>
-<li><a href="/guides/freelance-tax-first-year-checklist.html">Your First Year Freelancing: The Tax Checklist Nobody Gives You</a></li>
+<li><a href="/guides/freelance-tax-first-year-checklist.html">Your First Year Freelancing: A Tax Checklist</a></li>
 </ul>
 </section>
 </div>

@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Freelance Hourly Rate Calculator | What Should You Charge?</title>
-<meta name="description" content="Work out the hourly rate you actually need to charge as a freelancer, after tax, business expenses, unpaid time off and non-billable hours. Free, instant, no sign-up.">
+<meta name="description" content="Work out the hourly rate you need to charge as a freelancer, after tax, business expenses, unpaid time off and non-billable hours. Free and instant.">
 <link rel="canonical" href="https://freelancefigures.com/tools/freelance-hourly-rate-calculator.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="FreelanceFigures">
 <meta property="og:title" content="Freelance Hourly Rate Calculator | What Should You Charge?">
-<meta property="og:description" content="Work out the hourly rate you actually need to charge as a freelancer, after tax, business expenses, unpaid time off and non-billable hours. Free, instant, no sign-up.">
+<meta property="og:description" content="Work out the hourly rate you need to charge as a freelancer, after tax, business expenses, unpaid time off and non-billable hours. Free and instant.">
 <meta property="og:url" content="https://freelancefigures.com/tools/freelance-hourly-rate-calculator.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
@@ -18,7 +18,7 @@
 <script src="/assets/js/theme-init.js"></script>
 <script src="/assets/js/site.js" defer></script>
 <script src="/assets/js/tool-hourly-rate.js" defer></script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Freelance Hourly Rate Calculator","url":"https://freelancefigures.com/tools/freelance-hourly-rate-calculator.html","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Work out the hourly rate you actually need to charge as a freelancer, after tax, business expenses, unpaid time off and non-billable hours. Free, instant, no sign-up."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Freelance Hourly Rate Calculator","url":"https://freelancefigures.com/tools/freelance-hourly-rate-calculator.html","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Work out the hourly rate you need to charge as a freelancer, after tax, business expenses, unpaid time off and non-billable hours. Free and instant."}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is a realistic number of billable hours per week?","acceptedAnswer":{"@type":"Answer","text":"Between 20 and 27 for most full-time freelancers. The rest of a 40-hour week goes to proposals, invoicing, email, bookkeeping, marketing and learning. Agencies plan for 60&ndash;70% utilisation on salaried staff and they have administrators; a solo freelancer doing their own admin should not plan for more."}},{"@type":"Question","name":"Should I charge the same rate to every client?","acceptedAnswer":{"@type":"Answer","text":"No. The figure here is your minimum. Rush work, difficult stakeholders, unclear scope and high-stakes projects all justify a premium, and the calculator has a rush and complexity multiplier in the project quote tool for exactly that. What should never happen is going below this number, because then the work costs you money to do."}},{"@type":"Question","name":"Does this work outside the United States?","acceptedAnswer":{"@type":"Answer","text":"Yes. The maths is country-neutral &mdash; pick your currency and enter your own combined tax rate. A UK sole trader would enter income tax plus Class 4 National Insurance; a German freelancer would enter Einkommensteuer plus their health insurance contribution; a Canadian would enter federal plus provincial plus CPP."}},{"@type":"Question","name":"Why does the calculator add a profit buffer on top of my salary?","acceptedAnswer":{"@type":"Answer","text":"Because your salary is a cost of the business, not its profit. The buffer is what absorbs the invoice that gets paid 90 days late, the client that disappears, the project that runs over, and the new laptop you did not budget for. Freelancers who skip it end up funding those events out of their own take-home pay."}},{"@type":"Question","name":"Is my data sent anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. Every calculation on this site runs in your browser with JavaScript. Nothing you type is uploaded, stored or logged by us."}}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://freelancefigures.com/"},{"@type":"ListItem","position":2,"name":"Calculators","item":"https://freelancefigures.com/#tools"},{"@type":"ListItem","position":3,"name":"Freelance hourly rate"}]}</script>
 </head>
@@ -53,7 +53,7 @@
 <div class="field">
 <label for="currency">Currency</label>
 <select id="currency" name="currency">
-<option value="USD">USD &ndash; US dollar</option>
+<option value="USD" selected>USD &ndash; US dollar</option>
 <option value="EUR">EUR &ndash; Euro</option>
 <option value="GBP">GBP &ndash; British pound</option>
 <option value="CAD">CAD &ndash; Canadian dollar</option>
@@ -64,6 +64,21 @@
 <option value="INR">INR &ndash; Indian rupee</option>
 <option value="PKR">PKR &ndash; Pakistani rupee</option>
 <option value="ZAR">ZAR &ndash; South African rand</option>
+<option value="CHF">CHF &ndash; Swiss franc</option>
+<option value="SEK">SEK &ndash; Swedish krona</option>
+<option value="DKK">DKK &ndash; Danish krone</option>
+<option value="NOK">NOK &ndash; Norwegian krone</option>
+<option value="PLN">PLN &ndash; Polish złoty</option>
+<option value="CZK">CZK &ndash; Czech koruna</option>
+<option value="HUF">HUF &ndash; Hungarian forint</option>
+<option value="JPY">JPY &ndash; Japanese yen</option>
+<option value="KRW">KRW &ndash; South Korean won</option>
+<option value="SAR">SAR &ndash; Saudi riyal</option>
+<option value="TRY">TRY &ndash; Turkish lira</option>
+<option value="ILS">ILS &ndash; Israeli shekel</option>
+<option value="MXN">MXN &ndash; Mexican peso</option>
+<option value="NGN">NGN &ndash; Nigerian naira</option>
+<option value="KES">KES &ndash; Kenyan shilling</option>
 </select>
 </div>
 <p class="headline-sub" id="warn" hidden style="color:var(--danger);"></p>
@@ -187,9 +202,9 @@ actually lands in your account.</p>
 <section class="prose narrow wrap" style="padding:0;">
 <h2>Related reading</h2>
 <ul>
-<li><a href="/guides/how-much-should-a-freelancer-charge.html">How Much Should a Freelancer Charge? A Realistic 2026 Answer</a></li>
+<li><a href="/guides/how-much-should-a-freelancer-charge.html">How Much Should a Freelancer Charge?</a></li>
 <li><a href="/guides/get-clients-to-pay-on-time.html">How to Get Freelance Clients to Pay On Time</a></li>
-<li><a href="/guides/freelance-tax-first-year-checklist.html">Your First Year Freelancing: The Tax Checklist Nobody Gives You</a></li>
+<li><a href="/guides/freelance-tax-first-year-checklist.html">Your First Year Freelancing: A Tax Checklist</a></li>
 </ul>
 </section>
 </div>

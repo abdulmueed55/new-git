@@ -24,6 +24,10 @@ NAV = [
 
 
 def head(title, desc, path, schemas=(), scripts=()):
+    # A raw double quote inside an attribute truncates the tag. This silently
+    # destroyed one guide's meta description until seo_check.py found it.
+    desc = desc.replace('"', "&quot;")
+    safe_title = title.replace('"', "&quot;")
     canonical = DOMAIN + path
     s = "\n".join(
         '<script type="application/ld+json">%s</script>' % json.dumps(x, separators=(",", ":"))
@@ -41,7 +45,7 @@ def head(title, desc, path, schemas=(), scripts=()):
 <link rel="canonical" href="{canonical}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="{SITE_NAME}">
-<meta property="og:title" content="{title}">
+<meta property="og:title" content="{safe_title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:url" content="{canonical}">
 <meta name="twitter:card" content="summary_large_image">
@@ -169,7 +173,7 @@ def strip_tags(html):
     return "".join(out).strip()
 
 
-def currency_field():
+def currency_field(selected="USD"):
     opts = [
         ("USD", "USD &ndash; US dollar"),
         ("EUR", "EUR &ndash; Euro"),
@@ -182,8 +186,26 @@ def currency_field():
         ("INR", "INR &ndash; Indian rupee"),
         ("PKR", "PKR &ndash; Pakistani rupee"),
         ("ZAR", "ZAR &ndash; South African rand"),
+        ("CHF", "CHF &ndash; Swiss franc"),
+        ("SEK", "SEK &ndash; Swedish krona"),
+        ("DKK", "DKK &ndash; Danish krone"),
+        ("NOK", "NOK &ndash; Norwegian krone"),
+        ("PLN", "PLN &ndash; Polish z\u0142oty"),
+        ("CZK", "CZK &ndash; Czech koruna"),
+        ("HUF", "HUF &ndash; Hungarian forint"),
+        ("JPY", "JPY &ndash; Japanese yen"),
+        ("KRW", "KRW &ndash; South Korean won"),
+        ("SAR", "SAR &ndash; Saudi riyal"),
+        ("TRY", "TRY &ndash; Turkish lira"),
+        ("ILS", "ILS &ndash; Israeli shekel"),
+        ("MXN", "MXN &ndash; Mexican peso"),
+        ("NGN", "NGN &ndash; Nigerian naira"),
+        ("KES", "KES &ndash; Kenyan shilling"),
     ]
-    o = "\n".join(f'<option value="{c}">{n}</option>' for c, n in opts)
+    o = "\n".join(
+        f'<option value="{c}"{" selected" if c == selected else ""}>{n}</option>'
+        for c, n in opts
+    )
     return f"""<div class="field">
 <label for="currency">Currency</label>
 <select id="currency" name="currency">
@@ -250,8 +272,7 @@ TOOLS.append(dict(
     script="tool-hourly-rate.js",
     title="Freelance Hourly Rate Calculator &mdash; What Should You Charge?",
     meta_title="Freelance Hourly Rate Calculator | What Should You Charge?",
-    meta_desc="Work out the hourly rate you actually need to charge as a freelancer, "
-              "after tax, business expenses, unpaid time off and non-billable hours. Free, instant, no sign-up.",
+    meta_desc="Work out the hourly rate you need to charge as a freelancer, after tax, business expenses, unpaid time off and non-billable hours. Free and instant.",
     h1="Freelance Hourly Rate Calculator",
     intro="Most freelancers pick a rate by copying someone else, then wonder why the money never "
           "adds up. This calculator works backwards from the life you want: the income you need to "
@@ -384,8 +405,7 @@ TOOLS.append(dict(
     script="tool-se-tax.js",
     title="Self-Employment Tax Calculator &mdash; Social Security &amp; Medicare",
     meta_title="Self-Employment Tax Calculator | Social Security + Medicare",
-    meta_desc="Calculate the 15.3% US self-employment tax on your net profit, including the "
-              "Social Security wage cap, Additional Medicare tax and your quarterly payment. Free and instant.",
+    meta_desc="Calculate the 15.3% US self-employment tax on your net profit, including the Social Security wage cap and what to pay the IRS each quarter.",
     h1="Self-Employment Tax Calculator",
     intro="If you are self-employed in the United States you pay both halves of Social Security and "
           "Medicare &mdash; 15.3% &mdash; before a single dollar of income tax is worked out. This "
@@ -509,8 +529,7 @@ TOOLS.append(dict(
     script="tool-late-fee.js",
     title="Invoice Late Fee Calculator &mdash; Interest on Overdue Invoices",
     meta_title="Invoice Late Fee Calculator | Interest on Overdue Invoices",
-    meta_desc="Calculate late payment interest and fees on an overdue invoice: monthly percentage, "
-              "annual rate, flat fee, or UK statutory interest with fixed compensation. Free, instant.",
+    meta_desc="Calculate late payment interest on an overdue invoice: monthly percentage, annual rate, flat fee, or UK statutory interest with fixed compensation.",
     h1="Invoice Late Fee Calculator",
     intro="An invoice that is 60 days late is a loan you did not agree to make. Work out exactly what "
           "the client owes you in interest and fees, so the figure on your reminder is a calculation "
@@ -652,8 +671,7 @@ TOOLS.append(dict(
     script="tool-quote.js",
     title="Project Quote Calculator &mdash; Price a Fixed-Fee Project",
     meta_title="Project Quote Calculator | Price a Fixed-Fee Project",
-    meta_desc="Turn an hours estimate into a fixed project price with complexity, revisions, rush fees, "
-              "expenses, discount, tax and a deposit figure. Free quoting calculator for freelancers.",
+    meta_desc="Turn an hours estimate into a fixed project price with complexity, revisions, rush fees, expenses and a deposit figure. Free quoting calculator.",
     h1="Project Quote Calculator",
     intro="Hourly billing punishes you for being good at your job: the faster you work, the less you "
           "earn. Fixed-fee quoting fixes that &mdash; but only if the number covers revisions, scope "
@@ -786,8 +804,7 @@ TOOLS.append(dict(
     script="tool-take-home.js",
     title="Freelance Take-Home Pay Calculator &mdash; What You Actually Keep",
     meta_title="Freelance Take-Home Pay Calculator | What You Actually Keep",
-    meta_desc="See what you really keep from freelance revenue after business expenses, self-employment "
-              "tax, income tax, retirement contributions and health insurance. Free monthly take-home calculator.",
+    meta_desc="See what you really keep from freelance revenue after business expenses, self-employment tax, income tax, retirement and health insurance.",
     h1="Freelance Take-Home Pay Calculator",
     intro="Invoicing $120,000 does not mean earning $120,000. Between business costs, self-employment "
           "tax, income tax, retirement savings and your own health insurance, the number that reaches "
@@ -1034,8 +1051,7 @@ TOOLS.append(dict(
     script="tool-salary-convert.js",
     title="Salary to Freelance Rate Converter &mdash; What Rate Replaces Your Job?",
     meta_title="Salary to Freelance Rate Converter | What Rate Matches My Salary?",
-    meta_desc="Convert an employee salary into the freelance hourly rate that actually replaces it, "
-              "including benefits, employer taxes and paid time off. Free converter, instant result.",
+    meta_desc="Convert an employee salary into the freelance hourly rate that replaces it, including benefits, employer taxes and paid time off. Free and instant.",
     h1="Salary to Freelance Rate Converter",
     intro="&ldquo;I earned $85,000, so $40 an hour should do it.&rdquo; That sum has ended more "
           "freelance careers than bad work ever has. Your salary was never the full value your "
@@ -1321,8 +1337,8 @@ TOOLS.append(dict(
          row("Markup (profit ÷ cost)", "bMarkup", "sub")],
     ),
     prose="""
-<h2>Margin and markup, in one table</h2>
-<p>Both describe the same profit. They divide it by different things.</p>
+<h2>Two percentages, one profit</h2>
+<p>Both describe the same money. They divide it by different things.</p>
 <div class="note">
 <p><strong>Margin</strong> = profit &divide; <em>selling price</em><br>
 <strong>Markup</strong> = profit &divide; <em>cost</em></p>
@@ -1353,10 +1369,10 @@ $600 &divide; (1 &minus; 0.40) = <strong>$1,000</strong></p>
 </div>
 
 <h2>Which one should you actually use?</h2>
-<p>Use <strong>markup</strong> to set prices, because you start from cost and multiply. Use
-<strong>margin</strong> to judge the health of the business, because it tells you what share of your
-revenue you keep and compares cleanly across products, clients and competitors. Trouble only starts
-when a number calculated one way gets reported as the other.</p>
+<p>Use <strong>markup</strong> to set prices, because you start from cost and multiply. Use the
+other to judge the health of the business, because it tells you what share of your revenue you keep
+and compares cleanly across products, clients and competitors. Trouble only starts when a number
+calculated one way gets reported as the other.</p>
 
 <h2>What counts as &ldquo;cost&rdquo; for a service business?</h2>
 <p>For a freelancer there is no inventory, so cost is your time plus anything you buy for the job.
@@ -1367,7 +1383,7 @@ tax, overheads and unpaid hours. Then add subcontractors, stock assets, licences
 That is the single most common accounting error in freelancing, and it never shows up in a spreadsheet
 &mdash; only in exhaustion.</p>
 
-<h2>What margin is healthy?</h2>
+<h2>What is a healthy figure?</h2>
 <table>
 <tr><th>Type of business</th><th>Typical net margin</th></tr>
 <tr><td>Solo freelancer (after paying yourself a market salary)</td><td>10&ndash;20%</td></tr>
@@ -1375,7 +1391,7 @@ That is the single most common accounting error in freelancing, and it never sho
 <tr><td>Product or software business at scale</td><td>20&ndash;40%</td></tr>
 <tr><td>Reselling physical goods</td><td>5&ndash;15%</td></tr>
 </table>
-<p>A margin that looks too good usually means a cost has been left out &mdash; most often your own
+<p>A result that looks too good usually means a cost has been left out &mdash; most often your own
 unbilled hours. Feed the price into the <a href="/tools/project-quote-calculator.html">project quote
 calculator</a> to check the quote holds up once revisions and complexity are priced in.</p>
 """,
@@ -1685,8 +1701,8 @@ working for yourself. New ones added regularly.</p>
     ]
     html = head(
         f"{SITE_NAME} &mdash; Free Money Calculators for Freelancers",
-        "Free calculators for freelancers and small businesses: hourly rate, self-employment tax, "
-        "invoice late fees, project quotes, take-home pay and quarterly tax set-aside. No sign-up.",
+        "Free calculators for freelancers: hourly rate, self-employment tax, invoice late fees, "
+        "project quotes, take-home pay and quarterly tax set-aside. No sign-up.",
         "/", schemas)
     html += header("Tools")
     html += f"""<div class="wrap">
@@ -1754,6 +1770,20 @@ def render_guides_index(tools, articles):
 <h1>Guides</h1>
 <p>Everything the calculators assume you already know, explained properly.</p>
 </section>
+<article class="prose narrow" style="margin:0 auto 34px;">
+<p>A calculator gives you a number. It cannot tell you what to say when a client calls the number too
+high, when to walk away from work that pays well, or how to word the email that finally gets a
+ninety-day invoice paid. That is what these are for.</p>
+<p>Everything here is written for people who are good at their craft and were never taught the business
+around it &mdash; which is nearly everyone who goes freelance. No motivational filler, no funnels, and
+specific numbers wherever a number makes the point better than an adjective.</p>
+<p>Where a guide touches tax, it says which country the rule belongs to, because nothing is more
+useless than advice written for somewhere else. Where it touches a rate or a threshold that changes
+every year, it explains how the rule works rather than quoting a figure that will be wrong by the time
+you read it.</p>
+<p>New guides are added most weeks. If something you need is missing, say so and it moves up the
+list.</p>
+</article>
 {ad('8888888888')}
 <div class="grid">
 {cards}
@@ -1765,7 +1795,7 @@ def render_guides_index(tools, articles):
 
 
 STATIC_PAGES = {
-    "about.html": ("About", "About " + SITE_NAME, """
+    "about.html": ("About", "About FreelanceFigures | Free Calculators for Freelancers", """
 <h1>About {SITE}</h1>
 <p>{SITE} is a small, free set of calculators for people who work for themselves. It exists because the
 financial advice aimed at freelancers tends to arrive in two unhelpful forms: vague encouragement
@@ -1792,7 +1822,7 @@ Tax rules vary by country, state and personal circumstance. For decisions that m
 qualified professional where you live. The <a href="/disclaimer.html">disclaimer</a> sets this out in
 full.</p>
 """),
-    "contact.html": ("Contact", "Contact " + SITE_NAME, """
+    "contact.html": ("Contact", "Contact FreelanceFigures | Corrections and Suggestions", """
 <h1>Contact</h1>
 <p>Questions, corrections and suggestions are all welcome &mdash; particularly corrections.</p>
 <h2>Email</h2>
@@ -1811,6 +1841,19 @@ AdSense; direct placements and sponsored posts are not accepted.</li>
 <p>Personal tax questions. Not because of unhelpfulness, but because answering them properly requires
 knowing your full circumstances and being licensed where you live &mdash; and answering them improperly
 could cost you money. For those, find an accountant or tax adviser in your own country.</p>
+<p>We also cannot tell you what to charge a specific client. The calculators give you a floor based on
+your own costs and hours; what sits above that floor depends on the value of the result, how badly it
+is wanted and how few people could deliver it. Nobody can price that from the outside.</p>
+<h2>Corrections get priority</h2>
+<p>If a formula is wrong, a rate is out of date or an explanation is misleading, that is the most useful
+message you can send and it goes to the front of the queue. Include the page address and the figures you
+entered so the result can be reproduced exactly. Where a correction changes a number, the page is
+updated the same week and the change is noted on it.</p>
+<h2>Using the calculators in your own work</h2>
+<p>You are welcome to use any result in a client quote, a proposal or an invoice without asking and
+without attribution. The output belongs to you; it was produced from your figures on your machine. What
+is not permitted is republishing the written guides as your own, or embedding the calculators inside a
+paid product.</p>
 """),
     "privacy.html": ("Privacy", "Privacy Policy | " + SITE_NAME, """
 <h1>Privacy policy</h1>
@@ -1914,6 +1957,19 @@ particular country, state or province.</p>
 <p>Using this site does not make us your accountant, tax adviser, lawyer or financial adviser, and no
 duty of care arises from your use of it. For filings, disputes, restructures, or any decision where
 being wrong carries a cost, consult a qualified professional licensed where you live.</p>
+<h2>Simplifications we have made deliberately</h2>
+<p>Several calculators ask for a single effective tax rate rather than modelling progressive bands. That
+is a choice, not an oversight: an effective rate is the honest way to think about a whole year, bands
+differ by country and change annually, and a tool that pretended to model them precisely would be wrong
+more often than one that asks you for the figure from your own last return.</p>
+<p>Where a rule has a genuine cap or threshold that materially changes the answer &mdash; the Social
+Security wage base, the fixed compensation bands for UK late payment &mdash; it is applied properly
+rather than averaged away.</p>
+<h2>What to do with a surprising result</h2>
+<p>Check the inputs first. In almost every case a result that looks wrong comes from a rate entered as
+28 when 0.28 was meant, an annual figure entered where a monthly one belonged, or billable hours set to
+forty. If the inputs are right and the output still looks wrong, tell us, because that is a bug worth
+fixing for everyone.</p>
 <h2>Your responsibility</h2>
 <p>You remain solely responsible for the figures you enter, for how you interpret the outputs, and for
 every pricing, tax and business decision you make. If a result looks surprising, it is more likely that
@@ -1922,9 +1978,23 @@ an input needs checking than that the surprise is correct &mdash; check it befor
 }
 
 
+STATIC_DESCS = {
+    "about.html": "Who runs FreelanceFigures, how the calculators work, how the site is paid for, "
+                  "and what it deliberately is not. Free tools, no sign-up, nothing stored.",
+    "contact.html": "How to reach FreelanceFigures with a correction, a calculator suggestion or a "
+                    "question, and what we can and cannot answer about your own tax position.",
+    "privacy.html": "What FreelanceFigures collects, which is almost nothing: calculations run in your "
+                    "browser and are never uploaded. Advertising cookies, analytics and your rights.",
+    "terms.html": "The terms covering use of FreelanceFigures: what the calculators are, what they are "
+                  "not, accuracy, acceptable use and the limits of our liability.",
+    "disclaimer.html": "Every figure here is an estimate, not a filing. Why rates change, why the "
+                       "jurisdiction matters, and when to take the output to a qualified accountant.",
+}
+
+
 def render_static(filename, nav_label, title, body, tools):
-    html = head(title, strip_tags(body.split("</p>")[0])[:155].replace('"', "&quot;") or title,
-                "/" + filename)
+    desc = STATIC_DESCS.get(filename) or strip_tags(body.split("</p>")[0])[:155]
+    html = head(title, desc, "/" + filename)
     html += header(nav_label)
     html += f"""<div class="wrap narrow">
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> &rsaquo; {nav_label}</nav>
@@ -1945,6 +2015,298 @@ FAVICON = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
 </svg>"""
 
 
+# =====================================================================
+#  Programmatic pages: one per country, one per profession
+# =====================================================================
+import data as site_data  # noqa: E402
+
+
+def render_country(c, tools):
+    rate_known = not c["verify_rate"]
+    rate_value = c["rate"] if rate_known else ""
+    headline_rate = f'{c["rate"]}%' if rate_known else "your rate"
+    title_rate = f' ({c["rate"]}%)' if rate_known else ""
+    threshold = (f'<p>Registration becomes compulsory at <strong>{c["threshold"]}</strong>, '
+                 f'collected by {c["authority"]}.</p>'
+                 if c["threshold"] else
+                 f'<p>{c["authority"]} sets the registration rules; there is no single headline '
+                 f'threshold worth quoting here, so check your own position with them directly.</p>')
+    verify = ('<div class="note"><p><strong>Check the rate before you invoice.</strong> This field is '
+              'prefilled with the figure commonly cited for ' + c["name"] + ', but rates move and '
+              'the page you are reading may be older than the change. Confirm with ' + c["authority"] +
+              ' and type the current figure in &mdash; the calculator works at any rate.</p></div>')
+
+    form = [
+        field("mode", "What do you want to do?", "", select=[
+            ("add", "Add it to a net price", True),
+            ("remove", "Remove it from a gross price", False),
+        ]),
+        field("amount", "Amount", "The figure you are starting from.", pre=c["symbol"], value="1000"),
+        field("rate", "Rate", "Editable &mdash; confirm the current figure first.",
+              post="%", value=rate_value),
+        currency_field(c["currency"]),
+    ]
+    result = result_shell(
+        "Result", "outSub", "outMain",
+        [pill("Net (before tax)", "outNet"), pill("Tax", "outTax"), pill("Gross (total)", "outGross")],
+        [row("Net amount", "bNet"),
+         row("Rate applied", "bRate", "sub"),
+         row("Tax", "bTax"),
+         row("Gross amount", "bGross", "total"),
+         row("Direction", "bLabel", "sub")],
+    )
+    short_tax = c["tax"].split(" (")[0]
+    meta_title = f'{short_tax} Calculator for {c["name"]}{title_rate}'
+    if len(meta_title) + len(short_tax) + 19 <= 70:
+        meta_title += f' | Add or Remove {short_tax}'
+    meta_desc = (f'Work out {short_tax} in {c["name"]} at {headline_rate}: add it to a net price or '
+                 f'strip it from a total, with the registration rules and who collects it.')[:160]
+
+    html = head(meta_title, meta_desc, f'/vat-calculator/{c["slug"]}.html',
+                [{"@context": "https://schema.org", "@type": "WebApplication",
+                  "name": f'{c["tax"]} calculator for {c["name"]}',
+                  "url": DOMAIN + f'/vat-calculator/{c["slug"]}.html',
+                  "applicationCategory": "FinanceApplication",
+                  "operatingSystem": "Any",
+                  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}],
+                ["tool-vat.js"])
+    html += header("Tools")
+    html += f"""<div class="wrap narrow">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/vat-calculator/">By country</a> &rsaquo; {c["adj"]}</nav>
+<section class="hero" style="padding:26px 0 0;margin-bottom:24px;">
+<h1>{c["tax"]} Calculator for {c["name"]}</h1>
+<p>{c["notes"]}</p>
+</section>
+
+<form class="calc" id="calcForm" autocomplete="off">
+{"".join(form)}
+<p class="headline-sub" id="warn" hidden style="color:var(--danger);"></p>
+<div class="btn-row">
+<button class="btn" type="submit">Calculate</button>
+<button class="btn btn-ghost" type="button" id="copyBtn">Copy result</button>
+<button class="btn btn-ghost" type="button" id="resetBtn">Reset</button>
+</div>
+{result}
+</form>
+
+{ad('1212121212')}
+
+<article class="prose">
+{verify}
+<h2>Registering in {c["name"]}</h2>
+{threshold}
+<h2>Rates other than the standard one</h2>
+<p>{c["reduced"].capitalize()}.</p>
+<h2>Working backwards from a total</h2>
+<p>To find what you actually earned inside a figure that already includes the tax, divide rather than
+subtract. Taking a percentage off the gross always leaves too little, and the error grows with the rate.
+Switch the box above to the removing mode and the calculator does it correctly.</p>
+<p>Whatever the rate, the money you collect was never income. It is held on behalf of {c["authority"]}
+and will be asked for. Freelancers who treat it as revenue are the ones who cannot pay at the end of the
+quarter &mdash; the <a href="/tools/quarterly-tax-savings-calculator.html">set-aside calculator</a> applies
+the same habit to income tax.</p>
+</article>
+</div>
+<div class="wrap">
+<section style="margin-top:40px;">
+<h2 style="font-size:24px;margin-bottom:14px;">Related</h2>
+<div class="grid">
+<a class="card" href="/tools/vat-sales-tax-calculator.html"><span class="tag">Any rate</span><h3>General VAT &amp; sales tax calculator</h3><p>The same tool with presets for every country on the list.</p></a>
+<a class="card" href="/vat-calculator/"><span class="tag">Index</span><h3>Rates by country</h3><p>All {len(site_data.COUNTRIES)} countries covered, with thresholds and who collects.</p></a>
+<a class="card" href="/tools/freelance-hourly-rate-calculator.html"><span class="tag">Calculator</span><h3>Freelance hourly rate</h3><p>Work backwards from the income you want to the rate you must charge.</p></a>
+</div>
+</section>
+</div>
+"""
+    return html + footer(tools)
+
+
+def render_profession(pr, tools):
+    plural = pr["name"] + "s"
+    form = [
+        field("targetIncome", "Income you want to take home", "After tax, per year.", pre="$", value=pr["income"]),
+        field("expenses", "Annual business expenses",
+              f'For {plural.lower()} this usually covers {pr["costs"]}.', pre="$", value=pr["expenses"]),
+        '<div class="row2">'
+        + field("billableHours", "Billable hours per week",
+                f'{pr["hours"]} is realistic in this field.', post="hrs", value=pr["hours"])
+        + field("taxRate", "Estimated tax rate", "Income tax plus self-employment contributions.",
+                post="%", value="28")
+        + "</div>",
+        '<div class="row2">'
+        + field("vacationWeeks", "Weeks of holiday", "", post="wks", value="4")
+        + field("holidayDays", "Public holidays", "", post="days", value="8")
+        + "</div>",
+        '<div class="row2">'
+        + field("sickDays", "Sick / buffer days", "", post="days", value="5")
+        + field("profitMargin", "Profit buffer", "", post="%", value="10")
+        + "</div>",
+        currency_field(),
+    ]
+    result = result_shell(
+        "Your minimum hourly rate", "outSub", "outRate",
+        [pill("Day rate (8 hrs)", "outDay"), pill("Week rate", "outWeek"),
+         pill("Monthly revenue", "outMonth"), pill("Billable hours / yr", "outHours")],
+        [row("Take-home income target", "bTarget"),
+         row("Tax to cover on top", "bTaxUp"),
+         row("Business expenses", "bExpenses"),
+         row("Profit buffer", "bProfit"),
+         row("Revenue you must invoice", "bTotal", "total"),
+         row("Working weeks per year", "bWeeks", "sub"),
+         row("Utilisation", "bUtil", "sub"),
+         row("Break-even rate (no profit buffer)", "bMin", "sub")],
+    )
+    meta_title = f'Freelance Rate Calculator for {plural} | What to Charge'
+    meta_desc = (f'Work out what to charge as a freelance {pr["name"].lower()}: costs, realistic '
+                 f'billable hours and the rate that covers them.')[:158]
+
+    html = head(meta_title, meta_desc, f'/freelance-rates/{pr["slug"]}.html',
+                [{"@context": "https://schema.org", "@type": "WebApplication",
+                  "name": meta_title,
+                  "url": DOMAIN + f'/freelance-rates/{pr["slug"]}.html',
+                  "applicationCategory": "FinanceApplication",
+                  "operatingSystem": "Any",
+                  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}],
+                ["tool-hourly-rate.js"])
+    html += header("Tools")
+    html += f"""<div class="wrap narrow">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/freelance-rates/">By profession</a> &rsaquo; {pr["name"]}</nav>
+<section class="hero" style="padding:26px 0 0;margin-bottom:24px;">
+<h1>What Should a Freelance {pr["name"]} Charge?</h1>
+<p>{pr["note"]}</p>
+</section>
+
+<form class="calc" id="calcForm" autocomplete="off">
+{"".join(form)}
+<p class="headline-sub" id="warn" hidden style="color:var(--danger);"></p>
+<div class="btn-row">
+<button class="btn" type="submit">Calculate</button>
+<button class="btn btn-ghost" type="button" id="copyBtn">Copy result</button>
+<button class="btn btn-ghost" type="button" id="resetBtn">Reset</button>
+</div>
+{result}
+</form>
+
+{ad('1313131313')}
+
+<article class="prose">
+<h2>What the work costs you</h2>
+<p>The expenses box is prefilled with {FF_money(pr["expenses"])} a year, which for {plural.lower()}
+typically goes on {pr["costs"]}. Replace it with your own total &mdash; every pound of genuine cost has
+to come out of revenue before any of it is yours.</p>
+<h2>Why {pr["hours"]} billable hours and not forty</h2>
+<p>Nobody pays you to write proposals, chase invoices, answer email or learn. The figure above assumes
+{pr["hours"]} genuinely billable hours a week, which is what a busy freelance {pr["name"].lower()}
+actually logs once the unpaid work is excluded. Entering forty will produce a rate that looks
+competitive and loses money.</p>
+<h2>What moves the number up</h2>
+<p>In this field, rates rise with {pr["drivers"]}. None of those are about working faster, which is
+the point: an hourly rate rewards slowness, so use this figure to price the project rather than the
+hour. The <a href="/tools/project-quote-calculator.html">quote calculator</a> turns it into a fixed
+price with revisions and a deposit built in.</p>
+<p>Once you have a number, check what survives tax with the
+<a href="/tools/freelance-take-home-pay-calculator.html">take-home pay calculator</a>.</p>
+</article>
+</div>
+<div class="wrap">
+<section style="margin-top:40px;">
+<h2 style="font-size:24px;margin-bottom:14px;">Related</h2>
+<div class="grid">
+<a class="card" href="/tools/freelance-hourly-rate-calculator.html"><span class="tag">Calculator</span><h3>General hourly rate calculator</h3><p>The same method without the profession presets.</p></a>
+<a class="card" href="/tools/salary-to-freelance-rate-converter.html"><span class="tag">Calculator</span><h3>Salary to freelance rate</h3><p>What rate replaces the job you left.</p></a>
+<a class="card" href="/freelance-rates/"><span class="tag">Index</span><h3>Rates by profession</h3><p>All {len(site_data.PROFESSIONS)} fields covered.</p></a>
+</div>
+</section>
+</div>
+"""
+    return html + footer(tools)
+
+
+def FF_money(n):
+    return "$" + format(int(n), ",d")
+
+
+def render_hub(kind, tools):
+    if kind == "country":
+        items, path, h1 = site_data.COUNTRIES, "/vat-calculator/", "VAT &amp; GST rates by country"
+        lead = ("Pick a country for its standard rate, its registration threshold, who collects it, and "
+                "the one or two local rules that actually catch freelancers out.")
+        cards = "\n".join(
+            f'<a class="card" href="/vat-calculator/{c["slug"]}.html">'
+            f'<span class="tag">{c["tax"]}{"" if c["verify_rate"] else " &middot; " + str(c["rate"]) + "%"}</span>'
+            f'<h3>{c["adj"]}</h3><p>{c["authority"]}</p></a>'
+            for c in items)
+        extra = """<article class="prose narrow" style="margin:44px auto 0;">
+<h2>Why the rate is only half the question</h2>
+<p>Knowing that a country charges 21% tells you almost nothing about what you owe. What decides your
+position is the turnover at which registration stops being optional, whether a small-business exemption
+applies to you, and where a supply is treated as happening when your client sits somewhere else.</p>
+<p>That last point catches out nearly every freelancer with foreign clients. Selling a service across an
+EU border to another registered business usually shifts the obligation to the buyer under the reverse
+charge, so you invoice without adding anything and explain why on the invoice. Selling the same service
+to a private individual can require their local rate instead. Getting it the wrong way round means
+either an unexpected bill or an invoice your client refuses to pay.</p>
+<h2>Thresholds move, and so do rates</h2>
+<p>Several countries listed here changed their standard rate within the last few years, and more have
+adjusted the point at which you must register. Treat every figure as a starting point to confirm rather
+than as an authority. Each page names the body that actually collects the money, which is where the
+current number lives.</p>
+<h2>Whatever the rate, it is not income</h2>
+<p>The money you add to an invoice was never yours. It sits in your account looking like a good month
+until the return falls due. Freelancers who treat it as revenue are the ones who cannot pay at the end
+of the quarter, and the fix is the same separate-account habit that works for income tax.</p>
+</article>"""
+        title = "VAT & GST Rates by Country | Calculator for Each"
+        desc = ("Standard VAT and GST rates, registration thresholds and local rules for 35 countries, "
+                "each with a calculator that adds or removes the tax.")
+    else:
+        items, path, h1 = site_data.PROFESSIONS, "/freelance-rates/", "Freelance rates by profession"
+        lead = ("Each page prefills the costs and the billable hours that are realistic in that field, "
+                "then works backwards to the rate those numbers require.")
+        cards = "\n".join(
+            f'<a class="card" href="/freelance-rates/{p["slug"]}.html">'
+            f'<span class="tag">{p["costs"].split(",")[0]}</span>'
+            f'<h3>{p["name"]}</h3><p>{p["drivers"][:1].upper()}{p["drivers"][1:]}.</p></a>'
+            for p in items)
+        extra = """<article class="prose narrow" style="margin:44px auto 0;">
+<h2>Why the field changes the number</h2>
+<p>Two freelancers wanting the same income can need very different rates, and the reason is rarely
+talent. A photographer carries tens of thousands in equipment that loses value whether or not the phone
+rings. A copywriter carries almost no equipment but bills the fewest hours of anyone, because thinking
+does not fit on a timesheet. A voice actor spends more time auditioning unpaid than recording.</p>
+<p>Those differences change the arithmetic before any judgement about value enters the room, which is
+why each page starts from its own costs and its own realistic working week rather than from one
+industry average that fits nobody.</p>
+<h2>Use it as a floor</h2>
+<p>None of these numbers is what you should quote. Each is the point below which accepting the work
+costs you money. What you add on top depends on the result you produce, how urgently it is wanted, and
+how few other people could deliver it &mdash; none of which a calculator can see.</p>
+<h2>Then stop selling hours</h2>
+<p>An hourly rate punishes you for getting faster: the better you become, the less a job earns. Use the
+figure to price the project, quote the project, and keep the hours to yourself.</p>
+</article>"""
+        title = "Freelance Rates by Profession | What to Charge in Your Field"
+        desc = ("What to charge as a freelancer in 40 fields, with the real costs and realistic "
+                "billable hours for each one prefilled.")
+
+    html = head(title, desc, path)
+    html += header("Tools")
+    html += f"""<div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> &rsaquo; {h1}</nav>
+<section class="hero" style="padding:26px 0 22px;">
+<h1>{h1}</h1>
+<p>{lead}</p>
+</section>
+{ad('1414141414')}
+<div class="grid">
+{cards}
+</div>
+{extra}
+</div>
+"""
+    return html + footer(tools)
+
+
 def main():
     tools = TOOLS
     articles = load_articles()
@@ -1957,15 +2319,39 @@ def main():
         write(f"guides/{a['slug']}.html", render_article(a, tools, articles))
     for fname, (nav, title, body) in STATIC_PAGES.items():
         write(fname, render_static(fname, nav, title, body, tools))
+    for c in site_data.COUNTRIES:
+        write(f"vat-calculator/{c['slug']}.html", render_country(c, tools))
+    for pr in site_data.PROFESSIONS:
+        write(f"freelance-rates/{pr['slug']}.html", render_profession(pr, tools))
+    write("vat-calculator/index.html", render_hub("country", tools))
+    write("freelance-rates/index.html", render_hub("profession", tools))
+
     write("favicon.svg", FAVICON)
 
-    urls = ["/", "/guides/"] + [f"/tools/{t['slug']}.html" for t in tools] \
-        + [f"/guides/{a['slug']}.html" for a in articles] \
+    urls = (
+        ["/", "/guides/", "/vat-calculator/", "/freelance-rates/"]
+        + [f"/tools/{t['slug']}.html" for t in tools]
+        + [f"/vat-calculator/{c['slug']}.html" for c in site_data.COUNTRIES]
+        + [f"/freelance-rates/{pr['slug']}.html" for pr in site_data.PROFESSIONS]
+        + [f"/guides/{a['slug']}.html" for a in articles]
         + ["/" + f for f in STATIC_PAGES]
+    )
+
+    def priority(u):
+        if u == "/":
+            return "1.0"
+        if u.startswith(("/tools/", "/vat-calculator/", "/freelance-rates/")):
+            return "0.9"
+        if u.startswith("/guides/"):
+            return "0.7"
+        return "0.4"
+
+    def changefreq(u):
+        return "monthly" if priority(u) == "0.4" else "weekly"
+
     entries = "\n".join(
         "  <url><loc>%s%s</loc><changefreq>%s</changefreq><priority>%s</priority></url>"
-        % (DOMAIN, u, "weekly" if u.startswith(("/tools", "/")) else "monthly",
-           "1.0" if u == "/" else ("0.9" if u.startswith("/tools") else "0.6"))
+        % (DOMAIN, u, changefreq(u), priority(u))
         for u in urls
     )
     write("sitemap.xml",
@@ -1978,6 +2364,7 @@ def main():
     write(".nojekyll", "")
 
     print(f"Built {len(tools)} calculators, {len(articles)} guides, "
+          f"{len(site_data.COUNTRIES)} country pages, {len(site_data.PROFESSIONS)} profession pages, "
           f"{len(STATIC_PAGES)} static pages into {OUT}")
 
 

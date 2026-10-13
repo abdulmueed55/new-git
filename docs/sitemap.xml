@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://freelancefigures.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://freelancefigures.com/guides/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://freelancefigures.com/guides/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://freelancefigures.com/tools/freelance-hourly-rate-calculator.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://freelancefigures.com/tools/self-employment-tax-calculator.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://freelancefigures.com/tools/invoice-late-fee-calculator.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
@@ -11,12 +13,87 @@
   <url><loc>https://freelancefigures.com/tools/salary-to-freelance-rate-converter.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://freelancefigures.com/tools/vat-sales-tax-calculator.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://freelancefigures.com/tools/profit-margin-calculator.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://freelancefigures.com/guides/how-much-should-a-freelancer-charge.html</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://freelancefigures.com/guides/get-clients-to-pay-on-time.html</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://freelancefigures.com/guides/freelance-tax-first-year-checklist.html</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://freelancefigures.com/about.html</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://freelancefigures.com/contact.html</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://freelancefigures.com/privacy.html</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://freelancefigures.com/terms.html</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://freelancefigures.com/disclaimer.html</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/united-kingdom.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/ireland.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/germany.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/france.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/spain.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/italy.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/netherlands.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/belgium.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/portugal.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/austria.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/poland.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/sweden.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/denmark.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/norway.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/finland.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/greece.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/czech-republic.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/hungary.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/switzerland.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/australia.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/new-zealand.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/canada.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/singapore.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/united-arab-emirates.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/saudi-arabia.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/india.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/pakistan.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/south-africa.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/nigeria.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/kenya.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/japan.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/south-korea.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/mexico.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/turkey.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/vat-calculator/israel.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/graphic-designer.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/web-developer.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/web-designer.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/ui-ux-designer.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/illustrator.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/photographer.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/videographer.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/video-editor.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/motion-designer.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/copywriter.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/content-writer.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/technical-writer.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/editor.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/proofreader.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/translator.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/software-developer.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/mobile-app-developer.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/wordpress-developer.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/devops-engineer.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/data-analyst.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/data-scientist.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/seo-consultant.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/social-media-manager.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/digital-marketer.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/ppc-specialist.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/email-marketer.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/virtual-assistant.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/bookkeeper.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/accountant.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/business-consultant.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/management-consultant.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/project-manager.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/qa-tester.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/game-developer.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/3d-artist.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/animator.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/voice-actor.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/podcast-editor.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/grant-writer.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/freelance-rates/architect.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://freelancefigures.com/guides/how-much-should-a-freelancer-charge.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://freelancefigures.com/guides/get-clients-to-pay-on-time.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://freelancefigures.com/guides/freelance-tax-first-year-checklist.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://freelancefigures.com/about.html</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://freelancefigures.com/contact.html</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://freelancefigures.com/privacy.html</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://freelancefigures.com/terms.html</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://freelancefigures.com/disclaimer.html</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
 </urlset>
