@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Salary to Freelance Rate Converter | What Rate Matches My Salary?</title>
+<meta name="description" content="Convert an employee salary into the freelance hourly rate that actually replaces it, including benefits, employer taxes and paid time off. Free converter, instant result.">
+<link rel="canonical" href="https://freelancefigures.com/tools/salary-to-freelance-rate-converter.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FreelanceFigures">
+<meta property="og:title" content="Salary to Freelance Rate Converter | What Rate Matches My Salary?">
+<meta property="og:description" content="Convert an employee salary into the freelance hourly rate that actually replaces it, including benefits, employer taxes and paid time off. Free converter, instant result.">
+<meta property="og:url" content="https://freelancefigures.com/tools/salary-to-freelance-rate-converter.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/main.css">
+<script src="/assets/js/theme-init.js"></script>
+<script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/tool-salary-convert.js" defer></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Salary to Freelance Rate Converter","url":"https://freelancefigures.com/tools/salary-to-freelance-rate-converter.html","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Convert an employee salary into the freelance hourly rate that actually replaces it, including benefits, employer taxes and paid time off. Free converter, instant result."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is it true that freelancers should charge double their old hourly wage?","acceptedAnswer":{"@type":"Answer","text":"The rule of thumb is roughly right and for the wrong reasons, which is why people apply it badly. The doubling is not a premium for being self-employed; it is the arithmetic of lost benefits, employer taxes, unpaid time off and non-billable hours. Run your own numbers and the multiple usually lands between 2.2 and 2.8."}},{"@type":"Question","name":"What percentage should I use for benefits?","acceptedAnswer":{"@type":"Answer","text":"Twenty to thirty percent covers most employees in the US and Western Europe. Use the higher end if you had good health cover, a generous retirement match, or an employer who paid for equipment and training. If you genuinely had no benefits at all, enter 0 &mdash; but check first, because paid leave and employer taxes still count and are entered separately."}},{"@type":"Question","name":"Why does the calculator show the value of my paid time off separately?","acceptedAnswer":{"@type":"Answer","text":"Because it is the part people find hardest to believe. Twenty-five paid days off is roughly 9.6% of a working year &mdash; on $85,000 that is about $8,170 you were paid for not working. It is shown for context rather than added twice; the rate already covers it, because the billable hours figure excludes the weeks you take off."}},{"@type":"Question","name":"Should I quote this rate to clients, or is it just for me?","acceptedAnswer":{"@type":"Answer","text":"It is a floor for your own decision-making. Quote projects rather than hours wherever you can, using the project quote calculator. Clients buy outcomes; hourly rates invite them to audit your speed instead of valuing your result."}},{"@type":"Question","name":"Does this work in the UK, Canada or Australia?","acceptedAnswer":{"@type":"Answer","text":"Yes &mdash; change the currency and the employer tax percentage. UK employer National Insurance is higher than US employer FICA, Australian employers pay compulsory superannuation on top of salary, and Canadian employers pay CPP and EI contributions. The structure of the calculation is identical everywhere."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://freelancefigures.com/"},{"@type":"ListItem","position":2,"name":"Calculators","item":"https://freelancefigures.com/#tools"},{"@type":"ListItem","position":3,"name":"Salary to freelance rate"}]}</script>
+</head>
+<body>
+<header class="site-head">
+<div class="wrap head-row">
+<a class="logo" href="/"><span class="logo-mark" aria-hidden="true">FF</span>FreelanceFigures</a>
+<button class="menu-btn" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+<nav class="nav" aria-label="Main">
+<a href="/#tools" aria-current="page">Tools</a>
+<a href="/#guides">Guides</a>
+<a href="/about.html">About</a>
+<a href="/contact.html">Contact</a>
+</nav>
+<button class="theme-btn" type="button" aria-label="Switch theme">&#9790;</button>
+</div>
+</header>
+<main>
+<div class="wrap narrow">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/#tools">Calculators</a> &rsaquo; Salary to freelance rate</nav>
+<section class="hero" style="padding:26px 0 0;margin-bottom:24px;">
+<h1>Salary to Freelance Rate Converter</h1>
+<p>&ldquo;I earned $85,000, so $40 an hour should do it.&rdquo; That sum has ended more freelance careers than bad work ever has. Your salary was never the full value your employer handed over &mdash; this converts the whole package into the rate that genuinely replaces it.</p>
+</section>
+
+<form class="calc" id="calcForm" autocomplete="off">
+<div class="field"><label for="salary">Your annual salary</label><span class="hint">Gross, before tax.</span><div class="input-wrap"><span class="affix pre">$</span><input id="salary" name="salary" type="number" step="any" min="0" inputmode="decimal" value="85000"></div></div>
+<div class="row2"><div class="field"><label for="benefitsPct">Benefits as % of salary</label><span class="hint">Health cover, retirement match, insurance, equipment, training. 20&ndash;30% is typical.</span><div class="input-wrap"><input id="benefitsPct" name="benefitsPct" type="number" step="any" min="0" inputmode="decimal" value="25"><span class="affix post">%</span></div></div><div class="field"><label for="employerTaxPct">Employer payroll taxes</label><span class="hint">US employer FICA is 7.65%. UK employer NI is higher.</span><div class="input-wrap"><input id="employerTaxPct" name="employerTaxPct" type="number" step="any" min="0" inputmode="decimal" value="7.65"><span class="affix post">%</span></div></div></div>
+<div class="row2"><div class="field"><label for="ptoDays">Paid days off you had</label><span class="hint">Holidays plus public holidays plus sick days.</span><div class="input-wrap"><input id="ptoDays" name="ptoDays" type="number" step="any" min="0" inputmode="decimal" value="25"><span class="affix post">days</span></div></div><div class="field"><label for="freelanceExpenses">Your business expenses</label><span class="hint">What you will now pay for yourself each year.</span><div class="input-wrap"><span class="affix pre">$</span><input id="freelanceExpenses" name="freelanceExpenses" type="number" step="any" min="0" inputmode="decimal" value="8000"></div></div></div>
+<div class="row2"><div class="field"><label for="billableHours">Billable hours per week</label><span class="hint">Realistically 20&ndash;27, not 40.</span><div class="input-wrap"><input id="billableHours" name="billableHours" type="number" step="any" min="0" inputmode="decimal" value="25"><span class="affix post">hrs</span></div></div><div class="field"><label for="weeksOff">Weeks you will take off</label><span class="hint">Unpaid now.</span><div class="input-wrap"><input id="weeksOff" name="weeksOff" type="number" step="any" min="0" inputmode="decimal" value="6"><span class="affix post">wks</span></div></div></div>
+<div class="field">
+<label for="currency">Currency</label>
+<select id="currency" name="currency">
+<option value="USD">USD &ndash; US dollar</option>
+<option value="EUR">EUR &ndash; Euro</option>
+<option value="GBP">GBP &ndash; British pound</option>
+<option value="CAD">CAD &ndash; Canadian dollar</option>
+<option value="AUD">AUD &ndash; Australian dollar</option>
+<option value="NZD">NZD &ndash; New Zealand dollar</option>
+<option value="SGD">SGD &ndash; Singapore dollar</option>
+<option value="AED">AED &ndash; UAE dirham</option>
+<option value="INR">INR &ndash; Indian rupee</option>
+<option value="PKR">PKR &ndash; Pakistani rupee</option>
+<option value="ZAR">ZAR &ndash; South African rand</option>
+</select>
+</div>
+<p class="headline-sub" id="warn" hidden style="color:var(--danger);"></p>
+<div class="btn-row">
+<button class="btn" type="submit">Calculate</button>
+<button class="btn btn-ghost" type="button" id="copyBtn">Copy result</button>
+<button class="btn btn-ghost" type="button" id="resetBtn">Reset</button>
+</div>
+<div class="result" id="result" hidden>
+<div class="headline-label">Equivalent freelance rate</div>
+<div class="headline" id="outRate">&mdash;</div>
+<p class="headline-sub" id="outSub"></p>
+<div class="pill-row">
+<div class="pill"><div class="k">Day rate</div><div class="v" id="outDay">&mdash;</div></div>
+<div class="pill"><div class="k">True package value</div><div class="v" id="outPackage">&mdash;</div></div>
+<div class="pill"><div class="k">Naive salary ÷ 2080</div><div class="v" id="outNaive">&mdash;</div></div>
+<div class="pill"><div class="k">Billable hours / yr</div><div class="v" id="outHours">&mdash;</div></div>
+</div>
+<table class="breakdown">
+<tr><td>Salary</td><td id="bSalary">&mdash;</td></tr>
+<tr><td>Employer-paid benefits</td><td id="bBenefits">&mdash;</td></tr>
+<tr><td>Employer payroll taxes</td><td id="bTaxes">&mdash;</td></tr>
+<tr class="sub"><td>Value of your paid time off</td><td id="bPto">&mdash;</td></tr>
+<tr class="total"><td>True cost of employing you</td><td id="bPackage">&mdash;</td></tr>
+<tr><td>Your new business expenses</td><td id="bExp">&mdash;</td></tr>
+<tr class="sub"><td>Billable hours available</td><td id="bBillable">&mdash;</td></tr>
+<tr class="total"><td>Rate required</td><td id="bRate">&mdash;</td></tr>
+</table>
+
+</div>
+</form>
+
+<div class="ad-slot" data-slot="1111111111" data-format="auto"><div class="ad-label">Advertisement</div></div>
+
+<article class="prose">
+
+<h2>Your salary was never your compensation</h2>
+<p>When a company says a role pays $85,000, the amount leaving their accounts is far higher. They also
+pay their half of payroll taxes, your health insurance, a retirement match, your laptop, your software
+licences, your desk, your training budget and your insurance. In the United States, employers commonly
+budget 1.25 to 1.4 times salary as the true cost of an employee.</p>
+<p>They also paid you for the days you did not work. Twenty-five days of holiday is five weeks of salary
+you received while producing nothing. As a freelancer, those five weeks cost you income instead of
+providing it.</p>
+
+<h2>The two mistakes stacked on top of each other</h2>
+<h3>Mistake one: using salary instead of package</h3>
+<p>$85,000 of salary is really $85,000 + 25% benefits + 7.65% employer taxes = <strong>$112,752</strong>
+of value. Converting from the smaller number undershoots by a third before you have even started.</p>
+<h3>Mistake two: dividing by 2,080</h3>
+<p>There are 2,080 working hours in a year, but you cannot bill them. Sales calls, proposals, invoicing,
+bookkeeping, email, admin and learning are all real work that no client pays for. A realistic figure is
+1,100 to 1,300 billable hours a year. Dividing by 2,080 instead of 1,150 understates your rate by
+roughly 45%.</p>
+<p>Put together, these two errors compound: the naive answer is often less than half the correct one.
+That is the entire explanation for why so many people leave a stable job, work harder than ever, and
+end the year poorer.</p>
+
+<div class="note">
+<p><strong>True package</strong> = salary &times; (1 + benefits% + employer tax%)<br>
+<strong>Billable hours</strong> = weekly billable hours &times; (52 &minus; weeks off)<br>
+<strong>Equivalent rate</strong> = (true package + your business expenses) &divide; billable hours</p>
+</div>
+
+<h2>A worked example</h2>
+<table>
+<tr><th>Step</th><th>Figure</th></tr>
+<tr><td>Salary</td><td>$85,000</td></tr>
+<tr><td>Benefits at 25%</td><td>$21,250</td></tr>
+<tr><td>Employer payroll taxes at 7.65%</td><td>$6,503</td></tr>
+<tr><td>True cost of employing you</td><td>$112,753</td></tr>
+<tr><td>Plus your own business expenses</td><td>$120,753</td></tr>
+<tr><td>Billable hours: 25 &times; 46 weeks</td><td>1,150</td></tr>
+<tr><td><strong>Equivalent rate</strong></td><td><strong>$105 an hour</strong></td></tr>
+</table>
+<p>Against the naive $40.87 that salary &divide; 2,080 produces, that is 2.6 times higher. Both numbers
+claim to describe the same standard of living. Only one of them is arithmetic.</p>
+
+<h2>Things this number still does not include</h2>
+<p>It replaces your old package. It does not pay you for the new risks you have taken on:</p>
+<ul>
+<li><strong>Gaps between projects.</strong> Nobody pays you to look for work.</li>
+<li><strong>Clients who disappear.</strong> An employer's payroll does not simply fail to run.</li>
+<li><strong>No severance, no unemployment cover, no sick pay.</strong></li>
+<li><strong>Volatility.</strong> A good year and a bad year average out on paper and do not average out
+on a mortgage application.</li>
+</ul>
+<p>Most experienced freelancers add 15&ndash;25% on top of the equivalent rate for exactly these
+reasons. Use this converter for the floor, then the <a href="/tools/freelance-hourly-rate-calculator.html">hourly
+rate calculator</a> to build the rate you actually want, and the
+<a href="/tools/freelance-take-home-pay-calculator.html">take-home pay calculator</a> to confirm what
+lands in your account.</p>
+
+</article>
+
+<div class="ad-slot" data-slot="2222222222" data-format="fluid"><div class="ad-label">Advertisement</div></div>
+
+<section class="prose">
+<h2>Frequently asked questions</h2>
+<details class="faq"><summary>Is it true that freelancers should charge double their old hourly wage?</summary><div class="faq-body"><p>The rule of thumb is roughly right and for the wrong reasons, which is why people apply it badly. The doubling is not a premium for being self-employed; it is the arithmetic of lost benefits, employer taxes, unpaid time off and non-billable hours. Run your own numbers and the multiple usually lands between 2.2 and 2.8.</p></div></details>
+<details class="faq"><summary>What percentage should I use for benefits?</summary><div class="faq-body"><p>Twenty to thirty percent covers most employees in the US and Western Europe. Use the higher end if you had good health cover, a generous retirement match, or an employer who paid for equipment and training. If you genuinely had no benefits at all, enter 0 &mdash; but check first, because paid leave and employer taxes still count and are entered separately.</p></div></details>
+<details class="faq"><summary>Why does the calculator show the value of my paid time off separately?</summary><div class="faq-body"><p>Because it is the part people find hardest to believe. Twenty-five paid days off is roughly 9.6% of a working year &mdash; on $85,000 that is about $8,170 you were paid for not working. It is shown for context rather than added twice; the rate already covers it, because the billable hours figure excludes the weeks you take off.</p></div></details>
+<details class="faq"><summary>Should I quote this rate to clients, or is it just for me?</summary><div class="faq-body"><p>It is a floor for your own decision-making. Quote projects rather than hours wherever you can, using the <a href="/tools/project-quote-calculator.html">project quote calculator</a>. Clients buy outcomes; hourly rates invite them to audit your speed instead of valuing your result.</p></div></details>
+<details class="faq"><summary>Does this work in the UK, Canada or Australia?</summary><div class="faq-body"><p>Yes &mdash; change the currency and the employer tax percentage. UK employer National Insurance is higher than US employer FICA, Australian employers pay compulsory superannuation on top of salary, and Canadian employers pay CPP and EI contributions. The structure of the calculation is identical everywhere.</p></div></details>
+</section>
+</div>
+
+<div class="wrap">
+<section style="margin-top:46px;">
+<h2 style="font-size:24px;margin-bottom:14px;">Other calculators</h2>
+<div class="grid">
+<a class="card" href="/tools/freelance-hourly-rate-calculator.html"><span class="tag">Calculator</span><h3>Freelance hourly rate</h3><p>Work backwards from the income you want to the rate you must charge.</p></a>
+<a class="card" href="/tools/self-employment-tax-calculator.html"><span class="tag">Calculator</span><h3>Self-employment tax (US)</h3><p>The 15.3% you owe before income tax, with the wage cap applied properly.</p></a>
+<a class="card" href="/tools/invoice-late-fee-calculator.html"><span class="tag">Calculator</span><h3>Invoice late fee</h3><p>Interest and fees on an overdue invoice, including UK statutory rates.</p></a>
+</div>
+</section>
+<section class="prose narrow wrap" style="padding:0;">
+<h2>Related reading</h2>
+<ul>
+<li><a href="/guides/how-much-should-a-freelancer-charge.html">How Much Should a Freelancer Charge? A Realistic 2026 Answer</a></li>
+<li><a href="/guides/get-clients-to-pay-on-time.html">How to Get Freelance Clients to Pay On Time</a></li>
+<li><a href="/guides/freelance-tax-first-year-checklist.html">Your First Year Freelancing: The Tax Checklist Nobody Gives You</a></li>
+</ul>
+</section>
+</div>
+
+<div class="ad-slot" data-slot="3333333333" data-format="auto"><div class="ad-label">Advertisement</div></div>
+</main>
+<footer class="site-foot">
+<div class="wrap">
+<div class="foot-grid">
+<div>
+<a class="logo" href="/"><span class="logo-mark" aria-hidden="true">FF</span>FreelanceFigures</a>
+<p style="color:var(--text-mute);margin:10px 0 0;max-width:38ch;font-size:14.5px;">
+Free money calculators for freelancers and small businesses. No sign-up, no paywall, nothing leaves your browser.</p>
+</div>
+<div>
+<h4>Calculators</h4>
+<ul>
+<li><a href="/tools/freelance-hourly-rate-calculator.html">Freelance hourly rate</a></li>
+<li><a href="/tools/self-employment-tax-calculator.html">Self-employment tax (US)</a></li>
+<li><a href="/tools/invoice-late-fee-calculator.html">Invoice late fee</a></li>
+<li><a href="/tools/project-quote-calculator.html">Project quote</a></li>
+<li><a href="/tools/freelance-take-home-pay-calculator.html">Freelance take-home pay</a></li>
+<li><a href="/tools/quarterly-tax-savings-calculator.html">Quarterly tax set-aside</a></li>
+<li><a href="/tools/salary-to-freelance-rate-converter.html">Salary to freelance rate</a></li>
+<li><a href="/tools/vat-sales-tax-calculator.html">VAT / sales tax</a></li>
+<li><a href="/tools/profit-margin-calculator.html">Profit margin &amp; markup</a></li>
+</ul>
+</div>
+<div>
+<h4>Site</h4>
+<ul>
+<li><a href="/about.html">About</a></li>
+<li><a href="/contact.html">Contact</a></li>
+<li><a href="/privacy.html">Privacy policy</a></li>
+<li><a href="/terms.html">Terms of use</a></li>
+<li><a href="/disclaimer.html">Disclaimer</a></li>
+</ul>
+</div>
+</div>
+<div class="foot-bottom">
+<span>&copy; 2026 FreelanceFigures. All rights reserved.</span>
+<span>Figures are estimates, not professional tax advice.</span>
+</div>
+</div>
+</footer>
+</body>
+</html>

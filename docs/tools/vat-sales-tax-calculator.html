@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VAT & Sales Tax Calculator | Add or Remove Tax From a Price</title>
+<meta name="description" content="Add VAT or sales tax to a net price, or strip it out of a gross price, at any rate. Presets for UK, EU, Canada, Australia and more. Free, instant, no sign-up.">
+<link rel="canonical" href="https://freelancefigures.com/tools/vat-sales-tax-calculator.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FreelanceFigures">
+<meta property="og:title" content="VAT & Sales Tax Calculator | Add or Remove Tax From a Price">
+<meta property="og:description" content="Add VAT or sales tax to a net price, or strip it out of a gross price, at any rate. Presets for UK, EU, Canada, Australia and more. Free, instant, no sign-up.">
+<meta property="og:url" content="https://freelancefigures.com/tools/vat-sales-tax-calculator.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/main.css">
+<script src="/assets/js/theme-init.js"></script>
+<script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/tool-vat.js" defer></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"VAT &amp; Sales Tax Calculator","url":"https://freelancefigures.com/tools/vat-sales-tax-calculator.html","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Add VAT or sales tax to a net price, or strip it out of a gross price, at any rate. Presets for UK, EU, Canada, Australia and more. Free, instant, no sign-up."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I remove 20% VAT from a price?","acceptedAnswer":{"@type":"Answer","text":"Divide the gross amount by 1.2. A &pound;1,200 total contains &pound;1,000 net and &pound;200 of VAT. Subtracting 20% is wrong and will understate your income and overstate your VAT."}},{"@type":"Question","name":"Do freelancers in the United States charge sales tax?","acceptedAnswer":{"@type":"Answer","text":"Usually not on professional services such as design, development, writing or consulting, though a minority of states do tax some of them. Software, SaaS and digital goods are taxed in a growing number of states. Rules are set state by state and sometimes city by city, so check your own state's department of revenue."}},{"@type":"Question","name":"What rate should I use for an international client?","acceptedAnswer":{"@type":"Answer","text":"It depends on where the client is and whether they are a business. Within the EU, business-to-business sales across borders usually shift the VAT obligation to the customer under the reverse charge, so you charge 0% and note it on the invoice. Selling to consumers abroad is far more complicated and often requires charging their local rate. Get advice before assuming."}},{"@type":"Question","name":"Is the tax I charge part of my income?","acceptedAnswer":{"@type":"Answer","text":"No. VAT and GST you collect are never yours &mdash; you are holding them for the tax authority. Your income is the net figure. Treating gross receipts as income is how people end up unable to pay a quarterly VAT bill."}},{"@type":"Question","name":"Can I use this for discounts or tips as well?","acceptedAnswer":{"@type":"Answer","text":"The arithmetic is identical for any percentage added to or removed from a figure, so yes. Enter the percentage in the rate field and pick the direction you need."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://freelancefigures.com/"},{"@type":"ListItem","position":2,"name":"Calculators","item":"https://freelancefigures.com/#tools"},{"@type":"ListItem","position":3,"name":"VAT / sales tax"}]}</script>
+</head>
+<body>
+<header class="site-head">
+<div class="wrap head-row">
+<a class="logo" href="/"><span class="logo-mark" aria-hidden="true">FF</span>FreelanceFigures</a>
+<button class="menu-btn" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+<nav class="nav" aria-label="Main">
+<a href="/#tools" aria-current="page">Tools</a>
+<a href="/#guides">Guides</a>
+<a href="/about.html">About</a>
+<a href="/contact.html">Contact</a>
+</nav>
+<button class="theme-btn" type="button" aria-label="Switch theme">&#9790;</button>
+</div>
+</header>
+<main>
+<div class="wrap narrow">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/#tools">Calculators</a> &rsaquo; VAT / sales tax</nav>
+<section class="hero" style="padding:26px 0 0;margin-bottom:24px;">
+<h1>VAT &amp; Sales Tax Calculator</h1>
+<p>Two jobs in one tool: work out what to charge on top of your price, or work backwards from a total that already includes tax to find what you actually earned. The second direction is the one people get wrong, and it is the one that matters at year end.</p>
+</section>
+
+<form class="calc" id="calcForm" autocomplete="off">
+<div class="field"><label for="mode">What do you want to do?</label><select id="mode" name="mode">
+<option value="add" selected>Add tax to a net price</option>
+<option value="remove">Remove tax from a gross price</option>
+</select></div>
+<div class="field"><label for="amount">Amount</label><span class="hint">The figure you are starting from.</span><div class="input-wrap"><span class="affix pre">$</span><input id="amount" name="amount" type="number" step="any" min="0" inputmode="decimal" value="1000"></div></div>
+<div class="field"><label for="preset">Common rates</label><span class="hint">Picking one fills the rate box below.</span><select id="preset" name="preset">
+<option value="" selected>Choose a rate…</option>
+<option value="20">United Kingdom &mdash; 20% standard VAT</option>
+<option value="5">United Kingdom &mdash; 5% reduced VAT</option>
+<option value="19">Germany &mdash; 19%</option>
+<option value="20">France &mdash; 20%</option>
+<option value="21">Netherlands / Spain / Belgium &mdash; 21%</option>
+<option value="22">Italy &mdash; 22%</option>
+<option value="23">Ireland / Poland / Portugal &mdash; 23%</option>
+<option value="25">Denmark / Sweden / Norway &mdash; 25%</option>
+<option value="10">Australia GST &mdash; 10%</option>
+<option value="15">New Zealand GST &mdash; 15%</option>
+<option value="5">Canada GST &mdash; 5%</option>
+<option value="13">Ontario HST &mdash; 13%</option>
+<option value="5">UAE &mdash; 5%</option>
+<option value="18">India GST &mdash; 18%</option>
+</select></div>
+<div class="field"><label for="rate">Tax rate</label><span class="hint">Or type any rate you need.</span><div class="input-wrap"><input id="rate" name="rate" type="number" step="any" min="0" inputmode="decimal" value="20"><span class="affix post">%</span></div></div>
+<div class="field">
+<label for="currency">Currency</label>
+<select id="currency" name="currency">
+<option value="USD">USD &ndash; US dollar</option>
+<option value="EUR">EUR &ndash; Euro</option>
+<option value="GBP">GBP &ndash; British pound</option>
+<option value="CAD">CAD &ndash; Canadian dollar</option>
+<option value="AUD">AUD &ndash; Australian dollar</option>
+<option value="NZD">NZD &ndash; New Zealand dollar</option>
+<option value="SGD">SGD &ndash; Singapore dollar</option>
+<option value="AED">AED &ndash; UAE dirham</option>
+<option value="INR">INR &ndash; Indian rupee</option>
+<option value="PKR">PKR &ndash; Pakistani rupee</option>
+<option value="ZAR">ZAR &ndash; South African rand</option>
+</select>
+</div>
+<p class="headline-sub" id="warn" hidden style="color:var(--danger);"></p>
+<div class="btn-row">
+<button class="btn" type="submit">Calculate</button>
+<button class="btn btn-ghost" type="button" id="copyBtn">Copy result</button>
+<button class="btn btn-ghost" type="button" id="resetBtn">Reset</button>
+</div>
+<div class="result" id="result" hidden>
+<div class="headline-label">Result</div>
+<div class="headline" id="outMain">&mdash;</div>
+<p class="headline-sub" id="outSub"></p>
+<div class="pill-row">
+<div class="pill"><div class="k">Net (before tax)</div><div class="v" id="outNet">&mdash;</div></div>
+<div class="pill"><div class="k">Tax</div><div class="v" id="outTax">&mdash;</div></div>
+<div class="pill"><div class="k">Gross (total)</div><div class="v" id="outGross">&mdash;</div></div>
+</div>
+<table class="breakdown">
+<tr><td>Net amount</td><td id="bNet">&mdash;</td></tr>
+<tr class="sub"><td>Tax rate</td><td id="bRate">&mdash;</td></tr>
+<tr><td>Tax</td><td id="bTax">&mdash;</td></tr>
+<tr class="total"><td>Gross amount</td><td id="bGross">&mdash;</td></tr>
+<tr class="sub"><td>Direction</td><td id="bLabel">&mdash;</td></tr>
+</table>
+
+</div>
+</form>
+
+<div class="ad-slot" data-slot="1111111111" data-format="auto"><div class="ad-label">Advertisement</div></div>
+
+<article class="prose">
+
+<h2>Adding tax and removing tax are different sums</h2>
+<p>Adding is intuitive: &pound;1,000 plus 20% VAT is &pound;1,200. Removing is where almost everyone
+slips. To find the net amount inside a &pound;1,200 total, you do <em>not</em> subtract 20%. Twenty
+percent of &pound;1,200 is &pound;240, which would leave &pound;960 &mdash; and &pound;960 plus 20% is
+&pound;1,152, not &pound;1,200.</p>
+<div class="note">
+<p><strong>Adding:</strong> gross = net &times; (1 + rate)<br>
+<strong>Removing:</strong> net = gross &divide; (1 + rate)</p>
+<p>At 20%, the correct shortcut for removing VAT is to divide by 1.2, or to multiply by 0.8333 &mdash;
+never to subtract 20%.</p>
+</div>
+<p>The error is small on one invoice and expensive across a year of bookkeeping. On &pound;120,000 of
+gross income, subtracting instead of dividing overstates your VAT by &pound;4,000.</p>
+
+<h2>VAT, GST, HST and sales tax are not the same thing</h2>
+<table>
+<tr><th>System</th><th>Where</th><th>How it works</th></tr>
+<tr><td>VAT</td><td>UK, EU, much of the world</td><td>Charged at each stage; businesses reclaim what they paid</td></tr>
+<tr><td>GST / HST</td><td>Australia, NZ, Canada, India, Singapore</td><td>Same principle, different name</td></tr>
+<tr><td>Sales tax</td><td>United States</td><td>Charged once, at the final sale, by state and often city</td></tr>
+</table>
+<p>The practical difference for a freelancer: under VAT or GST, the tax you charge was never your money
+&mdash; you are collecting it on the government's behalf and will hand it over. Under US sales tax,
+most professional services are not taxable at all in most states, though software and digital products
+increasingly are.</p>
+
+<h2>The mistake that ruins a cash flow</h2>
+<p>You invoice &pound;12,000 including VAT. &pound;12,000 arrives in your account. It looks like a good
+month. But &pound;2,000 of it belongs to HMRC and will be collected at the end of the quarter.</p>
+<p>Freelancers who register for VAT and then spend their VAT are one of the most common casualties in
+self-employment, and the fix is the same mechanical habit that works for income tax: a separate account,
+funded the day the money arrives. The
+<a href="/tools/quarterly-tax-savings-calculator.html">quarterly tax set-aside calculator</a> does the
+same job for income tax and <a href="/tools/self-employment-tax-calculator.html">self-employment tax</a>.</p>
+
+<h2>Should you register?</h2>
+<p>Thresholds differ by country, and crossing one is usually mandatory rather than optional. Two points
+worth knowing before you get there:</p>
+<ul>
+<li><strong>If your clients are VAT-registered businesses</strong>, charging VAT costs them nothing
+&mdash; they reclaim it. Registration can even make you look more established.</li>
+<li><strong>If your clients are consumers</strong>, registration makes you 20% more expensive overnight,
+or 20% poorer if you absorb it. This is the point at which many small businesses deliberately slow
+their growth, which is rarely the right trade.</li>
+</ul>
+<p>Registering voluntarily before you must lets you reclaim VAT on equipment and software. Whether that
+is worth the filing burden depends on what you spend; it is a good question for an accountant.</p>
+
+</article>
+
+<div class="ad-slot" data-slot="2222222222" data-format="fluid"><div class="ad-label">Advertisement</div></div>
+
+<section class="prose">
+<h2>Frequently asked questions</h2>
+<details class="faq"><summary>How do I remove 20% VAT from a price?</summary><div class="faq-body"><p>Divide the gross amount by 1.2. A &pound;1,200 total contains &pound;1,000 net and &pound;200 of VAT. Subtracting 20% is wrong and will understate your income and overstate your VAT.</p></div></details>
+<details class="faq"><summary>Do freelancers in the United States charge sales tax?</summary><div class="faq-body"><p>Usually not on professional services such as design, development, writing or consulting, though a minority of states do tax some of them. Software, SaaS and digital goods are taxed in a growing number of states. Rules are set state by state and sometimes city by city, so check your own state's department of revenue.</p></div></details>
+<details class="faq"><summary>What rate should I use for an international client?</summary><div class="faq-body"><p>It depends on where the client is and whether they are a business. Within the EU, business-to-business sales across borders usually shift the VAT obligation to the customer under the reverse charge, so you charge 0% and note it on the invoice. Selling to consumers abroad is far more complicated and often requires charging their local rate. Get advice before assuming.</p></div></details>
+<details class="faq"><summary>Is the tax I charge part of my income?</summary><div class="faq-body"><p>No. VAT and GST you collect are never yours &mdash; you are holding them for the tax authority. Your income is the net figure. Treating gross receipts as income is how people end up unable to pay a quarterly VAT bill.</p></div></details>
+<details class="faq"><summary>Can I use this for discounts or tips as well?</summary><div class="faq-body"><p>The arithmetic is identical for any percentage added to or removed from a figure, so yes. Enter the percentage in the rate field and pick the direction you need.</p></div></details>
+</section>
+</div>
+
+<div class="wrap">
+<section style="margin-top:46px;">
+<h2 style="font-size:24px;margin-bottom:14px;">Other calculators</h2>
+<div class="grid">
+<a class="card" href="/tools/freelance-hourly-rate-calculator.html"><span class="tag">Calculator</span><h3>Freelance hourly rate</h3><p>Work backwards from the income you want to the rate you must charge.</p></a>
+<a class="card" href="/tools/self-employment-tax-calculator.html"><span class="tag">Calculator</span><h3>Self-employment tax (US)</h3><p>The 15.3% you owe before income tax, with the wage cap applied properly.</p></a>
+<a class="card" href="/tools/invoice-late-fee-calculator.html"><span class="tag">Calculator</span><h3>Invoice late fee</h3><p>Interest and fees on an overdue invoice, including UK statutory rates.</p></a>
+</div>
+</section>
+<section class="prose narrow wrap" style="padding:0;">
+<h2>Related reading</h2>
+<ul>
+<li><a href="/guides/how-much-should-a-freelancer-charge.html">How Much Should a Freelancer Charge? A Realistic 2026 Answer</a></li>
+<li><a href="/guides/get-clients-to-pay-on-time.html">How to Get Freelance Clients to Pay On Time</a></li>
+<li><a href="/guides/freelance-tax-first-year-checklist.html">Your First Year Freelancing: The Tax Checklist Nobody Gives You</a></li>
+</ul>
+</section>
+</div>
+
+<div class="ad-slot" data-slot="3333333333" data-format="auto"><div class="ad-label">Advertisement</div></div>
+</main>
+<footer class="site-foot">
+<div class="wrap">
+<div class="foot-grid">
+<div>
+<a class="logo" href="/"><span class="logo-mark" aria-hidden="true">FF</span>FreelanceFigures</a>
+<p style="color:var(--text-mute);margin:10px 0 0;max-width:38ch;font-size:14.5px;">
+Free money calculators for freelancers and small businesses. No sign-up, no paywall, nothing leaves your browser.</p>
+</div>
+<div>
+<h4>Calculators</h4>
+<ul>
+<li><a href="/tools/freelance-hourly-rate-calculator.html">Freelance hourly rate</a></li>
+<li><a href="/tools/self-employment-tax-calculator.html">Self-employment tax (US)</a></li>
+<li><a href="/tools/invoice-late-fee-calculator.html">Invoice late fee</a></li>
+<li><a href="/tools/project-quote-calculator.html">Project quote</a></li>
+<li><a href="/tools/freelance-take-home-pay-calculator.html">Freelance take-home pay</a></li>
+<li><a href="/tools/quarterly-tax-savings-calculator.html">Quarterly tax set-aside</a></li>
+<li><a href="/tools/salary-to-freelance-rate-converter.html">Salary to freelance rate</a></li>
+<li><a href="/tools/vat-sales-tax-calculator.html">VAT / sales tax</a></li>
+<li><a href="/tools/profit-margin-calculator.html">Profit margin &amp; markup</a></li>
+</ul>
+</div>
+<div>
+<h4>Site</h4>
+<ul>
+<li><a href="/about.html">About</a></li>
+<li><a href="/contact.html">Contact</a></li>
+<li><a href="/privacy.html">Privacy policy</a></li>
+<li><a href="/terms.html">Terms of use</a></li>
+<li><a href="/disclaimer.html">Disclaimer</a></li>
+</ul>
+</div>
+</div>
+<div class="foot-bottom">
+<span>&copy; 2026 FreelanceFigures. All rights reserved.</span>
+<span>Figures are estimates, not professional tax advice.</span>
+</div>
+</div>
+</footer>
+</body>
+</html>

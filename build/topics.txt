@@ -1,0 +1,36 @@
+# One topic per line. draft_article.py takes the next unused line each time it runs.
+# Used topics are recorded in topics-done.txt. Lines starting with # are ignored.
+#
+# Pick topics the way a reader would ask them, not the way an SEO tool prints them.
+# Long, specific questions are winnable for a new site. Two-word head terms are not.
+
+How to raise your freelance rates without losing existing clients
+What to do when a freelance client refuses to pay an invoice
+Should you charge a deposit as a freelancer, and how much
+How to write a freelance contract that protects you from scope creep
+Retainer versus project pricing: which actually pays better
+How to handle a client who keeps asking for one more small change
+What business expenses can freelancers actually deduct
+Day rate versus hourly rate: when to use each one
+How to price a project when the client will not share their budget
+What to do in your first month as a full-time freelancer
+How much should a freelancer save for an emergency fund
+Why your freelance income feels unstable even when revenue is up
+How to quote a redesign when you cannot see the existing codebase
+Should you register as a limited company or stay a sole trader
+How to fire a freelance client without burning the relationship
+Chasing late payments: the email sequence that actually works
+Why charging by the hour caps your freelance income
+How to calculate your break-even rate as a freelancer
+What to do when a client asks for a discount
+Freelance invoicing mistakes that delay payment by weeks
+How to budget as a freelancer with irregular income
+Should freelancers offer payment plans to clients
+How to estimate hours for a project you have never done before
+What a freelance rate increase email should say
+Understanding your effective tax rate versus your tax bracket
+How to set aside money for taxes when income varies every month
+Does a freelancer need professional liability insurance
+When to turn down freelance work that pays well
+How to raise prices for new clients while grandfathering old ones
+What to put on a freelance invoice so it gets paid faster

@@ -1026,6 +1026,383 @@ it in anything that can fall; this money has a deadline.</p>
     ],
 ))
 
+
+# ---------------------------------------------------------------- tool 7
+TOOLS.append(dict(
+    slug="salary-to-freelance-rate-converter",
+    nav="Salary to freelance rate",
+    script="tool-salary-convert.js",
+    title="Salary to Freelance Rate Converter &mdash; What Rate Replaces Your Job?",
+    meta_title="Salary to Freelance Rate Converter | What Rate Matches My Salary?",
+    meta_desc="Convert an employee salary into the freelance hourly rate that actually replaces it, "
+              "including benefits, employer taxes and paid time off. Free converter, instant result.",
+    h1="Salary to Freelance Rate Converter",
+    intro="&ldquo;I earned $85,000, so $40 an hour should do it.&rdquo; That sum has ended more "
+          "freelance careers than bad work ever has. Your salary was never the full value your "
+          "employer handed over &mdash; this converts the whole package into the rate that genuinely "
+          "replaces it.",
+    card="Convert an employee salary into the freelance rate that truly replaces it.",
+    form=[
+        field("salary", "Your annual salary", "Gross, before tax.", pre="$", value="85000"),
+        '<div class="row2">'
+        + field("benefitsPct", "Benefits as % of salary",
+                "Health cover, retirement match, insurance, equipment, training. 20&ndash;30% is typical.",
+                post="%", value="25")
+        + field("employerTaxPct", "Employer payroll taxes",
+                "US employer FICA is 7.65%. UK employer NI is higher.", post="%", value="7.65")
+        + "</div>",
+        '<div class="row2">'
+        + field("ptoDays", "Paid days off you had", "Holidays plus public holidays plus sick days.", post="days", value="25")
+        + field("freelanceExpenses", "Your business expenses", "What you will now pay for yourself each year.", pre="$", value="8000")
+        + "</div>",
+        '<div class="row2">'
+        + field("billableHours", "Billable hours per week", "Realistically 20&ndash;27, not 40.", post="hrs", value="25")
+        + field("weeksOff", "Weeks you will take off", "Unpaid now.", post="wks", value="6")
+        + "</div>",
+        currency_field(),
+    ],
+    result=result_shell(
+        "Equivalent freelance rate", "outSub", "outRate",
+        [pill("Day rate", "outDay"), pill("True package value", "outPackage"),
+         pill("Naive salary ÷ 2080", "outNaive"), pill("Billable hours / yr", "outHours")],
+        [row("Salary", "bSalary"),
+         row("Employer-paid benefits", "bBenefits"),
+         row("Employer payroll taxes", "bTaxes"),
+         row("Value of your paid time off", "bPto", "sub"),
+         row("True cost of employing you", "bPackage", "total"),
+         row("Your new business expenses", "bExp"),
+         row("Billable hours available", "bBillable", "sub"),
+         row("Rate required", "bRate", "total")],
+    ),
+    prose="""
+<h2>Your salary was never your compensation</h2>
+<p>When a company says a role pays $85,000, the amount leaving their accounts is far higher. They also
+pay their half of payroll taxes, your health insurance, a retirement match, your laptop, your software
+licences, your desk, your training budget and your insurance. In the United States, employers commonly
+budget 1.25 to 1.4 times salary as the true cost of an employee.</p>
+<p>They also paid you for the days you did not work. Twenty-five days of holiday is five weeks of salary
+you received while producing nothing. As a freelancer, those five weeks cost you income instead of
+providing it.</p>
+
+<h2>The two mistakes stacked on top of each other</h2>
+<h3>Mistake one: using salary instead of package</h3>
+<p>$85,000 of salary is really $85,000 + 25% benefits + 7.65% employer taxes = <strong>$112,752</strong>
+of value. Converting from the smaller number undershoots by a third before you have even started.</p>
+<h3>Mistake two: dividing by 2,080</h3>
+<p>There are 2,080 working hours in a year, but you cannot bill them. Sales calls, proposals, invoicing,
+bookkeeping, email, admin and learning are all real work that no client pays for. A realistic figure is
+1,100 to 1,300 billable hours a year. Dividing by 2,080 instead of 1,150 understates your rate by
+roughly 45%.</p>
+<p>Put together, these two errors compound: the naive answer is often less than half the correct one.
+That is the entire explanation for why so many people leave a stable job, work harder than ever, and
+end the year poorer.</p>
+
+<div class="note">
+<p><strong>True package</strong> = salary &times; (1 + benefits% + employer tax%)<br>
+<strong>Billable hours</strong> = weekly billable hours &times; (52 &minus; weeks off)<br>
+<strong>Equivalent rate</strong> = (true package + your business expenses) &divide; billable hours</p>
+</div>
+
+<h2>A worked example</h2>
+<table>
+<tr><th>Step</th><th>Figure</th></tr>
+<tr><td>Salary</td><td>$85,000</td></tr>
+<tr><td>Benefits at 25%</td><td>$21,250</td></tr>
+<tr><td>Employer payroll taxes at 7.65%</td><td>$6,503</td></tr>
+<tr><td>True cost of employing you</td><td>$112,753</td></tr>
+<tr><td>Plus your own business expenses</td><td>$120,753</td></tr>
+<tr><td>Billable hours: 25 &times; 46 weeks</td><td>1,150</td></tr>
+<tr><td><strong>Equivalent rate</strong></td><td><strong>$105 an hour</strong></td></tr>
+</table>
+<p>Against the naive $40.87 that salary &divide; 2,080 produces, that is 2.6 times higher. Both numbers
+claim to describe the same standard of living. Only one of them is arithmetic.</p>
+
+<h2>Things this number still does not include</h2>
+<p>It replaces your old package. It does not pay you for the new risks you have taken on:</p>
+<ul>
+<li><strong>Gaps between projects.</strong> Nobody pays you to look for work.</li>
+<li><strong>Clients who disappear.</strong> An employer's payroll does not simply fail to run.</li>
+<li><strong>No severance, no unemployment cover, no sick pay.</strong></li>
+<li><strong>Volatility.</strong> A good year and a bad year average out on paper and do not average out
+on a mortgage application.</li>
+</ul>
+<p>Most experienced freelancers add 15&ndash;25% on top of the equivalent rate for exactly these
+reasons. Use this converter for the floor, then the <a href="/tools/freelance-hourly-rate-calculator.html">hourly
+rate calculator</a> to build the rate you actually want, and the
+<a href="/tools/freelance-take-home-pay-calculator.html">take-home pay calculator</a> to confirm what
+lands in your account.</p>
+""",
+    faqs=[
+        ("Is it true that freelancers should charge double their old hourly wage?",
+         "<p>The rule of thumb is roughly right and for the wrong reasons, which is why people apply it "
+         "badly. The doubling is not a premium for being self-employed; it is the arithmetic of lost "
+         "benefits, employer taxes, unpaid time off and non-billable hours. Run your own numbers and the "
+         "multiple usually lands between 2.2 and 2.8.</p>"),
+        ("What percentage should I use for benefits?",
+         "<p>Twenty to thirty percent covers most employees in the US and Western Europe. Use the higher "
+         "end if you had good health cover, a generous retirement match, or an employer who paid for "
+         "equipment and training. If you genuinely had no benefits at all, enter 0 &mdash; but check "
+         "first, because paid leave and employer taxes still count and are entered separately.</p>"),
+        ("Why does the calculator show the value of my paid time off separately?",
+         "<p>Because it is the part people find hardest to believe. Twenty-five paid days off is roughly "
+         "9.6% of a working year &mdash; on $85,000 that is about $8,170 you were paid for not working. "
+         "It is shown for context rather than added twice; the rate already covers it, because the "
+         "billable hours figure excludes the weeks you take off.</p>"),
+        ("Should I quote this rate to clients, or is it just for me?",
+         "<p>It is a floor for your own decision-making. Quote projects rather than hours wherever you "
+         "can, using the <a href=\"/tools/project-quote-calculator.html\">project quote calculator</a>. "
+         "Clients buy outcomes; hourly rates invite them to audit your speed instead of valuing your "
+         "result.</p>"),
+        ("Does this work in the UK, Canada or Australia?",
+         "<p>Yes &mdash; change the currency and the employer tax percentage. UK employer National "
+         "Insurance is higher than US employer FICA, Australian employers pay compulsory superannuation "
+         "on top of salary, and Canadian employers pay CPP and EI contributions. The structure of the "
+         "calculation is identical everywhere.</p>"),
+    ],
+))
+
+# ---------------------------------------------------------------- tool 8
+TOOLS.append(dict(
+    slug="vat-sales-tax-calculator",
+    nav="VAT / sales tax",
+    script="tool-vat.js",
+    title="VAT &amp; Sales Tax Calculator &mdash; Add or Remove Tax From a Price",
+    meta_title="VAT & Sales Tax Calculator | Add or Remove Tax From a Price",
+    meta_desc="Add VAT or sales tax to a net price, or strip it out of a gross price, at any rate. "
+              "Presets for UK, EU, Canada, Australia and more. Free, instant, no sign-up.",
+    h1="VAT &amp; Sales Tax Calculator",
+    intro="Two jobs in one tool: work out what to charge on top of your price, or work backwards from "
+          "a total that already includes tax to find what you actually earned. The second direction is "
+          "the one people get wrong, and it is the one that matters at year end.",
+    card="Add tax to a price, or strip it out of a total that already includes it.",
+    form=[
+        field("mode", "What do you want to do?", "", select=[
+            ("add", "Add tax to a net price", True),
+            ("remove", "Remove tax from a gross price", False),
+        ]),
+        field("amount", "Amount", "The figure you are starting from.", pre="$", value="1000"),
+        field("preset", "Common rates", "Picking one fills the rate box below.", select=[
+            ("", "Choose a rate…", True),
+            ("20", "United Kingdom &mdash; 20% standard VAT", False),
+            ("5", "United Kingdom &mdash; 5% reduced VAT", False),
+            ("19", "Germany &mdash; 19%", False),
+            ("20", "France &mdash; 20%", False),
+            ("21", "Netherlands / Spain / Belgium &mdash; 21%", False),
+            ("22", "Italy &mdash; 22%", False),
+            ("23", "Ireland / Poland / Portugal &mdash; 23%", False),
+            ("25", "Denmark / Sweden / Norway &mdash; 25%", False),
+            ("10", "Australia GST &mdash; 10%", False),
+            ("15", "New Zealand GST &mdash; 15%", False),
+            ("5", "Canada GST &mdash; 5%", False),
+            ("13", "Ontario HST &mdash; 13%", False),
+            ("5", "UAE &mdash; 5%", False),
+            ("18", "India GST &mdash; 18%", False),
+        ]),
+        field("rate", "Tax rate", "Or type any rate you need.", post="%", value="20"),
+        currency_field(),
+    ],
+    result=result_shell(
+        "Result", "outSub", "outMain",
+        [pill("Net (before tax)", "outNet"), pill("Tax", "outTax"), pill("Gross (total)", "outGross")],
+        [row("Net amount", "bNet"),
+         row("Tax rate", "bRate", "sub"),
+         row("Tax", "bTax"),
+         row("Gross amount", "bGross", "total"),
+         row("Direction", "bLabel", "sub")],
+    ),
+    prose="""
+<h2>Adding tax and removing tax are different sums</h2>
+<p>Adding is intuitive: &pound;1,000 plus 20% VAT is &pound;1,200. Removing is where almost everyone
+slips. To find the net amount inside a &pound;1,200 total, you do <em>not</em> subtract 20%. Twenty
+percent of &pound;1,200 is &pound;240, which would leave &pound;960 &mdash; and &pound;960 plus 20% is
+&pound;1,152, not &pound;1,200.</p>
+<div class="note">
+<p><strong>Adding:</strong> gross = net &times; (1 + rate)<br>
+<strong>Removing:</strong> net = gross &divide; (1 + rate)</p>
+<p>At 20%, the correct shortcut for removing VAT is to divide by 1.2, or to multiply by 0.8333 &mdash;
+never to subtract 20%.</p>
+</div>
+<p>The error is small on one invoice and expensive across a year of bookkeeping. On &pound;120,000 of
+gross income, subtracting instead of dividing overstates your VAT by &pound;4,000.</p>
+
+<h2>VAT, GST, HST and sales tax are not the same thing</h2>
+<table>
+<tr><th>System</th><th>Where</th><th>How it works</th></tr>
+<tr><td>VAT</td><td>UK, EU, much of the world</td><td>Charged at each stage; businesses reclaim what they paid</td></tr>
+<tr><td>GST / HST</td><td>Australia, NZ, Canada, India, Singapore</td><td>Same principle, different name</td></tr>
+<tr><td>Sales tax</td><td>United States</td><td>Charged once, at the final sale, by state and often city</td></tr>
+</table>
+<p>The practical difference for a freelancer: under VAT or GST, the tax you charge was never your money
+&mdash; you are collecting it on the government's behalf and will hand it over. Under US sales tax,
+most professional services are not taxable at all in most states, though software and digital products
+increasingly are.</p>
+
+<h2>The mistake that ruins a cash flow</h2>
+<p>You invoice &pound;12,000 including VAT. &pound;12,000 arrives in your account. It looks like a good
+month. But &pound;2,000 of it belongs to HMRC and will be collected at the end of the quarter.</p>
+<p>Freelancers who register for VAT and then spend their VAT are one of the most common casualties in
+self-employment, and the fix is the same mechanical habit that works for income tax: a separate account,
+funded the day the money arrives. The
+<a href="/tools/quarterly-tax-savings-calculator.html">quarterly tax set-aside calculator</a> does the
+same job for income tax and self-employment tax.</p>
+
+<h2>Should you register?</h2>
+<p>Thresholds differ by country, and crossing one is usually mandatory rather than optional. Two points
+worth knowing before you get there:</p>
+<ul>
+<li><strong>If your clients are VAT-registered businesses</strong>, charging VAT costs them nothing
+&mdash; they reclaim it. Registration can even make you look more established.</li>
+<li><strong>If your clients are consumers</strong>, registration makes you 20% more expensive overnight,
+or 20% poorer if you absorb it. This is the point at which many small businesses deliberately slow
+their growth, which is rarely the right trade.</li>
+</ul>
+<p>Registering voluntarily before you must lets you reclaim VAT on equipment and software. Whether that
+is worth the filing burden depends on what you spend; it is a good question for an accountant.</p>
+""",
+    faqs=[
+        ("How do I remove 20% VAT from a price?",
+         "<p>Divide the gross amount by 1.2. A &pound;1,200 total contains &pound;1,000 net and "
+         "&pound;200 of VAT. Subtracting 20% is wrong and will understate your income and overstate "
+         "your VAT.</p>"),
+        ("Do freelancers in the United States charge sales tax?",
+         "<p>Usually not on professional services such as design, development, writing or consulting, "
+         "though a minority of states do tax some of them. Software, SaaS and digital goods are taxed in "
+         "a growing number of states. Rules are set state by state and sometimes city by city, so check "
+         "your own state's department of revenue.</p>"),
+        ("What rate should I use for an international client?",
+         "<p>It depends on where the client is and whether they are a business. Within the EU, "
+         "business-to-business sales across borders usually shift the VAT obligation to the customer "
+         "under the reverse charge, so you charge 0% and note it on the invoice. Selling to consumers "
+         "abroad is far more complicated and often requires charging their local rate. Get advice before "
+         "assuming.</p>"),
+        ("Is the tax I charge part of my income?",
+         "<p>No. VAT and GST you collect are never yours &mdash; you are holding them for the tax "
+         "authority. Your income is the net figure. Treating gross receipts as income is how people end "
+         "up unable to pay a quarterly VAT bill.</p>"),
+        ("Can I use this for discounts or tips as well?",
+         "<p>The arithmetic is identical for any percentage added to or removed from a figure, so yes. "
+         "Enter the percentage in the rate field and pick the direction you need.</p>"),
+    ],
+))
+
+# ---------------------------------------------------------------- tool 9
+TOOLS.append(dict(
+    slug="profit-margin-calculator",
+    nav="Profit margin &amp; markup",
+    script="tool-margin.js",
+    title="Profit Margin &amp; Markup Calculator &mdash; Price Your Work Properly",
+    meta_title="Profit Margin & Markup Calculator | Margin vs Markup Explained",
+    meta_desc="Calculate profit margin, markup and selling price from your cost. Includes the margin "
+              "versus markup difference that costs small businesses money. Free and instant.",
+    h1="Profit Margin &amp; Markup Calculator",
+    intro="Margin and markup are not the same number, and confusing them is one of the most reliable "
+          "ways for a small business to undercharge for years without noticing. Work from cost to "
+          "price, or from price back to the margin you are really making.",
+    card="Margin, markup and selling price &mdash; and why they are not the same thing.",
+    form=[
+        field("mode", "What do you know?", "", select=[
+            ("price", "My cost and my price", True),
+            ("margin", "My cost and my target margin", False),
+            ("markup", "My cost and my target markup", False),
+        ]),
+        field("cost", "Your cost", "What the work or the goods cost you to deliver.", pre="$", value="600"),
+        field("price", "Your selling price", "What the customer pays.", pre="$", value="1000", wrapper_id="f-price"),
+        field("targetMargin", "Target profit margin", "Profit as a share of the price.", post="%", value="40", wrapper_id="f-margin"),
+        field("targetMarkup", "Target markup", "Profit as a share of the cost.", post="%", value="60", wrapper_id="f-markup"),
+        currency_field(),
+    ],
+    result=result_shell(
+        "Selling price", "outSub", "outMain",
+        [pill("Profit", "outProfit"), pill("Profit margin", "outMargin"), pill("Markup", "outMarkup")],
+        [row("Cost", "bCost"),
+         row("Profit", "bProfit"),
+         row("Selling price", "bPrice", "total"),
+         row("Margin (profit ÷ price)", "bMargin", "sub"),
+         row("Markup (profit ÷ cost)", "bMarkup", "sub")],
+    ),
+    prose="""
+<h2>Margin and markup, in one table</h2>
+<p>Both describe the same profit. They divide it by different things.</p>
+<div class="note">
+<p><strong>Margin</strong> = profit &divide; <em>selling price</em><br>
+<strong>Markup</strong> = profit &divide; <em>cost</em></p>
+</div>
+<p>A job costs you $600 and you sell it for $1,000. The profit is $400. That is a 40% margin
+($400 &divide; $1,000) and a 66.7% markup ($400 &divide; $600). Same transaction, two very different
+percentages.</p>
+<table>
+<tr><th>Markup</th><th>Equivalent margin</th></tr>
+<tr><td>10%</td><td>9.1%</td></tr>
+<tr><td>25%</td><td>20.0%</td></tr>
+<tr><td>50%</td><td>33.3%</td></tr>
+<tr><td>66.7%</td><td>40.0%</td></tr>
+<tr><td>100%</td><td>50.0%</td></tr>
+<tr><td>150%</td><td>60.0%</td></tr>
+</table>
+
+<h2>The mistake, and what it costs</h2>
+<p>A business decides it needs a 40% margin. It adds 40% to cost and moves on. On a $600 cost that gives
+$840, and $240 of profit on $840 is a <strong>28.6% margin</strong>, not 40%. The shortfall is $160 on
+every single job.</p>
+<p>Across a hundred jobs a year, the business is $16,000 poorer than it believes it is, and its owner
+cannot work out why the healthy-looking percentages never turn into money in the bank. The correct
+operation is to divide:</p>
+<div class="note">
+<p><strong>Price for a target margin</strong> = cost &divide; (1 &minus; margin)<br>
+$600 &divide; (1 &minus; 0.40) = <strong>$1,000</strong></p>
+</div>
+
+<h2>Which one should you actually use?</h2>
+<p>Use <strong>markup</strong> to set prices, because you start from cost and multiply. Use
+<strong>margin</strong> to judge the health of the business, because it tells you what share of your
+revenue you keep and compares cleanly across products, clients and competitors. Trouble only starts
+when a number calculated one way gets reported as the other.</p>
+
+<h2>What counts as &ldquo;cost&rdquo; for a service business?</h2>
+<p>For a freelancer there is no inventory, so cost is your time plus anything you buy for the job.
+Value your time at your real hourly rate &mdash; the one from the
+<a href="/tools/freelance-hourly-rate-calculator.html">hourly rate calculator</a>, which already includes
+tax, overheads and unpaid hours. Then add subcontractors, stock assets, licences and travel.</p>
+<p>If you value your time at zero, every job looks profitable and the business is slowly eating you.
+That is the single most common accounting error in freelancing, and it never shows up in a spreadsheet
+&mdash; only in exhaustion.</p>
+
+<h2>What margin is healthy?</h2>
+<table>
+<tr><th>Type of business</th><th>Typical net margin</th></tr>
+<tr><td>Solo freelancer (after paying yourself a market salary)</td><td>10&ndash;20%</td></tr>
+<tr><td>Small agency or studio</td><td>15&ndash;25%</td></tr>
+<tr><td>Product or software business at scale</td><td>20&ndash;40%</td></tr>
+<tr><td>Reselling physical goods</td><td>5&ndash;15%</td></tr>
+</table>
+<p>A margin that looks too good usually means a cost has been left out &mdash; most often your own
+unbilled hours. Feed the price into the <a href="/tools/project-quote-calculator.html">project quote
+calculator</a> to check the quote holds up once revisions and complexity are priced in.</p>
+""",
+    faqs=[
+        ("What is the difference between margin and markup in one sentence?",
+         "<p>Markup is profit measured against what the job cost you; margin is profit measured against "
+         "what the customer paid. Markup is always the larger number.</p>"),
+        ("How do I convert a markup into a margin?",
+         "<p>Margin = markup &divide; (1 + markup). A 50% markup is 0.5 &divide; 1.5 = 33.3% margin. To go "
+         "the other way: markup = margin &divide; (1 &minus; margin).</p>"),
+        ("How do I price for a 50% margin?",
+         "<p>Double your cost. Price = cost &divide; (1 &minus; 0.5) = cost &times; 2. Note that this is a "
+         "100% markup &mdash; which is exactly why the two terms get confused.</p>"),
+        ("Should I include my own salary in the cost?",
+         "<p>Yes, at a market rate for the work you are doing. A business that is only profitable because "
+         "the owner is unpaid is not profitable; it is a job with extra paperwork and no employment "
+         "rights. Price your time at your real rate, then look at what is left over &mdash; that leftover "
+         "is the actual profit of the business.</p>"),
+        ("Why does my margin look fine but my bank account does not?",
+         "<p>Three usual suspects: unbilled hours that never entered the cost, tax that was never set "
+         "aside, and invoices that have not been paid. The "
+         "<a href=\"/tools/quarterly-tax-savings-calculator.html\">tax set-aside calculator</a> and the "
+         "<a href=\"/tools/invoice-late-fee-calculator.html\">late fee calculator</a> deal with the "
+         "second and third.</p>"),
+    ],
+))
+
 # =====================================================================
 #  Articles: drop a file in content/articles/ and it appears everywhere
 # =====================================================================
@@ -1043,6 +1420,12 @@ LINK_MAP = [
     ("self-employment tax", "/tools/self-employment-tax-calculator.html"),
     ("late fee calculator", "/tools/invoice-late-fee-calculator.html"),
     ("estimated tax payments", "/tools/quarterly-tax-savings-calculator.html"),
+    ("salary to freelance rate converter", "/tools/salary-to-freelance-rate-converter.html"),
+    ("profit margin calculator", "/tools/profit-margin-calculator.html"),
+    ("sales tax calculator", "/tools/vat-sales-tax-calculator.html"),
+    ("vat calculator", "/tools/vat-sales-tax-calculator.html"),
+    ("markup calculator", "/tools/profit-margin-calculator.html"),
+    ("equivalent freelance rate", "/tools/salary-to-freelance-rate-converter.html"),
 ]
 
 SKIP_INSIDE = ("a", "h1", "h2", "h3", "code", "pre", "script", "style", "summary")

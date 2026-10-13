@@ -55,7 +55,50 @@ wait for AdSense approval. Settings → Pages → Branch: your branch, Folder: `
 6. Replace `docs/ads.txt` with the line AdSense gives you. Without it, Google throttles
    your revenue.
 
-## Adding a guide (the daily content loop)
+## Daily automation
+
+Two GitHub Actions workflows run this site.
+
+**`.github/workflows/daily-draft.yml`** runs every weekday morning, takes the next topic from
+`build/topics.txt`, drafts a guide with the Gemini API and commits it to `content/drafts/`.
+It deliberately does **not** publish.
+
+**`.github/workflows/build.yml`** runs on every push and fails if `docs/` does not match what
+the generator produces, so a hand-edited page cannot drift out of sync.
+
+To switch the drafting on, add under Settings → Secrets and variables → Actions:
+
+| Kind | Name | Value |
+|---|---|---|
+| Secret | `GEMINI_API_KEY` | your key from aistudio.google.com |
+| Variable (optional) | `GEMINI_MODEL` | defaults to `gemini-2.5-flash` |
+
+Then review and publish:
+
+```bash
+python3 build/publish_draft.py --list        # what is waiting
+python3 build/publish_draft.py <slug>        # publish it and rebuild
+```
+
+`publish_draft.py` refuses a draft that is under 500 words, contains an `<h1>`, links to an
+external site, or uses the filler phrases that make AI writing obvious. Override with `--force`
+only when you have read it.
+
+### Why there is a review step
+
+Google's spam policy treats unreviewed, mass-produced AI content as *scaled content abuse*. Sites
+caught doing it lose their rankings and their AdSense account. A draft that a person has read and
+corrected is not that — and the review usually takes five minutes, because the draft is already
+in the house style.
+
+Run it by hand any time:
+
+```bash
+GEMINI_API_KEY=... python3 build/draft_article.py
+GEMINI_API_KEY=... python3 build/draft_article.py --topic "How to raise your rates"
+```
+
+## Adding a guide by hand
 
 Create one file in `content/articles/`, named with the URL slug you want:
 
@@ -84,6 +127,10 @@ Then run `python3 build/generate.py`. The generator will:
 
 That last part is the internal linking engine. Add new phrase → URL pairs to `LINK_MAP` in
 `build/generate.py` as the site grows.
+
+## Getting traffic
+
+See [TRAFFIC.md](TRAFFIC.md) for the week-one checklist and the channel-by-channel plan.
 
 ## What actually makes this earn
 

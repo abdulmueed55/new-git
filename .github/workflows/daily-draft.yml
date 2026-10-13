@@ -1,0 +1,58 @@
+name: Daily guide draft
+
+# Writes one draft a day with Gemini and commits it to content/drafts/.
+# It does NOT publish. A person reviews the draft and runs publish_draft.py.
+# That review step is what keeps the site on the right side of Google's
+# scaled-content-abuse policy.
+
+on:
+  schedule:
+    - name: early morning UTC, before the working day
+      cron: "17 5 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      topic:
+        description: "Topic to write about (blank = next line in build/topics.txt)"
+        required: false
+
+permissions:
+  contents: write
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Draft the article
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-2.5-flash' }}
+        run: |
+          if [ -z "$GEMINI_API_KEY" ]; then
+            echo "::error::GEMINI_API_KEY is not set. Add it under Settings -> Secrets and variables -> Actions."
+            exit 1
+          fi
+          if [ -n "${{ inputs.topic }}" ]; then
+            python3 build/draft_article.py --topic "${{ inputs.topic }}"
+          else
+            python3 build/draft_article.py
+          fi
+
+      - name: Commit the draft
+        run: |
+          if [ -z "$(git status --porcelain content/drafts build/topics-done.txt)" ]; then
+            echo "Nothing new to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add content/drafts build/topics-done.txt
+          git commit -m "Draft a new guide for review"
+          git push
